@@ -1,9 +1,7 @@
 package agg.persistence.service;
 
-import agg.dao.Camarero;
 import agg.dao.Mesa;
 import agg.persistence.conector.MySQLConnector;
-import agg.persistence.manager.CamareroManager;
 import agg.persistence.manager.MesaManager;
 
 import java.sql.Connection;
