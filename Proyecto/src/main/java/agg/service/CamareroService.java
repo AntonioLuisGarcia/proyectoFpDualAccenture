@@ -1,34 +1,21 @@
 package agg.service;
 
-import agg.persistence.conector.MySQLConnector;
-import agg.persistence.manager.CamareroManager;
+import agg.client.CamareroClient;
 
-import java.sql.Connection;
-import java.sql.SQLException;
 
 public class CamareroService {
 
-    private MySQLConnector connector;
-    private CamareroManager manager;
+    private CamareroClient client;
 
-    public CamareroService(MySQLConnector connector, CamareroManager manager){
-        this.connector = connector;
-        this.manager = manager;
+    public CamareroService(CamareroClient client){
+
+        this.client = client;
     }
 
     public boolean verificateUserByUserAndPassword(String user, String password){
-        Connection con = null;
-
-        try{
-            con = connector.getMySQLConnection();
-
-            return manager.verificateUserByUserAndPassword(con, user, password);
-        } catch (SQLException e) {
-
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
-
-            throw new RuntimeException(e);
+        if(client.isCorrectUser(user,password) != null){
+            return true;
         }
+        return false;
     }
 }

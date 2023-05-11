@@ -1,8 +1,7 @@
 package agg.web.servlets;
 
-import agg.persistence.conector.MySQLConnector;
+import agg.client.CamareroClient;
 import agg.persistence.dao.clases.Camarero;
-import agg.persistence.manager.CamareroManager;
 import agg.service.CamareroService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -53,7 +52,7 @@ public class ServletLogin extends HttpServlet {
 
     @Override
     public void init()throws ServletException {
-        service = new CamareroService(new MySQLConnector(), new CamareroManager());
+        service = new CamareroService(new CamareroClient());
     }
 
     @Override
