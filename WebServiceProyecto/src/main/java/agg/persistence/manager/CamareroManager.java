@@ -1,5 +1,8 @@
 package agg.persistence.manager;
 
+
+import agg.dao.Camarero;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,17 +10,23 @@ import java.sql.SQLException;
 
 public class CamareroManager {
 
-    public boolean verificateUserByUserAndPassword(Connection con, String user, String password){
+    public Camarero getCamareroByUserAndPassword(Connection con, String user, String password){
 
         try(PreparedStatement stm = con.prepareStatement("SELECT * FROM camarero WHERE UsuarioCamarero = '" + user + "' AND ContraseniaCamarero = '" + password + "'")){
             ResultSet result = stm.executeQuery();
             if(result.next()){
-                return true;
+                return new Camarero(
+                         result.getInt("IdCamarero")
+                        ,result.getString("NombreCamarero")
+                        ,result.getString("ApellidoCamarero")
+                        ,result.getString("UsuarioCamarero")
+                        ,result.getString("ContraseniaCamarero"));
             }else{
-                return false;
+                return null;
             }
         }catch (SQLException e){
-            return false;
+            return null;
         }
     }
+
 }

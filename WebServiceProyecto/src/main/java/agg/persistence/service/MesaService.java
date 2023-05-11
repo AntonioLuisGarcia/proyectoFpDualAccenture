@@ -1,30 +1,31 @@
 package agg.persistence.service;
 
-
 import agg.dao.Camarero;
+import agg.dao.Mesa;
 import agg.persistence.conector.MySQLConnector;
 import agg.persistence.manager.CamareroManager;
+import agg.persistence.manager.MesaManager;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class CamareroService {
+public class MesaService {
 
     private MySQLConnector connector;
-    private CamareroManager manager;
+    private MesaManager manager;
 
-    public CamareroService(MySQLConnector connector, CamareroManager manager){
+    public MesaService(MySQLConnector connector, MesaManager manager){
         this.connector = connector;
         this.manager = manager;
     }
 
-    public Camarero verificateUserByUserAndPassword(String user, String password){
+    public Mesa verificateUserByUserAndPassword(int number){
         Connection con = null;
 
         try{
             con = connector.getMySQLConnection();
 
-            return manager.getCamareroByUserAndPassword(con, user, password);
+            return manager.getMesaWithNumber(con, number);
         } catch (SQLException e) {
 
             throw new RuntimeException(e);
@@ -33,4 +34,5 @@ public class CamareroService {
             throw new RuntimeException(e);
         }
     }
+
 }

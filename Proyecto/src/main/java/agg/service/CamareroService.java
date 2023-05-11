@@ -18,4 +18,8 @@ public class CamareroService {
         }
         return false;
     }
+
+    public String getFullName(String user, String password){
+        return client.getFullName(user, password);
+    }
 }

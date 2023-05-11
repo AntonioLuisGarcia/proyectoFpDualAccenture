@@ -1,36 +1,35 @@
 package agg.persistence.service;
 
-
-import agg.dao.Camarero;
+import agg.dao.Productos.Comida;
 import agg.persistence.conector.MySQLConnector;
-import agg.persistence.manager.CamareroManager;
+import agg.persistence.manager.ComidaManager;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
-public class CamareroService {
+public class ComidaService {
 
     private MySQLConnector connector;
-    private CamareroManager manager;
+    private ComidaManager manager;
 
-    public CamareroService(MySQLConnector connector, CamareroManager manager){
+    public ComidaService(MySQLConnector connector, ComidaManager manager){
         this.connector = connector;
         this.manager = manager;
     }
 
-    public Camarero verificateUserByUserAndPassword(String user, String password){
+    public ArrayList<Comida> getAllFood(){
         Connection con = null;
 
         try{
             con = connector.getMySQLConnection();
 
-            return manager.getCamareroByUserAndPassword(con, user, password);
+            return manager.getAllFood(con);
         } catch (SQLException e) {
-
             throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {
-
             throw new RuntimeException(e);
         }
     }
+
 }

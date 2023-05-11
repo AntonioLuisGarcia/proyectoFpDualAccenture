@@ -18,12 +18,22 @@ public class CamareroClient {
     }
 
     public Camarero isCorrectUser(String user, String password){
-
-        return webTarget.path("camareross/get/"+"user"+"/password")
+                                                    ////////////////////
+        return webTarget.path("camareross/get/"+"user"+"/password")//////////////////////////////////////
                 .queryParam("user",user)
                 .queryParam("password", password)
                 .request(MediaType.APPLICATION_JSON)
                 .get(Camarero.class);
+    }
+
+    public String getFullName(String user, String password){
+        /*///////////////////*
+        return webTarget.path("camareross/get/"+"user"+"/password")//////////////////////////////////////
+                .queryParam("user",user)
+                .queryParam("password", password)
+                .request(MediaType.APPLICATION_JSON)
+                .get(Camarero.class);*/
+        return "Acabar metodo";
     }
 
     public Notification getNotification(String id) {
