@@ -1,0 +1,13 @@
+agg\persistence\dao\clases\Comanda.class
+agg\persistence\conector\MySQLConnector.class
+agg\persistence\dao\clases\Camarero.class
+agg\persistence\dao\clases\Productos\Postre.class
+agg\persistence\dao\clases\Productos\Comida.class
+agg\service\CamareroService.class
+agg\persistence\dao\clases\ComandaProducto.class
+agg\persistence\dao\clases\Mesa.class
+agg\web\servlets\ServletLogin.class
+agg\persistence\conector\MySQLConstants.class
+agg\persistence\manager\CamareroManager.class
+agg\persistence\dao\clases\Productos\Bebida.class
+agg\persistence\dao\clases\Productos\Producto.class
