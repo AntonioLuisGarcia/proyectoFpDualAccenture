@@ -10,19 +10,16 @@ import java.sql.SQLException;
 
 public class CamareroService {
 
-    private MySQLConnector connector;
     private CamareroManager manager;
 
-    public CamareroService(MySQLConnector connector, CamareroManager manager){
-        this.connector = connector;
+    public CamareroService(CamareroManager manager){
         this.manager = manager;
     }
 
     public Camarero verificateUserByUserAndPassword(String user, String password){
-        Connection con = null;
 
-        try{
-            con = connector.getMySQLConnection();
+
+        try (Connection con = new MySQLConnector().getMySQLConnection()) {
 
             return manager.getCamareroByUserAndPassword(con, user, password);
         } catch (SQLException e) {

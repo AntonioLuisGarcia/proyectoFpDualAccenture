@@ -64,21 +64,19 @@ public class ServletLogin extends HttpServlet {
         String usuario = req.getParameter("usuario");
         String contrasenia = req.getParameter("contrasenia");
 
-        Camarero camarero = new Camarero();
-        camarero.setUsuario(usuario);
-        camarero.setContrasenia(contrasenia);
+        Camarero camarero = service.verificateUserByUserAndPassword(usuario,contrasenia);
 
         //Se valida si los parametros coinciden con las credenciales
         /*if(usuario.equals("admin") && contrasenia.equals("123456")){*/
 
-        if(service.verificateUserByUserAndPassword(usuario,contrasenia)){
+        if(camarero != null){
             //Se crea usuario con los datos de los parametros
-            /*Usuario user = Usuario.builder().usuario(usuario).password(password).build();
+            /*Usuario user = Usuario.builder().usuario(usuario).password(password).build();*/
 
             //Se asocia el objeto a la sesion
-            req.getSession().setAttribute("userLogin", user);
+            req.getSession().setAttribute("userLogin", camarero);
             //Se indica el tiempo de expiración de la sesion
-            req.getSession().setMaxInactiveInterval(10);*/
+            /*req.getSession().setMaxInactiveInterval(10);*/
 
             //Redirigimos a pagina homePage.jsp utilizando el metodo "sendRedirect" del objeto de respuesta
             resp.sendRedirect("/Proyecto/menu/menu.jsp");

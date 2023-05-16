@@ -1,3 +1,4 @@
+<%@page import="import agg.persistence.dao.clases.Camarero;"%>
 <!DOCTYPE html>
 <html>
 
@@ -44,6 +45,8 @@
         <nav class="navbar navbar-expand-lg custom_nav-container ">
           <a class="navbar-brand" href="index.html">
             <span>
+              <!-- <% Camarero camarero = (Camarero) request.getAttribute("userLogin"); %>
+              <%= camarero.getNombre() %> -->
               Feane
             </span>
           </a>

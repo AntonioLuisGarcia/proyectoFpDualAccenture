@@ -19,7 +19,7 @@ public class CamareroClient {
 
     public Camarero isCorrectUser(String user, String password){
                                                     ////////////////////
-        return webTarget.path("camareross/get/"+"user"+"/password")//////////////////////////////////////
+        return webTarget.path("camareros/get/login")
                 .queryParam("user",user)
                 .queryParam("password", password)
                 .request(MediaType.APPLICATION_JSON)

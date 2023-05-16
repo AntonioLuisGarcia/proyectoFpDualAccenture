@@ -1,6 +1,7 @@
 package agg.service;
 
 import agg.client.CamareroClient;
+import agg.persistence.dao.clases.Camarero;
 
 
 public class CamareroService {
@@ -12,11 +13,8 @@ public class CamareroService {
         this.client = client;
     }
 
-    public boolean verificateUserByUserAndPassword(String user, String password){
-        if(client.isCorrectUser(user,password) != null){
-            return true;
-        }
-        return false;
+    public Camarero verificateUserByUserAndPassword(String user, String password){
+        return client.isCorrectUser(user,password);
     }
 
     public String getFullName(String user, String password){

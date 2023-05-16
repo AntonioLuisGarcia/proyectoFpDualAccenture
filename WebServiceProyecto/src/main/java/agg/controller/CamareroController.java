@@ -2,6 +2,8 @@ package agg.controller;
 
 import agg.dao.Camarero;
 
+import agg.persistence.manager.CamareroManager;
+import agg.persistence.service.CamareroService;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
@@ -12,15 +14,32 @@ import jakarta.ws.rs.core.Response;
 
 @Path("/camareros")
 public class CamareroController {
+
+    private CamareroService camareroService;
+    public CamareroController() {
+        this.camareroService = new CamareroService(new CamareroManager());
+    }
+
     @GET
-    @Path("/get/{id}/name")
+    @Path("/get/login")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getCamareroWithParameters(@PathParam("user") String user, @QueryParam("password") String name) {
-        if (name == null || name.trim().isEmpty()) {
-            return Response.status(400).entity("Name not present in the request").build();
-        } else {
-            ////////////////////////////////////////////////////////////////////////////////////////////////
-            return Response.ok().entity(new Camarero(250, "nombre", "apellidos", "user","password")).build();
+    public Response getCamareroWithParameters(@QueryParam("user") String user, @QueryParam("password") String password) {
+        if (user != null && password != null) {
+            Camarero camarero = camareroService.verificateUserByUserAndPassword(user, password);
+
+            if(camarero != null){
+                return Response.ok().entity(camarero).build();
+            }else{
+                return Response.status(404).entity("Camarero no encontrado").build();
+            }
+        }else{
+            return Response.status(400).entity("Usuario o contraseña no validos").build();
         }
+    }
+
+    @GET
+    @Path("/ping")
+    public Response ping() {
+        return Response.ok().entity("Service online").build();
     }
 }
