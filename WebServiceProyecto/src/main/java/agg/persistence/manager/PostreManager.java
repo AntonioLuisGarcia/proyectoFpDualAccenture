@@ -12,7 +12,7 @@ public class PostreManager {
     public ArrayList<Postre> getAllPostres(Connection con){
 
 
-        try(PreparedStatement stm = con.prepareStatement("SELECT * FROM producto JOIN comida ON(producto.IdProducto = comida.IdComida)")){
+        try(PreparedStatement stm = con.prepareStatement("SELECT * FROM producto JOIN postre ON(producto.IdProducto = postre.IdPostre)")){
             ResultSet result = stm.executeQuery();
             ArrayList<Postre> postres = new ArrayList<>();
 

@@ -10,19 +10,16 @@ import java.util.ArrayList;
 
 public class ComidaService {
 
-    private MySQLConnector connector;
     private ComidaManager manager;
 
-    public ComidaService(MySQLConnector connector, ComidaManager manager){
-        this.connector = connector;
+    public ComidaService(ComidaManager manager){
+
         this.manager = manager;
     }
 
     public ArrayList<Comida> getAllFood(){
-        Connection con = null;
 
-        try{
-            con = connector.getMySQLConnection();
+        try (Connection con = new MySQLConnector().getMySQLConnection()) {
 
             return manager.getAllFood(con);
         } catch (SQLException e) {

@@ -16,6 +16,7 @@ import jakarta.ws.rs.core.Response;
 public class CamareroController {
 
     private CamareroService camareroService;
+
     public CamareroController() {
         this.camareroService = new CamareroService(new CamareroManager());
     }
@@ -27,12 +28,12 @@ public class CamareroController {
         if (user != null && password != null) {
             Camarero camarero = camareroService.verificateUserByUserAndPassword(user, password);
 
-            if(camarero != null){
+            if (camarero != null) {
                 return Response.ok().entity(camarero).build();
-            }else{
+            } else {
                 return Response.status(404).entity("Camarero no encontrado").build();
             }
-        }else{
+        } else {
             return Response.status(400).entity("Usuario o contraseña no validos").build();
         }
     }

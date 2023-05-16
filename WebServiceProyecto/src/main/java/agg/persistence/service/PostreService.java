@@ -10,19 +10,15 @@ import java.util.ArrayList;
 
 public class PostreService {
 
-    private MySQLConnector connector;
     private PostreManager manager;
 
-    public PostreService(MySQLConnector connector, PostreManager manager){
-        this.connector = connector;
+    public PostreService(PostreManager manager){
         this.manager = manager;
     }
 
-    public ArrayList<Postre> getAllFood(){
-        Connection con = null;
+    public ArrayList<Postre> getAllDesserts(){
 
-        try{
-            con = connector.getMySQLConnection();
+        try (Connection con = new MySQLConnector().getMySQLConnection()) {
 
             return manager.getAllPostres(con);
 

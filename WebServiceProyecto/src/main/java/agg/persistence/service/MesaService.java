@@ -9,19 +9,15 @@ import java.sql.SQLException;
 
 public class MesaService {
 
-    private MySQLConnector connector;
     private MesaManager manager;
 
-    public MesaService(MySQLConnector connector, MesaManager manager){
-        this.connector = connector;
+    public MesaService(MesaManager manager){
         this.manager = manager;
     }
 
     public Mesa verificateUserByUserAndPassword(int number){
-        Connection con = null;
 
-        try{
-            con = connector.getMySQLConnection();
+        try (Connection con = new MySQLConnector().getMySQLConnection()) {
 
             return manager.getMesaWithNumber(con, number);
         } catch (SQLException e) {

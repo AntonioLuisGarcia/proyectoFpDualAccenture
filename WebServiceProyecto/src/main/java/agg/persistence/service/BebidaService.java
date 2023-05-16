@@ -10,25 +10,19 @@ import java.util.ArrayList;
 
 public class BebidaService {
 
-    private MySQLConnector connector;
     private BebidaManager manager;
 
-    public BebidaService(MySQLConnector connector, BebidaManager manager){
-        this.connector = connector;
+    public BebidaService( BebidaManager manager){
         this.manager = manager;
     }
 
-    public ArrayList<Bebida> getAllFood(){
-        Connection con = null;
+    public ArrayList<Bebida> getAllDrinks(){
 
-        try{
-            con = connector.getMySQLConnection();
+        try (Connection con = new MySQLConnector().getMySQLConnection()) {
 
             return manager.getAllBebidas(con);
 
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
