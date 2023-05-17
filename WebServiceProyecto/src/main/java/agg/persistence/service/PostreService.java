@@ -7,6 +7,7 @@ import agg.persistence.manager.PostreManager;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class PostreService {
 
@@ -16,7 +17,7 @@ public class PostreService {
         this.manager = manager;
     }
 
-    public ArrayList<Postre> getAllDesserts(){
+    public List<Postre> getAllDesserts(){
 
         try (Connection con = new MySQLConnector().getMySQLConnection()) {
 
