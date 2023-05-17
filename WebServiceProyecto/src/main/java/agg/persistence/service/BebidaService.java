@@ -6,7 +6,7 @@ import agg.persistence.manager.BebidaManager;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.List;
 
 public class BebidaService {
 
@@ -16,7 +16,7 @@ public class BebidaService {
         this.manager = manager;
     }
 
-    public ArrayList<Bebida> getAllDrinks(){
+    public List<Bebida> getAllDrinks(){
 
         try (Connection con = new MySQLConnector().getMySQLConnection()) {
 
