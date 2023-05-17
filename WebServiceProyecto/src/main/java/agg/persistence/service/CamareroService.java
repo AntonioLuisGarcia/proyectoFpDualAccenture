@@ -20,8 +20,20 @@ public class CamareroService {
 
 
         try (Connection con = new MySQLConnector().getMySQLConnection()) {
-
             return manager.getCamareroByUserAndPassword(con, user, password);
+        } catch (SQLException e) {
+
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Camarero getById(int id){
+        try (Connection con = new MySQLConnector().getMySQLConnection()) {
+
+            return manager.getById(con, id);
         } catch (SQLException e) {
 
             throw new RuntimeException(e);
