@@ -6,7 +6,6 @@ import agg.persistence.manager.CamareroManager;
 import agg.persistence.service.CamareroService;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
-import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
@@ -36,11 +35,5 @@ public class CamareroController {
         } else {
             return Response.status(400).entity("Usuario o contraseña no validos").build();
         }
-    }
-
-    @GET
-    @Path("/ping")
-    public Response ping() {
-        return Response.ok().entity("Service online").build();
     }
 }
