@@ -8,18 +8,18 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class MesaService {
-/*
+
     private MesaManager manager;
 
     public MesaService(MesaManager manager){
         this.manager = manager;
     }
 
-    public Mesa verificateUserByUserAndPassword(int number){
+    public Mesa getById(int id){
 
         try (Connection con = new MySQLConnector().getMySQLConnection()) {
 
-            return manager.getMesaWithNumber(con, number);
+            return manager.getMesaByNumber(con, id);
         } catch (SQLException e) {
 
             throw new RuntimeException(e);
@@ -27,6 +27,6 @@ public class MesaService {
 
             throw new RuntimeException(e);
         }
-    }*/
+    }
 
 }

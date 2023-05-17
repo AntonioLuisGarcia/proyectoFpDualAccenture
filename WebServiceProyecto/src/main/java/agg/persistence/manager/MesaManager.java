@@ -18,8 +18,7 @@ public class MesaManager {
                 return new Mesa(
                         result.getInt("IdMesa")
                         ,result.getInt("NumeroMesa")
-                        ,result.getInt("PersonasMesa")
-                        );
+                        ,result.getInt("PersonasMesa"));
             }else{
                 return null;
             }
