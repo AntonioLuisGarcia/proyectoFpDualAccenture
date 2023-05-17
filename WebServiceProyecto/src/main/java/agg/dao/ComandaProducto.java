@@ -1,7 +1,5 @@
 package agg.dao;
 
-import agg.dao.Productos.Producto;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -9,7 +7,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class ComandaProducto {
     private int id;
-    private Comanda comanda;
-    private Producto producto;
+    private int idComanda;
+    private int IdProducto;
     private int cantidad;
 }
