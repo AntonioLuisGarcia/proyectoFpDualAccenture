@@ -33,4 +33,28 @@ public class ComidaManager {
         }
     }
 
+    public Comida getOneById(Connection con, int id){
+
+
+        try(PreparedStatement stm = con.prepareStatement("SELECT * FROM producto JOIN comida ON(producto.IdProducto = comida.IdComida) WHERE IdProducto = " + id)){
+            ResultSet result = stm.executeQuery();
+            if(result.next()) {
+                Comida comida = new Comida(result.getInt("IdComida")
+                        , result.getDouble("PrecioProducto")
+                        , result.getString("NombreProducto")
+                        , result.getString("DescripcionProducto")
+                        , result.getString("ImagenProducto")
+                        , result.getBoolean("Vegano")
+                        , result.getInt("TiemporPreparacion"));
+
+                    return comida;
+
+            }else{
+                return null;
+            }
+        }catch (SQLException e){
+            return null;
+        }
+    }
+
 }

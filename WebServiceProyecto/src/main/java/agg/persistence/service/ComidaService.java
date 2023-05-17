@@ -29,4 +29,15 @@ public class ComidaService {
         }
     }
 
+    public Comida getOneById(int id){
+        try (Connection con = new MySQLConnector().getMySQLConnection()) {
+
+            return manager.getOneById(con, id);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }
