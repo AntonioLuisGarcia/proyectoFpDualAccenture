@@ -14,6 +14,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Path("/productos")
 public class ProductoController {
@@ -31,7 +32,7 @@ public class ProductoController {
     @Path("/getAll")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllProducts() {
-        ArrayList<Producto> products = new ArrayList<>();
+        List<Producto> products = new ArrayList<>();
         products.addAll(comidaService.getAllFood());
         products.addAll(bebidaService.getAllDrinks());
         products.addAll(postreService.getAllDesserts());

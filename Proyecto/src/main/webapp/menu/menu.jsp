@@ -1,7 +1,8 @@
-<%@page import="import agg.persistence.dao.clases.Camarero;"%>
+<%@page import="agg.persistence.dao.clases.*"%>
+<%@page import="java.util.List"%>
+
 <!DOCTYPE html>
 <html>
-
 <head>
   <!-- Basic -->
   <meta charset="utf-8" />
@@ -45,9 +46,9 @@
         <nav class="navbar navbar-expand-lg custom_nav-container ">
           <a class="navbar-brand" href="index.html">
             <span>
-              <!-- <% Camarero camarero = (Camarero) request.getAttribute("userLogin"); %>
-              <%= camarero.getNombre() %> -->
-              Feane
+              <% Camarero camarero = (Camarero) request.getAttribute("userLogin"); %>
+              <%= camarero.getNombre() %>
+              <%= camarero.getApellidos() %>
             </span>
           </a>
 
@@ -125,14 +126,16 @@
 
       <ul class="filters_menu">
         <li class="active" data-filter="*">All</li>
-        <li data-filter=".burger">Burger</li>
-        <li data-filter=".pizza">Pizza</li>
-        <li data-filter=".pasta">Pasta</li>
+        <li data-filter=".bebida">Bebida</li>
+        <li data-filter=".comida">Comida</li>
+        <li data-filter=".postre">Postre</li>
         <li data-filter=".fries">Fries</li>
       </ul>
 
       <div class="filters-content">
         <div class="row grid">
+
+        <% List food = (List) request.getAttribute("foodList"); %>
 
         <%for(int i = 0 ; i < 12 ; i ++){%>
           <div class="col-sm-6 col-lg-4 all fries">

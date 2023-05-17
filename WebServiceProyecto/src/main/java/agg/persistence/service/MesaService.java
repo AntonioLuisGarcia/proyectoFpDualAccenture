@@ -8,7 +8,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class MesaService {
-
+/*
     private MesaManager manager;
 
     public MesaService(MesaManager manager){
@@ -27,6 +27,6 @@ public class MesaService {
 
             throw new RuntimeException(e);
         }
-    }
+    }*/
 
 }

@@ -1,6 +1,8 @@
 package agg.web.servlets;
 
 import agg.client.CamareroClient;
+import agg.client.ComidaClient;
+import agg.client.ProductoClient;
 import agg.persistence.dao.clases.Camarero;
 import agg.service.CamareroService;
 import jakarta.servlet.ServletException;
@@ -10,6 +12,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * @author Antonio Luis Garcia
@@ -53,6 +56,7 @@ public class ServletLogin extends HttpServlet {
     @Override
     public void init()throws ServletException {
         service = new CamareroService(new CamareroClient());
+
     }
 
     @Override
@@ -70,31 +74,30 @@ public class ServletLogin extends HttpServlet {
         /*if(usuario.equals("admin") && contrasenia.equals("123456")){*/
 
         if(camarero != null){
-            //Se crea usuario con los datos de los parametros
-            /*Usuario user = Usuario.builder().usuario(usuario).password(password).build();*/
+
+            List food = new ComidaClient().listAll();
 
             //Se asocia el objeto a la sesion
-            req.getSession().setAttribute("userLogin", camarero);
+            req.setAttribute("userLogin", camarero);
+            req.setAttribute("foodList",food);
             //Se indica el tiempo de expiración de la sesion
             /*req.getSession().setMaxInactiveInterval(10);*/
 
             //Redirigimos a pagina homePage.jsp utilizando el metodo "sendRedirect" del objeto de respuesta
-            resp.sendRedirect("/Proyecto/menu/menu.jsp");
+            req.getRequestDispatcher("/menu/menu.jsp").forward(req, resp);
+
         } else {
             //Se indica mensaje de error en los atributos de la solicitud
             req.setAttribute("error","Error al validar usuario y contraseña");
 
             //Indicamos al dispatcher que haga un forward de la solicitud. Tener en cuenta que esta solicitud es la
             //recibida en este servlet mas los parametros indicados en los atributos.
-            req.getRequestDispatcher("/Proyecto/index.jsp").forward(req,resp);
+            req.getRequestDispatcher("/index.jsp").forward(req,resp);
         }
-
     }
 
     public void doGet(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException  {
         doPost(req, res);
     }
-
-
 }
