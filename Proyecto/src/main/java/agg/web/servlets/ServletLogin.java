@@ -92,7 +92,7 @@ public class ServletLogin extends HttpServlet {
 
             //Indicamos al dispatcher que haga un forward de la solicitud. Tener en cuenta que esta solicitud es la
             //recibida en este servlet mas los parametros indicados en los atributos.
-            req.getRequestDispatcher("/index.jsp").forward(req,resp);
+            resp.sendRedirect("/Proyecto/index.jsp");
         }
     }
 

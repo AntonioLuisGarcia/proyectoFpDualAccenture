@@ -1,4 +1,5 @@
 <%@page import="agg.persistence.dao.clases.*"%>
+<%@page import="agg.persistence.dao.clases.Productos.*"%>
 <%@page import="java.util.List"%>
 
 <!DOCTYPE html>
@@ -137,26 +138,38 @@
 
         <% List food = (List) request.getAttribute("foodList"); %>
 
-        <%for(int i = 0 ; i < 12 ; i ++){%>
-          <div class="col-sm-6 col-lg-4 all fries">
+        <%for(Object c : food){
+            Comida comida = (Comida) c;
+        %>
+          <div class="col-sm-6 col-lg-4 all comida">
             <div class="box">
               <div>
                 <div class="img-box">
                 <%
-                    String imagen = "b" + ((int)(Math.random()*5)+1) + ".png";
+                    String imagen = comida.getImagen();
                 %>
                   <img src="/Proyecto/images/<%=imagen%>" alt="">
                 </div>
                 <div class="detail-box">
                   <h5>
-                    Delicious Pizza
+                    <%= comida.getNombre() %>
                   </h5>
                   <p>
-                    Veniam debitis quaerat officiis quasi cupiditate quo, quisquam velit, magnam voluptatem repellendus sed eaque
+                    <%= comida.getDescripcion() %>
                   </p>
                   <div class="options">
                     <h6>
-                      $20
+
+                          <%= comida.getPrecio() %>  $
+                          &nbsp&nbsp&nbsp&nbsp&nbsp
+                          <%= comida.getTiempoDePreparacion() %> min.
+                          &nbsp&nbsp&nbsp&nbsp&nbsp
+                          <%if(comida.isVegano()){%>
+                           Vegano
+                          <%}else{%>
+                          No vegano
+                          <%}%>
+
                     </h6>
                     <a href="">
                       <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
