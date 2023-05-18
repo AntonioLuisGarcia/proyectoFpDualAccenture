@@ -1,10 +1,11 @@
 package agg.web.servlets;
 
-import agg.client.CamareroClient;
-import agg.client.ComidaClient;
-import agg.client.ProductoClient;
+import agg.client.*;
 import agg.persistence.dao.clases.Camarero;
+import agg.service.BebidaService;
 import agg.service.CamareroService;
+import agg.service.ComidaService;
+import agg.service.PostreService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -68,22 +69,29 @@ public class ServletLogin extends HttpServlet {
         String usuario = req.getParameter("usuario");
         String contrasenia = req.getParameter("contrasenia");
 
+        //Verificamos que existe y devolvemos el objeto Camarero
         Camarero camarero = service.verificateUserByUserAndPassword(usuario,contrasenia);
 
-        //Se valida si los parametros coinciden con las credenciales
-        /*if(usuario.equals("admin") && contrasenia.equals("123456")){*/
-
+        // Si existe es porque los credenciales son correctos
         if(camarero != null){
 
-            List food = new ComidaClient().listAll();
+            // Se consulta a la BD las productos
+            List food = new ComidaService(new ComidaClient()).listAll();
+            List postres = new PostreService(new PostreClient()).listAll();
+            List drinks = new BebidaService(new BebidaClient()).lisAll();
 
-            //Se asocia el objeto a la sesion
-            req.setAttribute("userLogin", camarero);
-            req.setAttribute("foodList",food);
+            //Se guarda a la sesion el Camarero
+            req.getSession().setAttribute("userLogin", camarero);
+
+            //Se guardan la lista de productos a la sesion
+            req.getSession().setAttribute("foodList",food);
+            req.getSession().setAttribute("postresList",postres);
+            req.getSession().setAttribute("drinks",drinks);
+
             //Se indica el tiempo de expiración de la sesion
             /*req.getSession().setMaxInactiveInterval(10);*/
 
-            //Redirigimos a pagina homePage.jsp utilizando el metodo "sendRedirect" del objeto de respuesta
+            //Redirigimos a pagina menu.jsp utilizando el metodo "getRequestDispatcher" del objeto de respuesta
             req.getRequestDispatcher("/menu/menu.jsp").forward(req, resp);
 
         } else {
