@@ -9,7 +9,6 @@ public class CamareroService {
     private CamareroClient client;
 
     public CamareroService(CamareroClient client){
-
         this.client = client;
     }
 
