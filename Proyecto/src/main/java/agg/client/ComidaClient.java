@@ -1,14 +1,12 @@
 package agg.client;
 
 import agg.persistence.dao.clases.Productos.Comida;
-import agg.persistence.dao.clases.Productos.Producto;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.GenericType;
 import jakarta.ws.rs.core.MediaType;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ComidaClient {
@@ -26,12 +24,10 @@ public class ComidaClient {
                 .get(new GenericType<List<Comida>>(){});
     }
 
-    public static void main(String[] args) {
-        ComidaClient comidaClient = new ComidaClient();
-        List<Comida> food = comidaClient.listAll();
-
-        for(Comida c : food){
-            System.out.println(c);
-        }
+    public Comida getProductById(int id){
+        return webTarget.path("comida/getOne").
+                queryParam("id", id)
+                .request(MediaType.APPLICATION_JSON)
+                .get(Comida.class);
     }
 }
