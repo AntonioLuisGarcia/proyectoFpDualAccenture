@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ComandaProducto {
     private int id;
-    private Comanda comanda;
-    private Producto producto;
+    private int idComanda;
+    private int idProducto;
     private int cantidad;
 }
