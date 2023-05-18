@@ -11,5 +11,4 @@ public class Mesa {
     private int id;
     private int numero;
     private int numeroPersonas;
-
 }
