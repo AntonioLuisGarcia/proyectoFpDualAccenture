@@ -35,7 +35,6 @@ public class ComidaManager {
 
     public Comida getOneById(Connection con, int id){
 
-
         try(PreparedStatement stm = con.prepareStatement("SELECT * FROM producto JOIN comida ON(producto.IdProducto = comida.IdComida) WHERE IdProducto = " + id)){
             ResultSet result = stm.executeQuery();
             if(result.next()) {
