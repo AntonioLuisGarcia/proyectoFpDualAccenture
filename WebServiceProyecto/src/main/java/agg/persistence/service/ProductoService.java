@@ -26,4 +26,12 @@ public class ProductoService {
             throw new RuntimeException(e);
         }
     }
+
+    public Producto getById(int id){
+        try (Connection con = new MySQLConnector().getMySQLConnection()) {
+            return productoManager.getProductoById(con, id);
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
