@@ -32,9 +32,7 @@ public class ProductoManager {
     }
 
     public Producto getProductoById(Connection con, int id){
-
-
-        try(PreparedStatement stm = con.prepareStatement("SELECT * FROM producto WHERe IdProducto = " + id)){
+        try(PreparedStatement stm = con.prepareStatement("SELECT * FROM producto WHERE IdProducto = " + id)){
             ResultSet result = stm.executeQuery();
 
             if(result.next()){
