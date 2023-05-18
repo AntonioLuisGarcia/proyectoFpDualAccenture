@@ -4,27 +4,17 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Comanda {
     private int id;
-    private Mesa mesa;
-    private Camarero camarero;
-    private Date llegada;
-
-    private ArrayList<ComandaProducto> productos;
-
-    public double totalCuentaMesa(){
-        double total = 0;
-
-        for (ComandaProducto p : productos) {
-            total += p.getCantidad() * p.getProducto().getPrecio();
-        }
-
-        return total;
-    }
-
+    private int idMesa;
+    private int idCamarero;
+    private LocalDateTime llegada;
+    private String emailContacto;
+    private List<ComandaProducto> productos;
 }
