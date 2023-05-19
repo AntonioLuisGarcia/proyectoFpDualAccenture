@@ -1,6 +1,7 @@
 package agg.persistence.manager;
 
 import agg.dao.Productos.Bebida;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,6 +28,29 @@ public class BebidaManager {
             }
 
             return bebidas;
+        }catch (SQLException e){
+            return null;
+        }
+    }
+
+    public Bebida getOneById(Connection con, int id){
+
+        try(PreparedStatement stm = con.prepareStatement("SELECT * FROM producto JOIN bebida ON(producto.IdProducto = bebida.IdBebida) WHERE IdProducto = " + id)){
+            ResultSet result = stm.executeQuery();
+            if(result.next()) {
+                Bebida bebida = new Bebida(result.getInt("IdBebida")
+                        , result.getDouble("PrecioProducto")
+                        , result.getString("NombreProducto")
+                        , result.getString("DescripcionProducto")
+                        , result.getString("ImagenProducto")
+                        , result.getBoolean("Alcohol")
+                        , result.getInt("Mililitros"));
+
+                return bebida;
+
+            }else{
+                return null;
+            }
         }catch (SQLException e){
             return null;
         }
