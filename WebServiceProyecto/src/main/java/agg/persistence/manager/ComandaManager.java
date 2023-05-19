@@ -18,9 +18,10 @@ public class ComandaManager {
             if (result.next()) {
                 return new Comanda(
                         result.getInt("IdComanda")
-                        , new MesaService(new MesaManager()).getById(result.getInt("IdMesa"))
-                        , new CamareroService(new CamareroManager()).getById(result.getInt("IdCamarero"))
+                        , result.getInt("IdMesa")
+                        , result.getInt("IdCamarero")
                         , result.getTimestamp("FechaLlegada").toLocalDateTime()
+                        , result.getString("EmailContacto")
                         , new ComandaProductoService(new ComandaProductoManager()).getProductosById(result.getInt("IdComanda")));
             } else {
                 return null;
@@ -30,8 +31,8 @@ public class ComandaManager {
         }
     }
 
-    public int createComanda(Connection con, int idMesa, int idCamarero){
-        try (PreparedStatement stm = con.prepareStatement("INSERT INTO 'mydb'.'comanda' ('IdCamarero', 'IdMesa', 'FechaLlegada') VALUES (" + idCamarero + "," + idMesa + ", NOW())")) {
+    public int createComanda(Connection con, int idMesa, int idCamarero, String emailContacto){
+        try (PreparedStatement stm = con.prepareStatement("INSERT INTO 'mydb'.'comanda' ('IdCamarero', 'IdMesa', 'FechaLlegada', 'EmailContacto') VALUES (" + idCamarero + "," + idMesa + ", NOW()" + emailContacto + ")")) {
 
             int affectedRows = stm.executeUpdate();
 

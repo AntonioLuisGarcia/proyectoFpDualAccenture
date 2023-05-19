@@ -24,9 +24,9 @@ public class ComandaService {
         }
     }
 
-    public int createComanda(int idMesa, int idCamarero){
+    public int createComanda(int idMesa, int idCamarero, String emailContacto){
         try (Connection con = new MySQLConnector().getMySQLConnection()) {
-            return comandaManager.createComanda(con, idMesa, idCamarero);
+            return comandaManager.createComanda(con, idMesa, idCamarero, emailContacto);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {
