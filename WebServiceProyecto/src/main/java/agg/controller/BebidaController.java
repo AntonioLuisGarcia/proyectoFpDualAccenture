@@ -1,11 +1,13 @@
 package agg.controller;
 
 import agg.dao.Productos.Bebida;
+import agg.dao.Productos.Comida;
 import agg.persistence.manager.BebidaManager;
 import agg.persistence.service.BebidaService;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
@@ -28,5 +30,13 @@ public class BebidaController {
         List<Bebida> bebidas = new ArrayList<>();
         bebidas.addAll(bebidaService.getAllDrinks());
         return Response.ok().entity(bebidas).build();
+    }
+
+    @GET
+    @Path("/getOne")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getProductById(@QueryParam("id") int id) {
+        Bebida bebida = bebidaService.getOneById(id);
+        return Response.ok().entity(bebida).build();
     }
 }
