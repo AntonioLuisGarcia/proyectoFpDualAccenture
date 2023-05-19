@@ -31,7 +31,6 @@ public class ComidaService {
 
     public Comida getOneById(int id){
         try (Connection con = new MySQLConnector().getMySQLConnection()) {
-
             return manager.getOneById(con, id);
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -39,5 +38,4 @@ public class ComidaService {
             throw new RuntimeException(e);
         }
     }
-
 }
