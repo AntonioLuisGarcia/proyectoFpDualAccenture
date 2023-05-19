@@ -16,13 +16,14 @@ public class ComandaController {
         this.comandaService = new ComandaService(new ComandaManager());
     }
 
-    @POST////////Preguntar si POST o GET
+    @POST
     @Path("/create")
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response createComanda(@QueryParam("idMesa") int idMesa, @QueryParam("idCamarero") int idCamarero) {
-        if (idMesa < 0 && idCamarero < 0) {
-            int idComanda = comandaService.createComanda(idMesa, idCamarero);
-            return Response.ok().entity(idComanda).build();
+    public Response createComanda(Comanda comanda) {
+        if (comanda != null) {
+            int idComanda = comandaService.createComanda(comanda.getIdMesa(), comanda.getIdCamarero(), comanda.getEmailContacto());
+            return Response.status(201).entity(comanda).build();
 
         } else {
             return Response.status(400).entity("Camarero o Mesa no validos").build();
