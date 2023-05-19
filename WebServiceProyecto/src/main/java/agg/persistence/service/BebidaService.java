@@ -1,6 +1,7 @@
 package agg.persistence.service;
 
 import agg.dao.Productos.Bebida;
+import agg.dao.Productos.Comida;
 import agg.persistence.conector.MySQLConnector;
 import agg.persistence.manager.BebidaManager;
 
@@ -23,6 +24,16 @@ public class BebidaService {
             return manager.getAllBebidas(con);
 
         } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Bebida getOneById(int id){
+        try (Connection con = new MySQLConnector().getMySQLConnection()) {
+            return manager.getOneById(con, id);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
