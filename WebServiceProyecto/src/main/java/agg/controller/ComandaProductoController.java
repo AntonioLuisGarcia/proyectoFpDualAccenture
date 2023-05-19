@@ -32,13 +32,14 @@ public class ComandaProductoController {
         }
     }
 
-    @POST////////Preguntar si POST o GET
+    @POST
     @Path("/create")
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response createComanda(@QueryParam("idProducto") int idProducto, @QueryParam("idComanda") int idComanda, @QueryParam("cantidad") int cantidad) {
-        if (idComanda < 0 && idProducto < 0 && cantidad > -1) {
-            int idComandaProducto = comandaProductoService.createComandaProducto(idProducto, idComanda, cantidad);
-            return Response.ok().entity(idComandaProducto).build();
+    public Response createComanda(ComandaProducto comandaProducto) {
+        if (comandaProducto != null) {
+            int idComandaProducto = comandaProductoService.createComandaProducto(comandaProducto.getIdComanda(), comandaProducto.getIdProducto(), comandaProducto.getCantidad());
+            return Response.status(201).entity(comandaProducto).build();
         } else {
             return Response.status(400).entity("Camarero o Mesa no validos").build();
         }
