@@ -33,7 +33,7 @@ public class ComandaController {
     @GET
     @Path("/getById")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getCamareroWithParameters(@QueryParam("id") int id) {
+    public Response getComandaById(@QueryParam("id") int id) {
         if (id < 0) {
             Comanda comanda = comandaService.getById(id);
             if (comanda != null) {
