@@ -3,7 +3,7 @@
 
 <html>
 <head>
-    <link href="/Proyecto/css/" rel="stylesheet" type="text/css">
+    <link href="/Proyecto/assets/css/" rel="stylesheet" type="text/css">
 </head>
 <body>
 <%Postre postre = (Postre) request.getAttribute("postre");%>
@@ -12,7 +12,7 @@
   <%
       String imagen = postre.getImagen();
   %>
-    <img src="/Proyecto/images/<%=imagen%>" alt="">
+    <img src="/Proyecto/assets/images/<%=imagen%>" alt="">
   </div>
   <div class="detail-box">
 

@@ -3,7 +3,7 @@
 
 <html>
 <head>
-    <link href="/Proyecto/css/" rel="stylesheet" type="text/css">
+    <link href="/Proyecto/assets/css/" rel="stylesheet" type="text/css">
 </head>
 <body>
 <%Bebida bebida = (Bebida) request.getAttribute("bebida");%>
@@ -12,7 +12,7 @@
   <%
       String imagen = bebida.getImagen();
   %>
-    <img src="/Proyecto/images/<%=imagen%>" alt="">
+    <img src="/Proyecto/assets/images/<%=imagen%>" alt="">
   </div>
   <div class="detail-box">
 
@@ -31,7 +31,7 @@
             Sin Alcohol
             <%}%>
       </h6>
-  <form action="/Proyecto/servlet-anadirBebida" method="POST">
+  <form action="/Proyecto/servlet-anadirComida" method="POST">
     <div class="inputbox">
       <input type="number" required="required" name="cantidad" min="0" max="100">
       <input type="hidden" name="idProducto" value="<%=bebida.getId()%>">
