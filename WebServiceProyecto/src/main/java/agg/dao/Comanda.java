@@ -12,8 +12,8 @@ import java.util.List;
 @NoArgsConstructor
 public class Comanda {
     private int id;
-    private Mesa mesa;
-    private Camarero camarero;
+    private int idMesa;
+    private int idCamarero;
     private LocalDateTime llegada;
     private String emailContacto;
     private List<ComandaProducto> productos;
