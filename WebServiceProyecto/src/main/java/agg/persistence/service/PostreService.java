@@ -6,7 +6,6 @@ import agg.persistence.manager.PostreManager;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class PostreService {
@@ -23,6 +22,16 @@ public class PostreService {
 
             return manager.getAllPostres(con);
 
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Postre getOneById(int id){
+        try (Connection con = new MySQLConnector().getMySQLConnection()) {
+            return manager.getOneById(con, id);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {
