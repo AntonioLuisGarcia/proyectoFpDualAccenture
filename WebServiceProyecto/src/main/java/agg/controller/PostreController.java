@@ -1,12 +1,12 @@
 package agg.controller;
 
-import agg.dao.Productos.Comida;
 import agg.dao.Productos.Postre;
 import agg.persistence.manager.PostreManager;
 import agg.persistence.service.PostreService;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
@@ -30,4 +30,13 @@ public class PostreController {
         postres.addAll(postreService.getAllDesserts());
         return Response.ok().entity(postres).build();
     }
+
+    @GET
+    @Path("/getPostre")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getProductById(@QueryParam("id") int id) {
+        Postre postre = postreService.getOneById(id);
+        return Response.ok().entity(postre).build();
+    }
+
 }
