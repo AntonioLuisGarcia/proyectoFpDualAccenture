@@ -16,4 +16,8 @@ public class ProductoService {
     public List<Producto> lisAll(){
         return productoClient.listAll();
     }
+
+    public Producto getById(int id){
+        return productoClient.getById(id);
+    }
 }
