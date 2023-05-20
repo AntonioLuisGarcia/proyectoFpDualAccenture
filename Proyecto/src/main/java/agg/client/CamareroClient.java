@@ -3,11 +3,8 @@ package agg.client;
 import agg.persistence.dao.clases.Camarero;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
-import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.MediaType;
-
-import javax.management.Notification;
 
 public class CamareroClient {
     private final WebTarget webTarget;
