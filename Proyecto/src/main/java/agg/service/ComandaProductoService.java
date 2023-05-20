@@ -13,9 +13,4 @@ public class ComandaProductoService {
     public ComandaProducto create(ComandaProducto comandaProducto){
         return comandaProductoClient.create(comandaProducto);
     }
-
-    public static void main(String[] args) {
-       ComandaProducto comandaProducto = new ComandaProductoService(new ComandaProductoClient()).create(new ComandaProducto(1,11,1,1));
-        System.out.println(comandaProducto);
-    }
 }
