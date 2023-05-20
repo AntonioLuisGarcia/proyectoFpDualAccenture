@@ -33,15 +33,23 @@ public class ServletAnadirComida extends HttpServlet {
 
         //Hacemos una lista para añadir todos los productos a ella y cuando acabemos la comanda se la enviamos
 
-        List<ComandaProducto> comandaProductos = new ArrayList<>();
+        List<ComandaProducto> comandaProductos;
+
+        //Comprobamos que no exista antes
+        if(req.getSession().getAttribute("listaComanda") != null){
+            comandaProductos = (List<ComandaProducto>) req.getSession().getAttribute("listaComanda");
+        }else{
+            comandaProductos = new ArrayList<>();
+        }
+
         comandaProductos.add(comandaProducto);
 
         // La guardamos en la sesion
-
-        req.setAttribute("listaComanda",comandaProductos);
+        req.getSession().setAttribute("listaComanda",comandaProductos);
         req.getRequestDispatcher("/menu/menu.jsp").forward(req, resp);
     }
 
+    @Override
     public void doGet(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
         doPost(req, res);
