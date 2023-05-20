@@ -23,12 +23,10 @@ public class ProductoClient {
                 .get(new GenericType<ArrayList<Producto>>(){});
     }
 
-    public static void main(String[] args) {
-        ProductoClient productoClient = new ProductoClient();
-        ArrayList<Producto> productos = productoClient.listAll();
-
-        for(Producto p : productos){
-            System.out.println(p);
-        }
+    public Producto getById(int id){
+        return webTarget.path("productos/getById").
+                queryParam("id", id)
+                .request(MediaType.APPLICATION_JSON)
+                .get(Producto.class);
     }
 }
