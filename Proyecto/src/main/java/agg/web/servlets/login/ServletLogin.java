@@ -1,4 +1,4 @@
-package agg.web.servlets;
+package agg.web.servlets.login;
 
 import agg.client.*;
 import agg.persistence.dao.clases.Camarero;
@@ -57,7 +57,6 @@ public class ServletLogin extends HttpServlet {
     @Override
     public void init()throws ServletException {
         service = new CamareroService(new CamareroClient());
-
     }
 
     @Override
