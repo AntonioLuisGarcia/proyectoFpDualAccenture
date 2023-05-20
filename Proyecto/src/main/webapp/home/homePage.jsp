@@ -1,7 +1,7 @@
 <%@ page pageEncoding="UTF-8"%>
 <html>
 <head>
-    <link href="/Proyecto/css/login.css" rel="stylesheet" type="text/css">
+    <link href="/Proyecto/assets/css/login.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 
