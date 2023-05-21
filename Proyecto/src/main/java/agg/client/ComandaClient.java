@@ -46,9 +46,9 @@ public class ComandaClient {
     }
 
     public Comanda pagarComanda(int id){
-        return webTarget.path("comanda/pagar").
+        return webTarget.path("comanda/pagar/" + id).
                 request(MediaType.APPLICATION_JSON)
-                .put(Entity.entity(id, MediaType.APPLICATION_JSON),Comanda.class);
+                .put(Entity.entity("", MediaType.APPLICATION_JSON),Comanda.class);
     }
 
 }
