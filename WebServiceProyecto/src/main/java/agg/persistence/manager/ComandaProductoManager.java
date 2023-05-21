@@ -1,17 +1,15 @@
 package agg.persistence.manager;
 
 import agg.dao.ComandaProducto;
+import agg.persistence.service.ComandaProductoService;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ComandaProductoManager {
     public List<ComandaProducto> getProductosByIdComanda(Connection con, int id){
-        try(PreparedStatement stm = con.prepareStatement("SELECT * FROM comandaproducto WHERE IdComanda =" + id)){
+        try(PreparedStatement stm = con.prepareStatement("SELECT * FROM comandaProducto WHERE IdComanda =" + id)){
             ResultSet result = stm.executeQuery();
             List<ComandaProducto> productos = new ArrayList<>();
             while(result.next()){
@@ -29,22 +27,43 @@ public class ComandaProductoManager {
         }
     }
 
-    public int createComandaProducto(Connection con, int idProducto,int idComanda, int cantidad){
-        try (PreparedStatement stm = con.prepareStatement("INSERT INTO 'mydb'.'ComandaProducto'(`IdProducto`, `IdComanda`, `Cantidad`) VALUES (" + idProducto + "," + idComanda + "," + cantidad + ")")) {
+    public ComandaProducto createComandaProducto(Connection con, int idProducto, int idComanda, int cantidad){
+        try (PreparedStatement stm = con.prepareStatement("INSERT INTO `mydb`.`ComandaProducto` (`IdProducto`, `IdComanda`, `Cantidad`) VALUES (?, ?, ?)", Statement.RETURN_GENERATED_KEYS)) {
+
+            stm.setInt(1, idProducto);
+            stm.setInt(2, idComanda);
+            stm.setInt(3, cantidad);
 
             int affectedRows = stm.executeUpdate();
 
             if (affectedRows > 0) {
                 ResultSet generatedKey = stm.getGeneratedKeys();///preguntar si hay que hacer try catch
                 if(generatedKey.next()){
-                    return generatedKey.getInt(1);
+                    return new ComandaProductoService(new ComandaProductoManager()).getById(generatedKey.getInt(1)) ;
                 }
-                return affectedRows;
+                return new ComandaProductoService(new ComandaProductoManager()).getById(generatedKey.getInt(1));
             } else {
-                return 0;
+                return null;
             }
         } catch (SQLException e) {
-            return 0;
+            return null;
+        }
+    }
+
+    public ComandaProducto getById(Connection con, int id) {
+        try (PreparedStatement stm = con.prepareStatement("SELECT * FROM comandaProducto WHERE IdComandaProducto = " + id)) {
+            ResultSet result = stm.executeQuery();
+            if (result.next()) {
+                return new ComandaProducto(
+                        result.getInt("IdComandaProducto")
+                        , result.getInt("IdComanda")
+                        , result.getInt("IdProducto")
+                        , result.getInt("Cantidad"));
+            } else {
+                return null;
+            }
+        } catch (SQLException e) {
+            return null;
         }
     }
 
