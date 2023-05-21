@@ -16,4 +16,5 @@ public class Comanda {
     private String llegada;
     private String emailContacto;
     private List<ComandaProducto> productos;
+    private boolean pagada;
 }
