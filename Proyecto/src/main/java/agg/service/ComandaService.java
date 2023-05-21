@@ -2,9 +2,8 @@ package agg.service;
 
 import agg.client.ComandaClient;
 import agg.persistence.dao.clases.Comanda;
-import agg.persistence.dao.clases.ComandaProducto;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class ComandaService {
 
@@ -20,5 +19,16 @@ public class ComandaService {
 
     public Comanda create(Comanda comanda){
         return comandaClient.createComanda(comanda);
+    }
+
+    public List<Comanda> listAll(){
+        return comandaClient.listAll();
+    }
+    public List<Comanda> getNoPagadas(){
+        return comandaClient.getNoPagadas();
+    }
+
+    public Comanda pagarComanda(int id){
+        return comandaClient.pagarComanda(id);
     }
 }
