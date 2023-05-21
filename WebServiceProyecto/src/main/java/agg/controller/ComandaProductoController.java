@@ -1,6 +1,7 @@
 package agg.controller;
 
 import agg.dao.ComandaProducto;
+import agg.persistence.manager.ComandaProductoManager;
 import agg.persistence.service.ComandaProductoService;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -12,8 +13,8 @@ import java.util.List;
 public class ComandaProductoController {
     private ComandaProductoService comandaProductoService;
 
-    public ComandaProductoController(ComandaProductoService comandaProductoService){
-        this.comandaProductoService = comandaProductoService;
+    public ComandaProductoController(){
+        this.comandaProductoService = new ComandaProductoService(new ComandaProductoManager());
     }
 
     @GET
@@ -33,13 +34,14 @@ public class ComandaProductoController {
     }
 
     @POST
-    @Path("/create")
+    @Path("/create/")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response createComanda(ComandaProducto comandaProducto) {
         if (comandaProducto != null) {
-            int idComandaProducto = comandaProductoService.createComandaProducto(comandaProducto.getIdComanda(), comandaProducto.getIdProducto(), comandaProducto.getCantidad());
-            return Response.status(201).entity(comandaProducto).build();
+            ComandaProducto cp = comandaProductoService.createComandaProducto(comandaProducto.getIdProducto(), comandaProducto.getIdComanda(), comandaProducto.getCantidad());
+            return Response.ok().status(Response.Status.OK).entity(cp).build();
+            //return Response.status(201).entity(cp).build();
         } else {
             return Response.status(400).entity("Camarero o Mesa no validos").build();
         }
