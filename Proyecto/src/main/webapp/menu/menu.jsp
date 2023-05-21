@@ -110,6 +110,10 @@
               <button class="order_online" type="submit">Pedir</button>
             </form>
 
+            <form class="form-inline" action="/Proyecto/servlet-gestionComandas" method="POST">
+              <button class="order_online" type="submit">Comandas</button>
+            </form>
+
               <a href="" class="order_online">
                 Order Online
               </a>
