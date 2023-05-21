@@ -7,6 +7,8 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
+import java.util.List;
+
 @Path("/comanda")
 public class ComandaController {
 
@@ -17,13 +19,14 @@ public class ComandaController {
     }
 
     @POST
-    @Path("/create")
+    @Path("/create/")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response createComanda(Comanda comanda) {
         if (comanda != null) {
-            int idComanda = comandaService.createComanda(comanda.getIdMesa(), comanda.getIdCamarero(), comanda.getEmailContacto());
-            return Response.status(201).entity(comanda).build();
+            Comanda c = comandaService.createComanda(comanda.getIdMesa(), comanda.getIdCamarero(), comanda.getEmailContacto());
+            return Response.ok().status(Response.Status.OK).entity(c).build();
+            //return Response.status(201).entity(c).build();
 
         } else {
             return Response.status(400).entity("Camarero o Mesa no validos").build();
@@ -45,4 +48,35 @@ public class ComandaController {
             return Response.status(400).entity("Id no valido").build();
         }
     }
+
+    @GET
+    @Path("/getAll")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAll() {
+        List<Comanda> comandas = comandaService.listAll();
+        return Response.ok().entity(comandas).build();
+    }
+
+    @GET
+    @Path("/getNoPagadas")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getNoPagadas() {
+        List<Comanda> comandas = comandaService.getNoPagadas();
+        return Response.ok().entity(comandas).build();
+    }
+
+    @PUT
+    @Path("/pagar/{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response updatePago(@PathParam("id") int id) {
+        Comanda comanda = comandaService.pagarComanda(id);
+
+        if (comanda != null) {
+            return Response.ok().entity(comanda).build();
+        } else {
+            return Response.status(Response.Status.NOT_FOUND).entity("No se encontró la comanda").build();
+        }
+    }
+
 }
