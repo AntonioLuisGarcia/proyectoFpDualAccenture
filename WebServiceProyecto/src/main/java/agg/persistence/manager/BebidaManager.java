@@ -7,15 +7,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class BebidaManager {
 
-    public ArrayList<Bebida> getAllBebidas(Connection con){
+    public List<Bebida> getAllBebidas(Connection con){
 
 
         try(PreparedStatement stm = con.prepareStatement("SELECT * FROM producto JOIN bebida ON(producto.IdProducto = bebida.IdBebida)")){
             ResultSet result = stm.executeQuery();
-            ArrayList<Bebida> bebidas = new ArrayList<>();
+            List<Bebida> bebidas = new ArrayList<>();
 
             while(result.next()){
                   bebidas.add(new Bebida(result.getInt("IdBebida")
