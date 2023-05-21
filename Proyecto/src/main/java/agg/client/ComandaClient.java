@@ -1,8 +1,6 @@
 package agg.client;
 
 import agg.persistence.dao.clases.Comanda;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
@@ -34,10 +32,23 @@ public class ComandaClient {
                 .get(Comanda.class);
     }
 
+
+    public List<Comanda> getNoPagadas(){
+        return webTarget.path("comanda/getNoPagadas/")
+                .request(MediaType.APPLICATION_JSON)
+                .get(new GenericType<List<Comanda>>(){});
+    }
+
     public Comanda createComanda(Comanda comanda){
         return webTarget.path("comanda/create").
                 request(MediaType.APPLICATION_JSON)
                 .post(Entity.entity(comanda, MediaType.APPLICATION_JSON),Comanda.class);
+    }
+
+    public Comanda pagarComanda(int id){
+        return webTarget.path("comanda/pagar").
+                request(MediaType.APPLICATION_JSON)
+                .put(Entity.entity(id, MediaType.APPLICATION_JSON),Comanda.class);
     }
 
 }
