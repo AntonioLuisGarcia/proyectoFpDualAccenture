@@ -28,9 +28,19 @@ public class ComandaProductoService {
         }
     }
 
-    public int createComandaProducto(int idProducto, int idComanda, int cantidad){
+    public ComandaProducto createComandaProducto(int idProducto, int idComanda, int cantidad){
         try (Connection con = new MySQLConnector().getMySQLConnection()) {
             return comandaProductoManager.createComandaProducto(con, idProducto, idComanda, cantidad);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public ComandaProducto getById(int id){
+        try (Connection con = new MySQLConnector().getMySQLConnection()) {
+            return comandaProductoManager.getById(con, id);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {
