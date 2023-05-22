@@ -48,6 +48,7 @@ public class ServletCrearComanda extends HttpServlet {
 
         // La guardamos
         req.setAttribute("comanda",comanda);
+        req.getSession().removeAttribute("listaComanda");
 
         req.getRequestDispatcher("/finalizarComanda/finalizarComanda.jsp").forward(req, resp);
     }
