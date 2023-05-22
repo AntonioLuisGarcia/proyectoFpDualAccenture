@@ -1,5 +1,6 @@
 package agg.controller;
 
+import agg.dao.Comanda;
 import agg.dao.ComandaProducto;
 import agg.persistence.manager.ComandaProductoManager;
 import agg.persistence.service.ComandaProductoService;
@@ -44,6 +45,20 @@ public class ComandaProductoController {
             //return Response.status(201).entity(cp).build();
         } else {
             return Response.status(400).entity("Camarero o Mesa no validos").build();
+        }
+    }
+
+    @PUT
+    @Path("/cambiarCantidad/{idComanda}/{id}/{cantidad}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response updatePago(@PathParam("idComanda") int idComanda, @PathParam("id") int id, @PathParam("cantidad") int cantidad) {
+        ComandaProducto comandaProducto = comandaProductoService.updateCantidadByIdAndIdComanda(idComanda, id, cantidad);
+
+        if (comandaProducto != null) {
+            return Response.ok().entity(comandaProducto).build();
+        } else {
+            return Response.status(Response.Status.NOT_FOUND).entity("No se encontró la comanda").build();
         }
     }
 }

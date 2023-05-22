@@ -47,4 +47,14 @@ public class ComandaProductoService {
             throw new RuntimeException(e);
         }
     }
+
+    public ComandaProducto updateCantidadByIdAndIdComanda(int idComanda, int id, int cantidad){
+        try (Connection con = new MySQLConnector().getMySQLConnection()) {
+            return comandaProductoManager.updateCantidadByIdAndIdComanda(con, idComanda, id, cantidad);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

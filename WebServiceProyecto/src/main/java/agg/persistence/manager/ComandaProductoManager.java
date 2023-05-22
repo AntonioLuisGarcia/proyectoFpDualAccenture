@@ -2,6 +2,7 @@ package agg.persistence.manager;
 
 import agg.dao.ComandaProducto;
 import agg.persistence.service.ComandaProductoService;
+import agg.persistence.service.ComandaService;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -63,6 +64,24 @@ public class ComandaProductoManager {
                 return null;
             }
         } catch (SQLException e) {
+            return null;
+        }
+    }
+
+    public ComandaProducto updateCantidadByIdAndIdComanda(Connection con, int idComanda, int id, int cantidad){
+        try (PreparedStatement stm = con.prepareStatement( "UPDATE ComandaProducto SET Cantidad = ? WHERE IdComandaProducto = ? AND IdComanda = ?")) {
+            stm.setInt(1, cantidad);
+            stm.setInt(2, id);
+            stm.setInt(3, idComanda);
+
+            int affectedRows = stm.executeUpdate();
+            if (affectedRows > 0) {
+                return new ComandaProductoService(new ComandaProductoManager()).getById(id);
+            } else {
+                return null;
+            }
+
+        }catch (SQLException e) {
             return null;
         }
     }
