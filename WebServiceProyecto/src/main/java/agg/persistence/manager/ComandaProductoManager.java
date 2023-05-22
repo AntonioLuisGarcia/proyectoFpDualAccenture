@@ -2,7 +2,6 @@ package agg.persistence.manager;
 
 import agg.dao.ComandaProducto;
 import agg.persistence.service.ComandaProductoService;
-import agg.persistence.service.ComandaService;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -16,7 +15,7 @@ public class ComandaProductoManager {
             while(result.next()){
                 productos.add(new ComandaProducto(
                         result.getInt("IdComandaProducto")
-                        ,result.getInt("IdMesa")
+                        ,result.getInt("IdComanda")
                         ,result.getInt("IdProducto")
                         ,result.getInt("Cantidad")));
             }
