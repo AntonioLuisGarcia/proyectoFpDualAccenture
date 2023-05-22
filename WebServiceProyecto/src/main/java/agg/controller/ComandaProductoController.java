@@ -22,7 +22,7 @@ public class ComandaProductoController {
     @Path("/getAll")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllComandaProducto(@QueryParam("id")int id){
-        if(id < 0){
+        if(id > 0){
             List<ComandaProducto> productos = comandaProductoService.getProductosById(id);
             if(productos.isEmpty()){
                 return Response.status(404).entity("ComandaProducto sin campos").build();
@@ -52,7 +52,7 @@ public class ComandaProductoController {
     @Path("/cambiarCantidad/{idComanda}/{id}/{cantidad}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response updatePago(@PathParam("idComanda") int idComanda, @PathParam("id") int id, @PathParam("cantidad") int cantidad) {
+    public Response updateCantidadByIdAndIdComanda(@PathParam("idComanda") int idComanda, @PathParam("id") int id, @PathParam("cantidad") int cantidad) {
         ComandaProducto comandaProducto = comandaProductoService.updateCantidadByIdAndIdComanda(idComanda, id, cantidad);
 
         if (comandaProducto != null) {
