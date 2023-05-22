@@ -24,6 +24,13 @@ public class ServletAnadirComida extends HttpServlet {
 
         int idProducto = Integer.parseInt(req.getParameter("idProducto"));
         int cantidad = Integer.parseInt(req.getParameter("cantidad"));
+        boolean cambio;
+        if(req.getParameter("cambio") != null){
+            cambio = true;
+        }else{
+            cambio = false;
+        }
+        //Boolean cambio = Boolean.parseBoolean(req.getParameter("cambio"));
 
         // Creamos una ComandaProducto solo con los parametros que sabemos
 
@@ -42,7 +49,20 @@ public class ServletAnadirComida extends HttpServlet {
             comandaProductos = new ArrayList<>();
         }
 
-        comandaProductos.add(comandaProducto);
+        if(cambio){
+
+            for(ComandaProducto cp : comandaProductos){
+                if(cp.getIdProducto() == idProducto){
+                    cp.setCantidad(cantidad);
+                }
+            }
+
+            req.getSession().setAttribute("listaComanda",comandaProductos);
+            req.getRequestDispatcher("/servlet-pedir").forward(req, resp);
+
+        }else{
+            comandaProductos.add(comandaProducto);
+        }
 
         // La guardamos en la sesion
         req.getSession().setAttribute("listaComanda",comandaProductos);
