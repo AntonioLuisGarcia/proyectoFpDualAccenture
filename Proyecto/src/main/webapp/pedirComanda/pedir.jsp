@@ -26,10 +26,18 @@
                   <%= p.getKey().getDescripcion() %>
                 </p>
                 <div class="options">
-                  <h6>
-                        <%= p.getKey().getPrecio() %>  $
-                        <%=(int) lista.get(p.getKey())%> Unidades
-                  </h6>
+                  <h4>
+                        Precio: <%= p.getKey().getPrecio() %> $
+
+                        <form action="/Proyecto/servlet-anadirComida" method="POST">
+                          <div class="inputbox">
+                            <input type="hidden" value="<%=(p.getKey()).getId()%>" name="idProducto">
+                            <input type="hidden" value="<%= true %>" name="cambio">
+                            Unidades: <input type="number" value="<%=lista.get(p.getKey())%>" name="cantidad">  <br>
+                            <input type="submit" value="Cambiar" class="boton">
+                          </div>
+                        </form>
+                  </h4>
             </div>
         <%}%>
 
@@ -40,8 +48,12 @@
         %>
             <form action="/Proyecto/servlet-crearComanda" method="POST">
               <div class="inputbox">
+              Email:
                 <input type="text" name="email">
+                <br>
+                Nº Mesa:
                 <input type="number" name="mesa">
+                <br>
                 <input type="submit" value="Pedir" class="boton">
               </div>
             </form>
