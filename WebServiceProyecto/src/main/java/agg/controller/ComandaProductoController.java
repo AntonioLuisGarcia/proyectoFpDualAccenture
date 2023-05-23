@@ -49,16 +49,30 @@ public class ComandaProductoController {
     }
 
     @PUT
-    @Path("/cambiarCantidad/{idComanda}/{id}/{cantidad}")
+    @Path("/cambiarCantidad/{idComanda}/{idProducto}/{cantidad}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response updateCantidadByIdAndIdComanda(@PathParam("idComanda") int idComanda, @PathParam("id") int id, @PathParam("cantidad") int cantidad) {
-        ComandaProducto comandaProducto = comandaProductoService.updateCantidadByIdAndIdComanda(idComanda, id, cantidad);
+    public Response updateCantidadByIdAndIdComanda(@PathParam("idComanda") int idComanda, @PathParam("idProducto") int idProducto, @PathParam("cantidad") int cantidad) {
+        ComandaProducto comandaProducto = comandaProductoService.updateCantidadByIdAndIdComanda(idComanda, idProducto, cantidad);
 
         if (comandaProducto != null) {
             return Response.ok().entity(comandaProducto).build();
         } else {
             return Response.status(Response.Status.NOT_FOUND).entity("No se encontró la comanda").build();
+        }
+    }
+
+    @DELETE
+    @Path("/borrar/{idComanda}/{idProducto}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response borrarPorId(@PathParam("idComanda") int idComanda, @PathParam("idProducto") int idProducto){
+        boolean eliminado = comandaProductoService.borrarPorId(idComanda, idProducto);
+        if (eliminado) {
+            // Si el registro fue eliminado exitosamente
+            return Response.ok().entity(eliminado).build();
+        } else {
+            // Si no se pudo eliminar el registro
+            return Response.status(Response.Status.NOT_FOUND).entity("No se encontró el registro").build();
         }
     }
 }
