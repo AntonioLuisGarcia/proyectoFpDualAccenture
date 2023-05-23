@@ -7,6 +7,7 @@ import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.GenericType;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 
 import java.util.List;
 
@@ -30,6 +31,18 @@ public class ComandaProductoClient {
                 queryParam("id", id)
                 .request(MediaType.APPLICATION_JSON)
                 .get(new GenericType<List<ComandaProducto>>(){});
+    }
+
+    public ComandaProducto updateCantidadByIdAndIdComanda(int idComanda, int idProducto, int cantidad){
+        return webTarget.path("comandaProducto/cambiarCantidad/" + idComanda + "/" + idProducto + "/" + cantidad).
+                request(MediaType.APPLICATION_JSON)
+                .put(Entity.entity("", MediaType.APPLICATION_JSON), ComandaProducto.class);
+    }
+
+    public boolean borrarPorId(int idComanda, int idProducto){
+        return webTarget.path("comandaProducto/borrar/" + idComanda + "/" + idProducto).
+                request(MediaType.APPLICATION_JSON)
+                .delete().getStatus() == Response.Status.OK.getStatusCode();
     }
 
 }
