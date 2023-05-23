@@ -20,7 +20,11 @@ public class ComandaProductoService {
         return comandaProductoClient.getByIdComanda(id);
     }
 
-    public ComandaProducto updateCantidadByIdAndIdComanda(int idComanda, int id, int cantidad){
-        return comandaProductoClient.updateCantidadByIdAndIdComanda(idComanda, id, cantidad);
+    public ComandaProducto updateCantidadByIdAndIdComanda(int idComanda, int idProducto, int cantidad){
+        return comandaProductoClient.updateCantidadByIdAndIdComanda(idComanda, idProducto, cantidad);
+    }
+
+    public boolean borrarPorId(int idComanda, int idProducto){
+        return comandaProductoClient.borrarPorId(idComanda, idProducto);
     }
 }
