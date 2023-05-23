@@ -1,6 +1,8 @@
 package agg.web.servlets.anadir;
 
+import agg.client.ComandaProductoClient;
 import agg.persistence.dao.clases.ComandaProducto;
+import agg.service.ComandaProductoService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -30,43 +32,57 @@ public class ServletAnadirComida extends HttpServlet {
         }else{
             cambio = false;
         }
-        //Boolean cambio = Boolean.parseBoolean(req.getParameter("cambio"));
 
-        // Creamos una ComandaProducto solo con los parametros que sabemos
-
-        ComandaProducto comandaProducto = new ComandaProducto();
-        comandaProducto.setIdProducto(idProducto);
-        comandaProducto.setCantidad(cantidad);
-
-        //Hacemos una lista para añadir todos los productos a ella y cuando acabemos la comanda se la enviamos
-
-        List<ComandaProducto> comandaProductos;
-
-        //Comprobamos que no exista antes
-        if(req.getSession().getAttribute("listaComanda") != null){
-            comandaProductos = (List<ComandaProducto>) req.getSession().getAttribute("listaComanda");
+        boolean anadirMasProductos;
+        if(req.getSession().getAttribute("anadirMasProductos") != null){
+            anadirMasProductos = true;
         }else{
-            comandaProductos = new ArrayList<>();
+            anadirMasProductos = false;
         }
 
-        if(cambio){
+        //Si anadirMasProductos es true directamente lo añadimos a la base de datos y volvemos a la gestion de la comanda
 
-            for(ComandaProducto cp : comandaProductos){
-                if(cp.getIdProducto() == idProducto){
-                    cp.setCantidad(cantidad);
-                }
+        if(anadirMasProductos){
+            int idComanda = (int) req.getSession().getAttribute("idComanda");
+            new ComandaProductoService(new ComandaProductoClient()).create(new ComandaProducto(1, idComanda, idProducto, cantidad));
+            req.getRequestDispatcher("/servlet-modificarComanda").forward(req, resp);
+        }
+
+            // Creamos una ComandaProducto solo con los parametros que sabemos
+
+            ComandaProducto comandaProducto = new ComandaProducto();
+            comandaProducto.setIdProducto(idProducto);
+            comandaProducto.setCantidad(cantidad);
+
+            //Hacemos una lista para añadir todos los productos a ella y cuando acabemos la comanda se la enviamos
+
+            List<ComandaProducto> comandaProductos;
+
+            //Comprobamos que no exista antes
+            if(req.getSession().getAttribute("listaComanda") != null){
+                comandaProductos = (List<ComandaProducto>) req.getSession().getAttribute("listaComanda");
+            }else{
+                comandaProductos = new ArrayList<>();
             }
 
+            if(cambio){
+
+                for(ComandaProducto cp : comandaProductos){
+                    if(cp.getIdProducto() == idProducto){
+                        cp.setCantidad(cantidad);
+                    }
+                }
+
+                req.getSession().setAttribute("listaComanda",comandaProductos);
+                req.getRequestDispatcher("/servlet-pedir").forward(req, resp);
+
+            }else{
+                comandaProductos.add(comandaProducto);
+            }
+
+            // La guardamos en la sesion
             req.getSession().setAttribute("listaComanda",comandaProductos);
-            req.getRequestDispatcher("/servlet-pedir").forward(req, resp);
-
-        }else{
-            comandaProductos.add(comandaProducto);
-        }
-
-        // La guardamos en la sesion
-        req.getSession().setAttribute("listaComanda",comandaProductos);
-        req.getRequestDispatcher("/menu/menu.jsp").forward(req, resp);
+            req.getRequestDispatcher("/menu/menu.jsp").forward(req, resp);
     }
 
     @Override
