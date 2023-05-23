@@ -48,12 +48,20 @@ public class ComandaProductoService {
         }
     }
 
-    public ComandaProducto updateCantidadByIdAndIdComanda(int idComanda, int id, int cantidad){
+    public ComandaProducto updateCantidadByIdAndIdComanda(int idComanda, int idProducto, int cantidad){
         try (Connection con = new MySQLConnector().getMySQLConnection()) {
-            return comandaProductoManager.updateCantidadByIdAndIdComanda(con, idComanda, id, cantidad);
+            return comandaProductoManager.updateCantidadByIdAndIdComanda(con, idComanda, idProducto, cantidad);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public boolean borrarPorId(int idComanda, int idProducto){
+        try (Connection con = new MySQLConnector().getMySQLConnection()) {
+            return comandaProductoManager.borrarPorId(con, idComanda, idProducto);
+        } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
