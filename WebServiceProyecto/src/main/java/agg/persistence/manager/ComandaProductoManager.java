@@ -67,22 +67,43 @@ public class ComandaProductoManager {
         }
     }
 
-    public ComandaProducto updateCantidadByIdAndIdComanda(Connection con, int idComanda, int id, int cantidad){
-        try (PreparedStatement stm = con.prepareStatement( "UPDATE ComandaProducto SET Cantidad = ? WHERE IdComandaProducto = ? AND IdComanda = ?")) {
-            stm.setInt(1, cantidad);
-            stm.setInt(2, id);
-            stm.setInt(3, idComanda);
+    public ComandaProducto updateCantidadByIdAndIdComanda(Connection con, int idComanda, int idProducto, int cantidad) {
+        try (PreparedStatement selectStm = con.prepareStatement("SELECT IdComandaProducto FROM ComandaProducto WHERE IdProducto = ? AND IdComanda = ?");
+             PreparedStatement updateStm = con.prepareStatement("UPDATE ComandaProducto SET Cantidad = ? WHERE IdComandaProducto = ?")) {
 
-            int affectedRows = stm.executeUpdate();
-            if (affectedRows > 0) {
-                return new ComandaProductoService(new ComandaProductoManager()).getById(id);
-            } else {
-                return null;
+            // Obtener el ID antes de la actualización
+            selectStm.setInt(1, idProducto);
+            selectStm.setInt(2, idComanda);
+            try (ResultSet selectResult = selectStm.executeQuery()) {
+                if (selectResult.next()) {
+                    int id = selectResult.getInt("IdComandaProducto");
+
+                    // Actualizar el campo
+                    updateStm.setInt(1, cantidad);
+                    updateStm.setInt(2, id);
+                    int affectedRows = updateStm.executeUpdate();
+                    if (affectedRows > 0) {
+                        return new ComandaProductoService(new ComandaProductoManager()).getById(id);
+                    }
+                }
             }
-
-        }catch (SQLException e) {
-            return null;
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+        return null;
+    }
+
+    public boolean borrarPorId(Connection con, int idComanda, int idProducto) {
+        try (PreparedStatement stm = con.prepareStatement("DELETE FROM ComandaProducto WHERE IdComanda = ? AND IdProducto = ?")) {
+            stm.setInt(1, idComanda);
+            stm.setInt(2, idProducto);
+            int affectedRows = stm.executeUpdate();
+            return affectedRows > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
 }
