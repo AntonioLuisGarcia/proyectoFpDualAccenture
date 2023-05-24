@@ -16,7 +16,7 @@ public class ComandaClient {
 
     public ComandaClient() {
         Client client = ClientBuilder.newClient();
-        this.webTarget = client.target("http://localhost:8080/WebServiceProyecto/api/");
+        this.webTarget = client.target("http://localhost:8082/WebServiceProyecto/api/");
     }
 
     public List<Comanda> listAll(){
@@ -35,6 +35,13 @@ public class ComandaClient {
 
     public List<Comanda> getNoPagadas(){
         return webTarget.path("comanda/getNoPagadas/")
+                .request(MediaType.APPLICATION_JSON)
+                .get(new GenericType<List<Comanda>>(){});
+    }
+
+    public List<Comanda> getNoPagadasYPorIdCamarero(int id){
+        return webTarget.path("comanda/getNoPagadasYPorIdCamarero/").
+                queryParam("id", id)
                 .request(MediaType.APPLICATION_JSON)
                 .get(new GenericType<List<Comanda>>(){});
     }

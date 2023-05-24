@@ -11,7 +11,7 @@ public class CamareroClient {
 
     public CamareroClient() {
         Client client = ClientBuilder.newClient();
-        this.webTarget = client.target("http://localhost:8080/WebServiceProyecto/api/");
+        this.webTarget = client.target("http://localhost:8082/WebServiceProyecto/api/");
     }
 
     public Camarero isCorrectUser(String user, String password){
@@ -21,15 +21,5 @@ public class CamareroClient {
                 .queryParam("password", password)
                 .request(MediaType.APPLICATION_JSON)
                 .get(Camarero.class);
-    }
-
-    public String getFullName(String user, String password){
-        /*///////////////////*
-        return webTarget.path("camareross/get/"+"user"+"/password")//////////////////////////////////////
-                .queryParam("user",user)
-                .queryParam("password", password)
-                .request(MediaType.APPLICATION_JSON)
-                .get(Camarero.class);*/
-        return "Acabar metodo";
     }
 }
