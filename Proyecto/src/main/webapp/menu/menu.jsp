@@ -60,9 +60,6 @@
 
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav  mx-auto ">
-              <li class="nav-item">
-                <a class="nav-link" href="index.html">Home </a>
-              </li>
               <li class="nav-item active">
                 <a class="nav-link" href="menu.html">Menu <span class="sr-only">(current)</span> </a>
               </li>
@@ -97,7 +94,7 @@
                     <g>
                       <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296
                    c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" />
-                    </g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g>                  </g>
+                    </g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g>
                 </svg>
               </a>
               <form class="form-inline">
@@ -114,9 +111,9 @@
               <button class="order_online" type="submit">Comandas</button>
             </form>
 
-              <a href="" class="order_online">
-                Order Online
-              </a>
+              <form class="form-inline" action="/Proyecto/servlet-cerrarSesion" method="POST">
+                <button class="order_online" type="submit">Cerrar Sesion</button>
+              </form>
             </div>
           </div>
         </nav>
