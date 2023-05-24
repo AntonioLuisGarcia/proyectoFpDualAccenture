@@ -1,6 +1,7 @@
 package agg.web.servlets.comandas;
 
 import agg.client.ComandaClient;
+import agg.persistence.dao.clases.Camarero;
 import agg.persistence.dao.clases.Comanda;
 import agg.service.ComandaService;
 import jakarta.servlet.ServletException;
@@ -24,8 +25,10 @@ public class ServletGestionComandas extends HttpServlet {
         //Creamos un servicio para poder recoger todas las comandas
         ComandaService comandaService = new ComandaService(new ComandaClient());
 
+        Camarero camarero = (Camarero) req.getSession().getAttribute("userLogin");
+
         //Guardamos todas las comandas en una Lista
-        List<Comanda> comandas = comandaService.getNoPagadas();
+        List<Comanda> comandas = comandaService.getNoPagadasYPorIdCamarero(camarero.getId());///// sino funciona quitamos este metodo y ponemos el de antes
 
         //Guardamos la lista para mostrarla en gestionComandas.jsp
         req.setAttribute("comandas",comandas);
