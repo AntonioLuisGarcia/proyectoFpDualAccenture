@@ -2,12 +2,14 @@ package agg.web.servlets.crearComanda;
 
 import agg.client.ComandaClient;
 import agg.client.ComandaProductoClient;
+import agg.client.MesaClient;
 import agg.persistence.dao.clases.Camarero;
 import agg.persistence.dao.clases.Comanda;
 import agg.persistence.dao.clases.ComandaProducto;
 import agg.persistence.dao.clases.Productos.Producto;
 import agg.service.ComandaProductoService;
 import agg.service.ComandaService;
+import agg.service.MesaService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -31,9 +33,16 @@ public class ServletCrearComanda extends HttpServlet {
 
         // Recuperamos parametros de pedir.jsp
         // podemos pasarlo desde el jsp de pedir.jsp en lugar de en la sesion
+        int mesa = Integer.parseInt(req.getParameter("mesa"));
+        if(new MesaService(new MesaClient()).getById(mesa) == null){
+            String error = "Mesa incorrecta";
+            req.setAttribute("error", error);
+            req.getRequestDispatcher("/servlet-pedir").forward(req, resp);
+        }
+
         HashMap<Producto, Integer> lista  = (HashMap<Producto, Integer>) req.getSession().getAttribute("lista");
         String email = req.getParameter("email");
-        int mesa = Integer.parseInt(req.getParameter("mesa"));
+
         Camarero camarero = (Camarero) req.getSession().getAttribute("userLogin");
 
         //Cuando creemos la comanda nos tiene que aparecer en finalizarCompra.jsp el id de la Comanda
