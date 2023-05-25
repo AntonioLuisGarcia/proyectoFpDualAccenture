@@ -6,60 +6,67 @@
 
 <html>
 <head>
-    <link href="/Proyecto/assets/css/" rel="stylesheet" type="text/css">
+    <link href="/Proyecto/assets/css/productos.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-    <%HashMap<Producto, Integer> lista  = (HashMap<Producto, Integer>) request.getAttribute("lista");
+    <%
+    HashMap<Producto, Integer> lista  = (HashMap<Producto, Integer>) request.getAttribute("lista");
         int idComanda = (int) request.getAttribute("idComanda");
-        %><%=idComanda%>
+        %>
 
 <div class="center">
 
         <% for(Map.Entry<Producto, Integer> p : lista.entrySet()){ %>
 
-              <h1><%= p.getKey().getNombre() %></h1>
-              <%
-                  String imagen = p.getKey().getImagen();
-              %>
-                <img src="/Proyecto/assets/images/<%=imagen%>" alt="">
-              </div>
-              <div class="detail-box">
+             <div class="product-card">
+                <div class="badge">Hot</div>
+                <div class="product-tumb">
+                    <%String imagen = (p.getKey()).getImagen();%>
+                    <img src="/Proyecto/assets/images/<%=imagen%>" alt="">
+                </div>
+                <div class="product-details">
+                    <span class="product-catagory">          </span>
+                    <h4><a href=""><%= (p.getKey()).getNombre() %></a></h4>
+                    <p><%= (p.getKey()).getDescripcion() %></p>
+                    <div class="product-bottom-details">
+                        <div class="product-price">
+                            <%= (p.getKey()).getPrecio() %> $
+                        </div>
 
-                <p>
-                  <%= p.getKey().getDescripcion() %>
-                </p>
-                <div class="options">
-                  <h4>
-                        Precio: <%= p.getKey().getPrecio() %> $
-
-                        <form action="/Proyecto/servlet-cambiarCantidadProductoEnComanda" method="POST">
+                        <form action="/Proyecto/servlet-anadirComida" method="POST">
                           <div class="inputbox">
+                              <span style="font-size: 16px;color: #fbb72c;font-weight: 300;">Cantidad:</span>
                             <input type="hidden" value="<%=(p.getKey()).getId()%>" name="idProducto">
-                            <input type="hidden" value="<%=idComanda%>" name="idComanda">
-                            Unidades: <input type="number" value="<%=lista.get(p.getKey())%>" name="cantidad">  <br>
-                            <input type="submit" value="Cambiar" class="boton">
+                            <input type="hidden" value="<%= true %>" name="cambio">
+                            <input type="number" value="<%=lista.get(p.getKey())%>" name="cantidad">
+                          </div>
+                          <div class="inputbox">
+                            <input type="submit" value="submit" class="boton">
                           </div>
                         </form>
-
-                        <form action="/Proyecto/servlet-borrarComanda" method="POST">
-                            <input type="hidden" value="<%=(p.getKey()).getId()%>" name="idProducto">
-                            <input type="hidden" value="<%=idComanda%>" name="idComanda">
-                          <div class="inputbox">
-                            <input type="submit" value="Borrar" class="boton">
-                          </div>
-                        </form>
-                  </h4>
+                    </div>
+                </div>
             </div>
         <%}%>
 
-        <form action="/Proyecto//servlet-anadirMasProductos" method="POST">
-          <div class="inputbox">
+        <form id="anadir" action="/Proyecto//servlet-anadirMasProductos" method="POST">
             <input type="hidden" value="<%=idComanda%>" name="idComanda">
-            <br>
-            <input type="submit" value="Mas Productos" class="boton">
-          </div>
         </form>
 
-        <a href="menu/menu.jsp">Menu</a>
+        <div class="center-container" style="font-size:0.8rem">
+              <button type="button" onclick="anadir('anadir')" style="--c:#E95A49">Añadir</button>
+        </div>
+
+        <div class="center-container" style="font-size:1.5rem">
+            <a href="menu/menu.jsp">
+              <button style="--c:#E95A49">Menu</button>
+            </a>
+        </div>
+
+        <script>
+          function anadir(formId) {
+            document.getElementById(formId).submit();
+          }
+        </script>
 </body>
 </html>
