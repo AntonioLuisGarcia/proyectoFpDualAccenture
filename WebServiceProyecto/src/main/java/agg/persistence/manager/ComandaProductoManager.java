@@ -1,14 +1,18 @@
 package agg.persistence.manager;
 
 import agg.dao.ComandaProducto;
+import agg.interfaces.ComandaProductoManagerInterface;
+import agg.persistence.conector.MySQLConnector;
 import agg.persistence.service.ComandaProductoService;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ComandaProductoManager {
-    public List<ComandaProducto> getProductosByIdComanda(Connection con, int id){
+public class ComandaProductoManager implements ComandaProductoManagerInterface {
+
+    @Override
+    public List<ComandaProducto> getProductosById(Connection con, int id){
         try(PreparedStatement stm = con.prepareStatement("SELECT * FROM comandaProducto WHERE IdComanda =" + id)){
             ResultSet result = stm.executeQuery();
             List<ComandaProducto> productos = new ArrayList<>();
@@ -27,7 +31,8 @@ public class ComandaProductoManager {
         }
     }
 
-    public ComandaProducto createComandaProducto(Connection con, int idProducto, int idComanda, int cantidad){
+    @Override
+    public ComandaProducto create(Connection con, int idProducto, int idComanda, int cantidad){
         try (PreparedStatement stm = con.prepareStatement("INSERT INTO `mydb`.`ComandaProducto` (`IdProducto`, `IdComanda`, `Cantidad`) VALUES (?, ?, ?)", Statement.RETURN_GENERATED_KEYS)) {
 
             stm.setInt(1, idProducto);
@@ -39,9 +44,9 @@ public class ComandaProductoManager {
             if (affectedRows > 0) {
                 ResultSet generatedKey = stm.getGeneratedKeys();///preguntar si hay que hacer try catch
                 if(generatedKey.next()){
-                    return new ComandaProductoService(new ComandaProductoManager()).getById(generatedKey.getInt(1)) ;
+                    return new ComandaProductoService(new ComandaProductoManager(), new MySQLConnector()).getById(generatedKey.getInt(1)) ;
                 }
-                return new ComandaProductoService(new ComandaProductoManager()).getById(generatedKey.getInt(1));
+                return new ComandaProductoService(new ComandaProductoManager(), new MySQLConnector()).getById(generatedKey.getInt(1));
             } else {
                 return null;
             }
@@ -50,6 +55,7 @@ public class ComandaProductoManager {
         }
     }
 
+    @Override
     public ComandaProducto getById(Connection con, int id) {
         try (PreparedStatement stm = con.prepareStatement("SELECT * FROM comandaProducto WHERE IdComandaProducto = " + id)) {
             ResultSet result = stm.executeQuery();
@@ -67,6 +73,7 @@ public class ComandaProductoManager {
         }
     }
 
+    @Override
     public ComandaProducto updateCantidadByIdAndIdComanda(Connection con, int idComanda, int idProducto, int cantidad) {
         try (PreparedStatement selectStm = con.prepareStatement("SELECT IdComandaProducto FROM ComandaProducto WHERE IdProducto = ? AND IdComanda = ?");
              PreparedStatement updateStm = con.prepareStatement("UPDATE ComandaProducto SET Cantidad = ? WHERE IdComandaProducto = ?")) {
@@ -83,7 +90,7 @@ public class ComandaProductoManager {
                     updateStm.setInt(2, id);
                     int affectedRows = updateStm.executeUpdate();
                     if (affectedRows > 0) {
-                        return new ComandaProductoService(new ComandaProductoManager()).getById(id);
+                        return new ComandaProductoService(new ComandaProductoManager(), new MySQLConnector()).getById(id);
                     }
                 }
             }
@@ -93,6 +100,7 @@ public class ComandaProductoManager {
         return null;
     }
 
+    @Override
     public boolean borrarPorId(Connection con, int idComanda, int idProducto) {
         try (PreparedStatement stm = con.prepareStatement("DELETE FROM ComandaProducto WHERE IdComanda = ? AND IdProducto = ?")) {
             stm.setInt(1, idComanda);

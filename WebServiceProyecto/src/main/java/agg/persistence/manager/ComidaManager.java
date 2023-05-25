@@ -1,6 +1,7 @@
 package agg.persistence.manager;
 
 import agg.dao.Productos.Comida;
+import agg.interfaces.ProductoManagerInterface;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,9 +9,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class ComidaManager {
+public class ComidaManager implements ProductoManagerInterface {
 
-    public ArrayList<Comida> getAllFood(Connection con){
+    @Override
+    public ArrayList<Comida> getAll(Connection con){
 
 
         try(PreparedStatement stm = con.prepareStatement("SELECT * FROM producto JOIN comida ON(producto.IdProducto = comida.IdComida)")){
@@ -33,7 +35,8 @@ public class ComidaManager {
         }
     }
 
-    public Comida getOneById(Connection con, int id){
+    @Override
+    public Comida getById(Connection con, int id){
 
         try(PreparedStatement stm = con.prepareStatement("SELECT * FROM producto JOIN comida ON(producto.IdProducto = comida.IdComida) WHERE IdProducto = " + id)){
             ResultSet result = stm.executeQuery();
