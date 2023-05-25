@@ -22,4 +22,11 @@ public class CamareroClient {
                 .request(MediaType.APPLICATION_JSON)
                 .get(Camarero.class);
     }
+
+    public Camarero getById(int id){
+        return webTarget.path("camareros/getById")
+                .queryParam("id",id)
+                .request(MediaType.APPLICATION_JSON)
+                .get(Camarero.class);
+    }
 }
