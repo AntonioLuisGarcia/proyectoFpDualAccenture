@@ -1,6 +1,7 @@
 package agg.persistence.service;
 
 import agg.dao.Productos.Producto;
+import agg.interfaces.ProductoInterface;
 import agg.persistence.conector.MySQLConnector;
 import agg.persistence.manager.ProductoManager;
 
@@ -8,28 +9,32 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
-public class ProductoService {
+public class ProductoService implements ProductoInterface {
 
     private ProductoManager productoManager;
+    private MySQLConnector mySQLConnector;
 
-    public ProductoService(ProductoManager productoManager){
+    public ProductoService(ProductoManager productoManager, MySQLConnector mySQLConnector){
         this.productoManager = productoManager;
+        this.mySQLConnector = mySQLConnector;
     }
 
-    public List<Producto> getAllProducts(){
+    @Override
+    public List<Producto> getAll(){
 
-        try (Connection con = new MySQLConnector().getMySQLConnection()) {
+        try (Connection con = mySQLConnector.getMySQLConnection()) {
 
-            return productoManager.getAllProductos(con);
+            return productoManager.getAll(con);
 
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
 
+    @Override
     public Producto getById(int id){
-        try (Connection con = new MySQLConnector().getMySQLConnection()) {
-            return productoManager.getProductoById(con, id);
+        try (Connection con = mySQLConnector.getMySQLConnection()) {
+            return productoManager.getById(con, id);
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }

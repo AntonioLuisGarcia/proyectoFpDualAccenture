@@ -1,6 +1,8 @@
 package agg.controller;
 
 import agg.dao.Productos.Producto;
+import agg.interfaces.ProductoInterface;
+import agg.persistence.conector.MySQLConnector;
 import agg.persistence.manager.BebidaManager;
 import agg.persistence.manager.ComidaManager;
 import agg.persistence.manager.PostreManager;
@@ -20,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Path("/productos")
-public class ProductoController {
+public class ProductoController implements ProductoInterface {
 
     private ProductoService productoService;
     private ComidaService comidaService;
@@ -28,27 +30,29 @@ public class ProductoController {
     private PostreService postreService;
 
     public ProductoController(){
-        this.productoService = new ProductoService(new ProductoManager());
-        this.comidaService = new ComidaService(new ComidaManager());
-        this.bebidaService = new BebidaService(new BebidaManager());
-        this.postreService = new PostreService(new PostreManager());
+        this.productoService = new ProductoService(new ProductoManager(), new MySQLConnector());
+        this.comidaService = new ComidaService(new ComidaManager(), new MySQLConnector());
+        this.bebidaService = new BebidaService(new BebidaManager(), new MySQLConnector());
+        this.postreService = new PostreService(new PostreManager(), new MySQLConnector());
     }
 
     @GET
     @Path("/getAll")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllProducts() {
+    @Override
+    public Response getAll() {
         List<Producto> products = new ArrayList<>();
-        products.addAll(comidaService.getAllFood());
-        products.addAll(bebidaService.getAllDrinks());
-        products.addAll(postreService.getAllDesserts());
+        products.addAll(comidaService.getAll());
+        products.addAll(bebidaService.getAll());
+        products.addAll(postreService.getAll());
         return Response.ok().entity(products).build();
     }
 
     @GET
     @Path("/getById")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response Producto(@QueryParam("id") int id){
+    @Override
+    public Response getById(@QueryParam("id") int id){
         Producto producto = productoService.getById(id);
         return Response.ok().entity(producto).build();
     }

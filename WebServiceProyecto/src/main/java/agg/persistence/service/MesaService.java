@@ -1,29 +1,31 @@
 package agg.persistence.service;
 
 import agg.dao.Mesa;
+import agg.interfaces.MesaInterface;
 import agg.persistence.conector.MySQLConnector;
 import agg.persistence.manager.MesaManager;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class MesaService {
+public class MesaService implements MesaInterface {
 
     private MesaManager manager;
+    private MySQLConnector mySQLConnector;
 
-    public MesaService(MesaManager manager){
+    public MesaService(MesaManager manager, MySQLConnector mySQLConnector){
         this.manager = manager;
+        this.mySQLConnector = mySQLConnector;
     }
 
+    @Override
     public Mesa getById(int id){
 
-        try (Connection con = new MySQLConnector().getMySQLConnection()) {
+        try (Connection con = mySQLConnector.getMySQLConnection()) {
 
-            return manager.getMesaByNumber(con, id);
-        } catch (SQLException e) {
+            return manager.getById(con, id);
 
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
 
             throw new RuntimeException(e);
         }

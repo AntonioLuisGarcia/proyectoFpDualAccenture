@@ -1,6 +1,7 @@
 package agg.persistence.manager;
 
 import agg.dao.Mesa;
+import agg.interfaces.MesaManagerInterface;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,9 +9,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class MesaManager {
+public class MesaManager implements MesaManagerInterface {
 
-    public Mesa getMesaByNumber(Connection con, int number){
+    @Override
+    public Mesa getById(Connection con, int number){
 
         try(PreparedStatement stm = con.prepareStatement("SELECT * FROM mesas WHERE NumeroMesa = " + number)){
             ResultSet result = stm.executeQuery();
@@ -27,6 +29,7 @@ public class MesaManager {
         }
     }
 
+    @Override
     public ArrayList<Mesa> getAll(Connection con){
         try(PreparedStatement stm = con.prepareStatement("SELECT * FROM mesas")){
             ResultSet result = stm.executeQuery();
