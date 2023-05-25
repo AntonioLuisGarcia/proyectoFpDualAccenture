@@ -1,7 +1,7 @@
 package agg.persistence.service;
 
 import agg.dao.Productos.Bebida;
-import agg.dao.Productos.Comida;
+import agg.interfaces.ProductoInterface;
 import agg.persistence.conector.MySQLConnector;
 import agg.persistence.manager.BebidaManager;
 
@@ -9,28 +9,32 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
-public class BebidaService {
+public class BebidaService implements ProductoInterface {
 
     private BebidaManager manager;
+    private MySQLConnector mySQLConnector;
 
-    public BebidaService( BebidaManager manager){
+    public BebidaService( BebidaManager manager, MySQLConnector mySQLConnector){
         this.manager = manager;
+        this.mySQLConnector = mySQLConnector;
     }
 
-    public List<Bebida> getAllDrinks(){
+    @Override
+    public List<Bebida> getAll(){
 
-        try (Connection con = new MySQLConnector().getMySQLConnection()) {
+        try (Connection con = mySQLConnector.getMySQLConnection()) {
 
-            return manager.getAllBebidas(con);
+            return manager.getAll(con);
 
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public Bebida getOneById(int id){
-        try (Connection con = new MySQLConnector().getMySQLConnection()) {
-            return manager.getOneById(con, id);
+    @Override
+    public Bebida getById(int id){
+        try (Connection con = mySQLConnector.getMySQLConnection()) {
+            return manager.getById(con, id);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {

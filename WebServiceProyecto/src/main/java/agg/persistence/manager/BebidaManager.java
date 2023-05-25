@@ -1,6 +1,7 @@
 package agg.persistence.manager;
 
 import agg.dao.Productos.Bebida;
+import agg.interfaces.ProductoManagerInterface;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,9 +10,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BebidaManager {
+public class BebidaManager implements ProductoManagerInterface {
 
-    public List<Bebida> getAllBebidas(Connection con){
+    @Override
+    public List<Bebida> getAll(Connection con){
 
 
         try(PreparedStatement stm = con.prepareStatement("SELECT * FROM producto JOIN bebida ON(producto.IdProducto = bebida.IdBebida)")){
@@ -34,7 +36,8 @@ public class BebidaManager {
         }
     }
 
-    public Bebida getOneById(Connection con, int id){
+    @Override
+    public Bebida getById(Connection con, int id){
 
         try(PreparedStatement stm = con.prepareStatement("SELECT * FROM producto JOIN bebida ON(producto.IdProducto = bebida.IdBebida) WHERE IdProducto = " + id)){
             ResultSet result = stm.executeQuery();

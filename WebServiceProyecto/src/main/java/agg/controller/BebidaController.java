@@ -1,7 +1,8 @@
 package agg.controller;
 
 import agg.dao.Productos.Bebida;
-import agg.dao.Productos.Comida;
+import agg.interfaces.ProductoInterface;
+import agg.persistence.conector.MySQLConnector;
 import agg.persistence.manager.BebidaManager;
 import agg.persistence.service.BebidaService;
 import jakarta.ws.rs.GET;
@@ -15,28 +16,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Path("bebidas/")
-public class BebidaController {
+public class BebidaController implements ProductoInterface {
 
     private BebidaService bebidaService;
 
     public BebidaController(){
-        this.bebidaService = new BebidaService(new BebidaManager());
+        this.bebidaService = new BebidaService(new BebidaManager(), new MySQLConnector());
     }
 
     @GET
     @Path("/getAll")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllProducts() {
+    @Override
+    public Response getAll() {
         List<Bebida> bebidas = new ArrayList<>();
-        bebidas.addAll(bebidaService.getAllDrinks());
+        bebidas.addAll(bebidaService.getAll());
         return Response.ok().entity(bebidas).build();
     }
 
     @GET
     @Path("/getOne")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getProductById(@QueryParam("id") int id) {
-        Bebida bebida = bebidaService.getOneById(id);
+    @Override
+    public Response getById(@QueryParam("id") int id) {
+        Bebida bebida = bebidaService.getById(id);
         return Response.ok().entity(bebida).build();
     }
 }
