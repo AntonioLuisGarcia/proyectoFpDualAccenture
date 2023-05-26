@@ -28,6 +28,10 @@ public class ComandaService {
         return comandaClient.getNoPagadas();
     }
 
+    public List<Comanda> getNoPagadasYPorIdCamarero(int id){
+        return comandaClient.getNoPagadasYPorIdCamarero(id);
+    }
+
     public Comanda pagarComanda(int id){
         return comandaClient.pagarComanda(id);
     }
