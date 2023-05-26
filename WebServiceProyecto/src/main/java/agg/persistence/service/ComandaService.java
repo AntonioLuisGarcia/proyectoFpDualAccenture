@@ -32,9 +32,7 @@ public class ComandaService implements ComandaServiceInterface {
         try (Connection con = mySQLConnector.getMySQLConnection()) {
             Comanda comanda = comandaManager.create(con, idMesa, idCamarero, emailContacto);
             return comanda;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
