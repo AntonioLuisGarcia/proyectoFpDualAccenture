@@ -41,7 +41,7 @@ public class ComandaController implements ComandaInterface {
     @Produces(MediaType.APPLICATION_JSON)
     @Override
     public Response getById(@QueryParam("id") int id) {
-        if (id < 0) {
+        if (id > 0) {
             Comanda comanda = comandaService.getById(id);
             if (comanda != null) {
                 return Response.ok().entity(comanda).build();

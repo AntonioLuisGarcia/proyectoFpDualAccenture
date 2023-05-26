@@ -42,7 +42,7 @@ public class CamareroController implements CamareroInterface {
     @Produces(MediaType.APPLICATION_JSON)
     @Override
     public Response getById(@QueryParam("id") int id) {
-        if (id < 0) {
+        if (id > 0) {
             Camarero camarero = camareroService.getById(id);
             if (camarero != null) {
                 return Response.ok().entity(camarero).build();
