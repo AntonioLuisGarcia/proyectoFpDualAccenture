@@ -20,7 +20,7 @@ public class ComandaManager implements ComandaManagerInterface {
                         result.getInt("IdComanda")
                         , result.getInt("IdMesa")
                         , result.getInt("IdCamarero")
-                        , result.getTimestamp("FechaLlegada").toString()
+                        , result.getString("FechaLlegada")
                         , result.getString("EmailContacto")
                         , new ComandaProductoService(new ComandaProductoManager(), new MySQLConnector()).getProductosById(result.getInt("IdComanda"))
                         , result.getBoolean("Pagada"));
