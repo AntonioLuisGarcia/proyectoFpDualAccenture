@@ -7,7 +7,7 @@ import agg.persistence.manager.ComidaManager;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.List;
 
 public class ComidaService implements ProductoInterface {
 
@@ -20,7 +20,7 @@ public class ComidaService implements ProductoInterface {
     }
 
     @Override
-    public ArrayList<Comida> getAll(){
+    public List<Comida> getAll(){
 
         try (Connection con = mySQLConnector.getMySQLConnection()) {
 

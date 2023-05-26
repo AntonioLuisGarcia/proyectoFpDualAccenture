@@ -8,14 +8,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
+
 public class PostreManager implements ProductoManagerInterface {
 
     @Override
-    public ArrayList<Postre> getAll(Connection con){
+    public List<Postre> getAll(Connection con){
 
         try(PreparedStatement stm = con.prepareStatement("SELECT * FROM producto JOIN postre ON(producto.IdProducto = postre.IdPostre)")){
             ResultSet result = stm.executeQuery();
-            ArrayList<Postre> postres = new ArrayList<>();
+            List<Postre> postres = new ArrayList<>();
 
             while(result.next()){
                 postres.add(new Postre(result.getInt("IdPostre")
