@@ -29,8 +29,7 @@ public class PostreController implements ProductoInterface {
     @Produces(MediaType.APPLICATION_JSON)
     @Override
     public Response getAll() {
-        List<Postre> postres = new ArrayList<>();
-        postres.addAll(postreService.getAll());
+        List<Postre> postres = postreService.getAll();
         return Response.ok().entity(postres).build();
     }
 
