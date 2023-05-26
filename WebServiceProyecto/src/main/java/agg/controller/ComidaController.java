@@ -28,8 +28,7 @@ public class ComidaController implements ProductoInterface {
     @Produces(MediaType.APPLICATION_JSON)
     @Override
     public Response getAll() {
-        List<Comida> food = new ArrayList<>();
-        food.addAll(comidaService.getAll());
+        List<Comida> food = comidaService.getAll();
         return Response.ok().entity(food).build();
     }
 
