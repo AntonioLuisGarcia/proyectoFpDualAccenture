@@ -17,7 +17,7 @@ public class ComandaProductoClient {
 
     public ComandaProductoClient() {
         Client client = ClientBuilder.newClient();
-        this.webTarget = client.target("http://localhost:8080/WebServiceProyecto/api/");
+        this.webTarget = client.target("http://localhost:8082/WebServiceProyecto/api/");
     }
 
     public ComandaProducto create(ComandaProducto comandaProducto){
