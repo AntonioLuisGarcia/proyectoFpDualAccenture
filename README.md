@@ -9,13 +9,13 @@ Los requisitos son:
 2. El proyecto deberá ser desarrollado con el Lenguaje de Programación Java contemplando los siguientes puntos:
   -Uso de herencia, polimorfismo e interfaces.
   
-  -Buen uso de excepciones.
+    -Buen uso de excepciones.
   
-  -Uso de colecciones.
+    -Uso de colecciones.
   
-  -Uso de enumeraciones, genéricos y anotaciones si aplica.
+    -Uso de enumeraciones, genéricos y anotaciones si aplica.
   
-  -Implementación de Streams con colecciones y expresiones lambdas.
+    -Implementación de Streams con colecciones y expresiones lambdas.
  
 
 3. El proyecto deberá poder conectarse y gestionar una base de datos SQL. Pueden usar la que más les guste.
