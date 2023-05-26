@@ -12,10 +12,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.stubbing.Answer;
 
 import java.sql.*;
-import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.when;
 
@@ -24,9 +22,6 @@ class CamareroManagerTest {
 
     @Mock
     private Connection connection;
-
-    @Mock
-    private Statement statement;
 
     @Mock
     private PreparedStatement preparedStatement;
@@ -78,21 +73,65 @@ class CamareroManagerTest {
             }
         });
 
-        //Set<Camarero> camareroSet = camareroManager.getById(connection,1);
+        Camarero camareroTest = camareroManager.getById(connection,1);
 
-        //MatcherAssert.assertThat(camareroSet, MatcherAssert.hasSize(1));
-        //MatcherAssert.assertThat(camareroSet.iterator().next(), Matchers.is(camareroEsperado));
-
+        MatcherAssert.assertThat(camareroTest, Matchers.is(camareroEsperado));
     }
 
     @Test
-    void getById_ko() throws SQLException{
-        when(connection.createStatement()).thenThrow(new SQLException(""));
+    void getCamareroByUserAndPassword_ok()throws SQLException{
+        Camarero camareroEsperado = new Camarero(1,"Juan","Garcia","juan","1234");
 
-        //Set<Camarero> camareroSet = camareroManager.getById(connection, 0);
+        when(connection.prepareStatement(any())).thenReturn(preparedStatement);
+        when(preparedStatement.executeQuery()).thenReturn(resultSet);
+        when(resultSet.next()).thenAnswer(new Answer<Boolean>() {
+            private int counter = 0;
 
-        //MatcherAssert.assertThat(camareroSet, Matchers.nullValue());
+            @Override
+            public Boolean answer(InvocationOnMock invocationOnMock) throws Throwable {
+                if(counter < 1){
+                    counter++;
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        });
+
+        doReturn(camareroEsperado.getId()).when(resultSet).getInt(any());
+
+        when(resultSet.getString(any())).thenAnswer(new Answer<String>() {
+
+            @Override
+            public String answer(InvocationOnMock invocationOnMock) throws Throwable {
+
+                if(invocationOnMock.getArgument(0).equals("NombreCamarero")){
+                    return camareroEsperado.getNombre();
+                } else if(invocationOnMock.getArgument(0).equals("ApellidoCamarero")) {
+                    return camareroEsperado.getApellidos();
+                } else if(invocationOnMock.getArgument(0).equals("UsuarioCamarero")) {
+                    return camareroEsperado.getUsuario();
+                }else if(invocationOnMock.getArgument(0).equals("ContraseniaCamarero")){
+                    return camareroEsperado.getContrasenia();
+                }else{
+                    return null;
+                }
+            }
+        });
+
+        Camarero camareroTest = camareroManager.getCamareroByUserAndPassword(connection,camareroEsperado.getUsuario(), camareroEsperado.getContrasenia());
+
+        MatcherAssert.assertThat(camareroTest, Matchers.is(camareroEsperado));
 
     }
 
+    /*@Test
+    void getById_ko() throws SQLException {
+        when(connection.createStatement()).thenReturn(preparedStatement);
+        when(preparedStatement.executeQuery()).thenThrow(new SQLException("Mock SQLException"));
+
+        Camarero camareroSet = camareroManager.getById(connection, anyInt());
+
+        MatcherAssert.assertThat(camareroSet, Matchers.nullValue());
+    }*/
 }

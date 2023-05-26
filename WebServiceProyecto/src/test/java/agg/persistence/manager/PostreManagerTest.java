@@ -1,6 +1,6 @@
 package agg.persistence.manager;
 
-import agg.dao.Productos.Producto;
+import agg.dao.Productos.Postre;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
@@ -11,14 +11,17 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.stubbing.Answer;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
+
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class ProductoManagerTest {
+class PostreManagerTest {
 
     @Mock
     private Connection connection;
@@ -30,16 +33,15 @@ class ProductoManagerTest {
     private ResultSet resultSet;
 
     @InjectMocks
-    private ProductoManager productoManager;
+    private PostreManager postreManager;
 
     @Test
-    void getAll_ok() throws SQLException{
-        Producto productoEsperado = new Producto(1,2.2,"Nombre","Descripcion","imagen.jpg");
+    void getAll_ok() throws SQLException {
 
+        Postre postre = new Postre(1,1,"","","",1,1);
         when(connection.prepareStatement(any())).thenReturn(preparedStatement);
         when(preparedStatement.executeQuery()).thenReturn(resultSet);
         when(resultSet.next()).thenAnswer(new Answer<Boolean>() {
-
             private int counter = 0;
 
             @Override
@@ -53,40 +55,52 @@ class ProductoManagerTest {
             }
         });
 
-        doReturn(productoEsperado.getId()).when(resultSet).getInt(any());
-        when(resultSet.getDouble(any())).thenReturn(productoEsperado.getPrecio());
-        when(resultSet.getString(any())).thenAnswer(new Answer<String>() {
-
+        when(resultSet.getDouble(any())).thenReturn(postre.getPrecio());
+        when(resultSet.getInt(any())).thenAnswer(new Answer<Integer>() {
             @Override
-            public String answer(InvocationOnMock invocationOnMock) throws Throwable {
+            public Integer answer(InvocationOnMock invocationOnMock) throws Throwable {
 
-                if(invocationOnMock.getArgument(0).equals("NombreProducto")){
-                    return productoEsperado.getNombre();
-                } else if(invocationOnMock.getArgument(0).equals("DescripcionProducto")) {
-                    return productoEsperado.getDescripcion();
-                } else if(invocationOnMock.getArgument(0).equals("ImagenProducto")) {
-                    return productoEsperado.getImagen();
+                if(invocationOnMock.getArgument(0).equals("IdPostre")){
+                    return postre.getId();
+                } else if(invocationOnMock.getArgument(0).equals("Kcal")) {
+                    return postre.getKcal();
+                }else if(invocationOnMock.getArgument(0).equals("PersonasParaCompartir")) {
+                    return postre.getPersonasParaCompartir();
                 }else{
                     return null;
                 }
             }
         });
 
-        List<Producto> productoTest = productoManager.getAll(connection);
+        when(resultSet.getString(any())).thenAnswer(new Answer<String>() {
+            @Override
+            public String answer(InvocationOnMock invocationOnMock) throws Throwable {
 
-        MatcherAssert.assertThat(productoTest, Matchers.hasSize(1));
-        MatcherAssert.assertThat(productoTest.iterator().next(), Matchers.is(productoEsperado));
+                if(invocationOnMock.getArgument(0).equals("NombreProducto")){
+                    return postre.getNombre();
+                } else if(invocationOnMock.getArgument(0).equals("DescripcionProducto")) {
+                    return postre.getDescripcion();
+                } else if(invocationOnMock.getArgument(0).equals("ImagenProducto")) {
+                    return postre.getImagen();
+                }else{
+                    return null;
+                }
+            }
+        });
 
+        List<Postre> postresTest = postreManager.getAll(connection);
+
+        MatcherAssert.assertThat(postresTest, Matchers.hasSize(1));
+        MatcherAssert.assertThat(postresTest.iterator().next(), Matchers.is(postre));
     }
 
     @Test
-    void getById_ok() throws SQLException{
-        Producto productoEsperado = Producto.builder().id(1).precio(1).nombre("Nombre").descripcion("descripcion").imagen("imagen.jpg").build();
+    void getById_ok() throws SQLException {
 
+        Postre postre = new Postre(1,1,"","","",1,1);
         when(connection.prepareStatement(any())).thenReturn(preparedStatement);
         when(preparedStatement.executeQuery()).thenReturn(resultSet);
         when(resultSet.next()).thenAnswer(new Answer<Boolean>() {
-
             private int counter = 0;
 
             @Override
@@ -100,29 +114,41 @@ class ProductoManagerTest {
             }
         });
 
-        doReturn(productoEsperado.getId()).when(resultSet).getInt(any());
-        when(resultSet.getDouble(any())).thenReturn(productoEsperado.getPrecio());
-        when(resultSet.getString(any())).thenAnswer(new Answer<String>() {
-
+        when(resultSet.getDouble(any())).thenReturn(postre.getPrecio());
+        when(resultSet.getInt(any())).thenAnswer(new Answer<Integer>() {
             @Override
-            public String answer(InvocationOnMock invocationOnMock) throws Throwable {
+            public Integer answer(InvocationOnMock invocationOnMock) throws Throwable {
 
-                if(invocationOnMock.getArgument(0).equals("NombreProducto")){
-                    return productoEsperado.getNombre();
-                } else if(invocationOnMock.getArgument(0).equals("DescripcionProducto")) {
-                    return productoEsperado.getDescripcion();
-                } else if(invocationOnMock.getArgument(0).equals("ImagenProducto")) {
-                    return productoEsperado.getImagen();
+                if(invocationOnMock.getArgument(0).equals("IdPostre")){
+                    return postre.getId();
+                } else if(invocationOnMock.getArgument(0).equals("Kcal")) {
+                    return postre.getKcal();
+                }else if(invocationOnMock.getArgument(0).equals("PersonasParaCompartir")) {
+                    return postre.getPersonasParaCompartir();
                 }else{
                     return null;
                 }
             }
         });
 
-        Producto productoTest = productoManager.getById(connection, productoEsperado.getId());
+        when(resultSet.getString(any())).thenAnswer(new Answer<String>() {
+            @Override
+            public String answer(InvocationOnMock invocationOnMock) throws Throwable {
 
-        MatcherAssert.assertThat(productoTest, Matchers.is(productoEsperado));
+                if(invocationOnMock.getArgument(0).equals("NombreProducto")){
+                    return postre.getNombre();
+                } else if(invocationOnMock.getArgument(0).equals("DescripcionProducto")) {
+                    return postre.getDescripcion();
+                } else if(invocationOnMock.getArgument(0).equals("ImagenProducto")) {
+                    return postre.getImagen();
+                }else{
+                    return null;
+                }
+            }
+        });
 
+        Postre postreTest = postreManager.getById(connection, postre.getId());
+
+        MatcherAssert.assertThat(postreTest, Matchers.is(postre));
     }
-
 }
