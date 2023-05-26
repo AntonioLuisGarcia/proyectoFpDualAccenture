@@ -1,6 +1,5 @@
 package agg.persistence.manager;
 
-import agg.dao.Productos.Bebida;
 import agg.dao.Productos.Producto;
 import agg.interfaces.ProductoManagerInterface;
 
