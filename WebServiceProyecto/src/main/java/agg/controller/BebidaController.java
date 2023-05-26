@@ -29,8 +29,7 @@ public class BebidaController implements ProductoInterface {
     @Produces(MediaType.APPLICATION_JSON)
     @Override
     public Response getAll() {
-        List<Bebida> bebidas = new ArrayList<>();
-        bebidas.addAll(bebidaService.getAll());
+        List<Bebida> bebidas = bebidaService.getAll();
         return Response.ok().entity(bebidas).build();
     }
 
