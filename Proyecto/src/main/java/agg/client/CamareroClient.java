@@ -14,7 +14,7 @@ public class CamareroClient {
         this.webTarget = client.target("http://localhost:8082/WebServiceProyecto/api/");
     }
 
-    public Camarero isCorrectUser(String user, String password){
+    public Camarero verificateUserByUserAndPassword(String user, String password){
                                                     ////////////////////
         return webTarget.path("camareros/get/login")
                 .queryParam("user",user)
