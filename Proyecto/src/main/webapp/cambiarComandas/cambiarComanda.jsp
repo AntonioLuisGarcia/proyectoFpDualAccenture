@@ -33,12 +33,12 @@
                             <%= (p.getKey()).getPrecio() %> $
                         </div>
 
-                        <form action="/Proyecto/servlet-anadirComida" method="POST">
+                        <form action="/Proyecto/servlet-aumentarCantidad" method="POST">
                           <div class="inputbox">
                               <span style="font-size: 16px;color: #fbb72c;font-weight: 300;">Cantidad:</span>
                             <input type="hidden" value="<%=(p.getKey()).getId()%>" name="idProducto">
-                            <input type="hidden" value="<%= true %>" name="cambio">
-                            <input type="number" value="<%=lista.get(p.getKey())%>" name="cantidad">
+                            <input type="hidden" value="<%= idComanda %>" name="idComanda">
+                            <input type="number" value="<%=lista.get(p.getKey())%>" name="cantidad" min="<%=lista.get(p.getKey())%>">
                           </div>
                           <div class="inputbox">
                             <input type="submit" value="submit" class="boton">

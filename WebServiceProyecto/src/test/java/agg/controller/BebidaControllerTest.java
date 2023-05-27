@@ -1,11 +1,12 @@
 package agg.controller;
 
+
 import agg.dao.Productos.Bebida;
 import agg.persistence.service.BebidaService;
 import jakarta.ws.rs.core.Response;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -33,7 +34,7 @@ class BebidaControllerTest {
     @InjectMocks
     private BebidaController bebidaController;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
     }

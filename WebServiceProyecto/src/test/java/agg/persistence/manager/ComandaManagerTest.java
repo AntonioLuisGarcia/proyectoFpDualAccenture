@@ -1,5 +1,6 @@
 package agg.persistence.manager;
 
+
 import agg.dao.Comanda;
 import agg.dao.ComandaProducto;
 import agg.persistence.service.ComandaService;
@@ -270,7 +271,7 @@ class ComandaManagerTest {
         MatcherAssert.assertThat(comandasTest.iterator().next(), Matchers.is(comanda));
     }
 
-    /*@Test
+    @Test
     void pagar_ok() throws SQLException {
 
         when(connection.prepareStatement(any())).thenReturn(preparedStatement);
@@ -316,8 +317,7 @@ class ComandaManagerTest {
         when(resultSet.next()).thenReturn(true);
 
         Comanda comandaTest = comandaManager.create(connection, comanda.getIdMesa(), comanda.getIdCamarero(), comanda.getEmailContacto());
-
         verify(preparedStatement).executeUpdate();
         MatcherAssert.assertThat(comandaTest, Matchers.is(comanda));
-    }*/
+    }
 }

@@ -102,7 +102,9 @@
       <div class="filters-content">
         <div class="row grid">
 
-        <% List<Comida> food = (List<Comida>) session.getAttribute("foodList"); %>
+        <%
+        String formularioComida ="";
+        List<Comida> food = (List<Comida>) session.getAttribute("foodList"); %>
 
         <%for(Comida comida : food){%>
                   <div class="col-sm-6 col-lg-4 all comida">
@@ -134,10 +136,14 @@
                                   <%}%>
                             </h6>
 
-                            <form id="formularioComida" action="/Proyecto/servlet-comida" method="POST">
+                            <%
+                            formularioComida = "formularioComida" + comida.getId();
+                            %>
+
+                            <form id="<%=formularioComida%>" action="/Proyecto/servlet-comida" method="POST">
                             <input type="hidden" name="idProducto" value="<%=comida.getId()%>">
                             </form>
-                            <a href="#" onclick="document.getElementById('formularioComida').submit()">
+                            <a href="#" onclick="document.getElementById('<%=formularioComida%>').submit()">
                               <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
                                 <g>
                                   <g>
@@ -168,7 +174,9 @@
                   </div>
                   <%}%>
 
-          <% List<Postre> postres = (List<Postre>) session.getAttribute("postresList"); %>
+          <%
+          String formularioPostre = "";
+          List<Postre> postres = (List<Postre>) session.getAttribute("postresList"); %>
 
                   <%for(Postre postre : postres){%>
                     <div class="col-sm-6 col-lg-4 all postre">
@@ -198,11 +206,15 @@
 
                               </h6>
 
-                              <form id="formularioPostre" action="/Proyecto/servlet-postre" method="POST">
+                                <%
+                                formularioPostre = "formularioPostre" + postre.getId();
+                                %>
+
+                              <form id="<%=formularioPostre%>" action="/Proyecto/servlet-postre" method="POST">
                               <input type="hidden" name="idProducto" value="<%=postre.getId()%>">
                               </form>
 
-                              <a href="#" onclick="document.getElementById('formularioPostre').submit()">
+                              <a href="#" onclick="document.getElementById('<%=formularioPostre%>').submit()">
                                 <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
                                   <g>
                                     <g>
@@ -233,7 +245,9 @@
                     </div>
                   <%}%>
 
-                  <% List<Bebida> drinks = (List<Bebida>) session.getAttribute("drinks"); %>
+                  <%
+                  String formularioBebida = "";
+                  List<Bebida> drinks = (List<Bebida>) session.getAttribute("drinks"); %>
 
                     <%for(Bebida bebida : drinks){%>
                       <div class="col-sm-6 col-lg-4 all bebida">
@@ -265,11 +279,15 @@
                                         <%}%>
                                 </h6>
 
-                                <form id="formularioBebida" action="/Proyecto/servlet-bebida" method="POST">
+                                 <%
+                                 formularioBebida = "formularioBebida" + bebida.getId();
+                                 %>
+
+                                <form id="<%=formularioBebida%>" action="/Proyecto/servlet-bebida" method="POST">
                                 <input type="hidden" name="idProducto" value="<%=bebida.getId()%>">
                                 </form>
 
-                                <a href="#" onclick="document.getElementById('formularioBebida').submit()">
+                                <a href="#" onclick="document.getElementById('<%=formularioBebida%>').submit()">
                                   <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
                                     <g>
                                       <g>

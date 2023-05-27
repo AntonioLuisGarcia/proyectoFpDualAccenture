@@ -13,10 +13,10 @@ public class CamareroService {
     }
 
     public Camarero verificateUserByUserAndPassword(String user, String password){
-        return client.isCorrectUser(user,password);
+        return client.verificateUserByUserAndPassword(user,password);
     }
 
-    public String getFullName(String user, String password){
-        return client.getFullName(user, password);
+    public Camarero getById(int id){
+        return client.getById(id);
     }
 }
