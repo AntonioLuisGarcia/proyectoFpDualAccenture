@@ -46,7 +46,7 @@ public class ComandaClient {
                 .get(new GenericType<List<Comanda>>(){});
     }
 
-    public Comanda createComanda(Comanda comanda){
+    public Comanda create(Comanda comanda){
         return webTarget.path("comanda/create").
                 request(MediaType.APPLICATION_JSON)
                 .post(Entity.entity(comanda, MediaType.APPLICATION_JSON),Comanda.class);

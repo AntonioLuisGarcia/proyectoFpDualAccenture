@@ -46,7 +46,7 @@ public class ServletAnadirComida extends HttpServlet {
             int idComanda = (int) req.getSession().getAttribute("idComanda");
             new ComandaProductoService(new ComandaProductoClient()).create(new ComandaProducto(1, idComanda, idProducto, cantidad));
             req.getRequestDispatcher("/servlet-modificarComanda").forward(req, resp);
-        }
+        }else {
 
             // Creamos una ComandaProducto solo con los parametros que sabemos
 
@@ -59,30 +59,31 @@ public class ServletAnadirComida extends HttpServlet {
             List<ComandaProducto> comandaProductos;
 
             //Comprobamos que no exista antes
-            if(req.getSession().getAttribute("listaComanda") != null){
+            if (req.getSession().getAttribute("listaComanda") != null) {
                 comandaProductos = (List<ComandaProducto>) req.getSession().getAttribute("listaComanda");
-            }else{
+            } else {
                 comandaProductos = new ArrayList<>();
             }
 
-            if(cambio){
+            if (cambio) {
 
-                for(ComandaProducto cp : comandaProductos){
-                    if(cp.getIdProducto() == idProducto){
+                for (ComandaProducto cp : comandaProductos) {
+                    if (cp.getIdProducto() == idProducto) {
                         cp.setCantidad(cantidad);
                     }
                 }
 
-                req.getSession().setAttribute("listaComanda",comandaProductos);
+                req.getSession().setAttribute("listaComanda", comandaProductos);
                 req.getRequestDispatcher("/servlet-pedir").forward(req, resp);
 
-            }else{
+            } else {
                 comandaProductos.add(comandaProducto);
             }
 
             // La guardamos en la sesion
-            req.getSession().setAttribute("listaComanda",comandaProductos);
+            req.getSession().setAttribute("listaComanda", comandaProductos);
             req.getRequestDispatcher("/menu/menu.jsp").forward(req, resp);
+        }
     }
 
     @Override

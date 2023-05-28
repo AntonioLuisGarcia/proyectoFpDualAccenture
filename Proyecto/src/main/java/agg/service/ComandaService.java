@@ -18,7 +18,7 @@ public class ComandaService {
     }
 
     public Comanda create(Comanda comanda){
-        return comandaClient.createComanda(comanda);
+        return comandaClient.create(comanda);
     }
 
     public List<Comanda> listAll(){
