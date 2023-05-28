@@ -2,7 +2,6 @@ package agg.service;
 
 import agg.client.CamareroClient;
 import agg.persistence.dao.clases.Camarero;
-import agg.persistence.dao.clases.Productos.Postre;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,7 +13,6 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.List;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
