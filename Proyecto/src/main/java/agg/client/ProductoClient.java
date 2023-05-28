@@ -8,6 +8,7 @@ import jakarta.ws.rs.core.GenericType;
 import jakarta.ws.rs.core.MediaType;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ProductoClient {
     private final WebTarget webTarget;
@@ -17,7 +18,7 @@ public class ProductoClient {
         this.webTarget = client.target("http://localhost:8082/WebServiceProyecto/api/");
     }
 
-    public ArrayList<Producto> listAll(){
+    public List<Producto> listAll(){
         return webTarget.path("productos/getAll/")
                 .request(MediaType.APPLICATION_JSON)
                 .get(new GenericType<ArrayList<Producto>>(){});

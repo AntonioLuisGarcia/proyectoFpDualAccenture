@@ -13,7 +13,7 @@ public class ProductoService {
         this.productoClient = productoClient;
     }
 
-    public List<Producto> lisAll(){
+    public List<Producto> listAll(){
         return productoClient.listAll();
     }
 
