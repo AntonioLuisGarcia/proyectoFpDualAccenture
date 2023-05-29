@@ -18,12 +18,23 @@ public class ComidaClient {
         this.webTarget = client.target("http://localhost:8082/WebServiceProyecto/api/");
     }
 
+    /**
+     * Devuelve todas las comidas de la BD
+     *
+     * @return List<Comida>
+     */
     public List<Comida> listAll(){
         return webTarget.path("comida/getAll/")
                 .request(MediaType.APPLICATION_JSON)
                 .get(new GenericType<List<Comida>>(){});
     }
 
+    /**
+     * Devuelve un Producto por su Id
+     *
+     * @param id
+     * @return Comida
+     */
     public Comida getProductById(int id){
         return webTarget.path("comida/getOne").
                 queryParam("id", id)

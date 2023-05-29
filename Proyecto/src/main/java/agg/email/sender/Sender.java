@@ -154,7 +154,7 @@ public class Sender {
 
     }
 
-    private Session createSession() {
+    Session createSession() {
         Session session = Session.getInstance(mailProp, new javax.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(credentialProp.getProperty(MailCredentialProperties.USER.getName()),

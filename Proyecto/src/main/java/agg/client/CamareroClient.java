@@ -14,6 +14,13 @@ public class CamareroClient {
         this.webTarget = client.target("http://localhost:8082/WebServiceProyecto/api/");
     }
 
+    /**
+     * Devuelve un objeto Camarero si esta en la base de datos su usuario y contraseña
+     *
+     * @param user
+     * @param password
+     * @return Camarero
+     */
     public Camarero verificateUserByUserAndPassword(String user, String password){
                                                     ////////////////////
         return webTarget.path("camareros/get/login")
@@ -23,6 +30,12 @@ public class CamareroClient {
                 .get(Camarero.class);
     }
 
+    /**
+     * Devuelve un Camarero mediante su Id
+     *
+     * @param id
+     * @return Camarero
+     */
     public Camarero getById(int id){
         return webTarget.path("camareros/getById")
                 .queryParam("id",id)

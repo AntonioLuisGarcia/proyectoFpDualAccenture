@@ -15,6 +15,12 @@ public class MesaClient {
         this.webTarget = client.target("http://localhost:8082/WebServiceProyecto/api/");
     }
 
+    /**
+     * Devuelve una Mesa mediante el Id introducido
+     *
+     * @param id
+     * @return Mesa
+     */
     public Mesa getById(int id){
         return webTarget.path("Mesa/getMesa").
                 queryParam("id", id)

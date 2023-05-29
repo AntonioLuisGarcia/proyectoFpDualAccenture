@@ -18,12 +18,23 @@ public class PostreClient {
         this.webTarget = client.target("http://localhost:8082/WebServiceProyecto/api/");
     }
 
+    /**
+     * Devuelve todos los postres de la BD
+     *
+     * @return List<Postre>
+     */
     public List<Postre> listAll(){
         return webTarget.path("postres/getAll/")
                 .request(MediaType.APPLICATION_JSON)
                 .get(new GenericType<List<Postre>>(){});
     }
 
+    /**
+     * Devuelve un Postre mediante su Id
+     *
+     * @param id
+     * @return Postre
+     */
     public Postre getById(int id){
         return webTarget.path("postres/getPostre").
                 queryParam("id", id)

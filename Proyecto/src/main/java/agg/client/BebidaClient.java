@@ -18,12 +18,23 @@ public class BebidaClient {
         this.webTarget = client.target("http://localhost:8082/WebServiceProyecto/api/");
     }
 
+    /**
+     * Devuelve todas las bebidas guardadas en la base de datos
+     *
+     * @return List<Bebida>
+     */
     public List<Bebida> listAll(){
         return webTarget.path("bebidas/getAll/")
                 .request(MediaType.APPLICATION_JSON)
                 .get(new GenericType<List<Bebida>>(){});
     }
 
+    /**
+     * Devuelve una instancia de Bebidapor su Id
+     *
+     * @param id
+     * @return Bebida
+     */
     public Bebida getById(int id){
         return webTarget.path("bebidas/getOne").
                 queryParam("id",id)

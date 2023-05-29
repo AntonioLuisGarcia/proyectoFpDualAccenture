@@ -18,12 +18,23 @@ public class ProductoClient {
         this.webTarget = client.target("http://localhost:8082/WebServiceProyecto/api/");
     }
 
+    /**
+     * Devuelve todos los productos de la BD
+     *
+     * @return List<Producto>
+     */
     public List<Producto> listAll(){
         return webTarget.path("productos/getAll/")
                 .request(MediaType.APPLICATION_JSON)
                 .get(new GenericType<ArrayList<Producto>>(){});
     }
 
+    /**
+     * Devuelve un Producto por su ID
+     *
+     * @param id
+     * @returnProducto
+     */
     public Producto getById(int id){
         return webTarget.path("productos/getById").
                 queryParam("id", id)

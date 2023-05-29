@@ -27,14 +27,27 @@ public class ServletGestionComandas extends HttpServlet {
 
         Camarero camarero = (Camarero) req.getSession().getAttribute("userLogin");
 
-        //Guardamos todas las comandas en una Lista
-        List<Comanda> comandas = comandaService.getNoPagadasYPorIdCamarero(camarero.getId());///// sino funciona quitamos este metodo y ponemos el de antes
+        //Verificamos que seamos o no el admin para mostrar todas las comandas
+        if(camarero.getUsuario().equals("Admin") && camarero.getContrasenia().equals("1234")){
+            //Guardamos todas las comandas en una Lista
+            List<Comanda> comandas = comandaService.listAll();
 
-        //Guardamos la lista para mostrarla en gestionComandas.jsp
-        req.setAttribute("comandas",comandas);
+            //Guardamos la lista para mostrarla en gestionComandas.jsp
+            req.setAttribute("comandas",comandas);
 
-        //Redirigimos a gestionComandas.jsp
-        req.getRequestDispatcher("/gestionComandas/gestionComandas.jsp").forward(req, resp);
+            //Redirigimos a gestionComandas.jsp
+            req.getRequestDispatcher("/gestionComandas/gestionComandas.jsp").forward(req, resp);
+        }else {
+
+            //Guardamos todas las comandas en una Lista
+            List<Comanda> comandas = comandaService.getNoPagadasYPorIdCamarero(camarero.getId());
+
+            //Guardamos la lista para mostrarla en gestionComandas.jsp
+            req.setAttribute("comandas", comandas);
+
+            //Redirigimos a gestionComandas.jsp
+            req.getRequestDispatcher("/gestionComandas/gestionComandas.jsp").forward(req, resp);
+        }
 
     }
 

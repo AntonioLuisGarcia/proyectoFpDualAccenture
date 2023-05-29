@@ -19,12 +19,23 @@ public class ComandaClient {
         this.webTarget = client.target("http://localhost:8082/WebServiceProyecto/api/");
     }
 
+    /**
+     * Devuelve todas las Comandas
+     *
+     * @return List<Comanda>
+     */
     public List<Comanda> listAll(){
         return webTarget.path("comanda/getAll/")
                 .request(MediaType.APPLICATION_JSON)
                 .get(new GenericType<List<Comanda>>(){});
     }
 
+    /**
+     * Devuelve una comanda por su Id
+     *
+     * @param id
+     * @return Comanda
+     */
     public Comanda getById(int id){
         return webTarget.path("comanda/getById").
                 queryParam("id", id)
@@ -33,12 +44,23 @@ public class ComandaClient {
     }
 
 
+    /**
+     * Devuelve las Comandas con el atributo pagada = false
+     *
+     * @return List<Comanda>
+     */
     public List<Comanda> getNoPagadas(){
         return webTarget.path("comanda/getNoPagadas/")
                 .request(MediaType.APPLICATION_JSON)
                 .get(new GenericType<List<Comanda>>(){});
     }
 
+    /**
+     * Devuelve las que no esten pagadas y hayan sido hechas por el camarero del id
+     *
+     * @param id
+     * @return List<Comanda>
+     */
     public List<Comanda> getNoPagadasYPorIdCamarero(int id){
         return webTarget.path("comanda/getNoPagadasYPorIdCamarero/").
                 queryParam("id", id)
@@ -46,12 +68,24 @@ public class ComandaClient {
                 .get(new GenericType<List<Comanda>>(){});
     }
 
+    /**
+     * Crea un registro de comanda en la BD y la devuelve
+     *
+     * @param comanda
+     * @return Comanda
+     */
     public Comanda create(Comanda comanda){
         return webTarget.path("comanda/create").
                 request(MediaType.APPLICATION_JSON)
                 .post(Entity.entity(comanda, MediaType.APPLICATION_JSON),Comanda.class);
     }
 
+    /**
+     * Cambia el estado de una comanda a pagada
+     *
+     * @param id
+     * @return Comanda
+     */
     public Comanda pagarComanda(int id){
         return webTarget.path("comanda/pagar/" + id).
                 request(MediaType.APPLICATION_JSON)
