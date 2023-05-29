@@ -19,6 +19,12 @@ public class BebidaService implements ProductoInterface {
         this.mySQLConnector = mySQLConnector;
     }
 
+    /**
+     * Obtiene todas las bebidas.
+     * @return una lista de todas las bebidas.
+     * @throws RuntimeException si ocurre un error al obtener las bebidas.
+     */
+
     @Override
     public List<Bebida> getAll(){
 
@@ -31,6 +37,13 @@ public class BebidaService implements ProductoInterface {
         }
     }
 
+    /**
+     * Retorna una bebida según su ID.
+     * @param id el ID de la bebida que se quiere obtener.
+     * @return la bebida correspondiente al ID proporcionado.
+     * @throws RuntimeException si se produce un error al obtener la bebida.
+     */
+
     @Override
     public Bebida getById(int id){
         try (Connection con = mySQLConnector.getMySQLConnection()) {
@@ -41,5 +54,4 @@ public class BebidaService implements ProductoInterface {
             throw new RuntimeException(e);
         }
     }
-
 }

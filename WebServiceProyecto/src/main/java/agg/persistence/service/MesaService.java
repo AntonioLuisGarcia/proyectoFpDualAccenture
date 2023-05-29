@@ -18,15 +18,19 @@ public class MesaService implements MesaInterface {
         this.mySQLConnector = mySQLConnector;
     }
 
+    /**
+     * Recupera una mesa por su ID.
+     * @param id el ID de la mesa que se desea obtener.
+     * @return la mesa encontrada según el ID especificado.
+     * @throws RuntimeException si ocurre un error al obtener la mesa.
+     */
+
     @Override
     public Mesa getById(int id){
 
         try (Connection con = mySQLConnector.getMySQLConnection()) {
-
             return manager.getById(con, id);
-
         } catch (SQLException | ClassNotFoundException e) {
-
             throw new RuntimeException(e);
         }
     }

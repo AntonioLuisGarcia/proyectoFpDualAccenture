@@ -19,6 +19,12 @@ public class ComidaService implements ProductoInterface {
         this.mySQLConnector = mySQLConnector;
     }
 
+    /**
+     * Recupera una lista de todas las comidas.
+     * @return una lista de todas las comidas.
+     * @throws RuntimeException si ocurre un error al obtener las comidas.
+     */
+
     @Override
     public List<Comida> getAll(){
 
@@ -29,6 +35,13 @@ public class ComidaService implements ProductoInterface {
             throw new RuntimeException(e);
         }
     }
+
+    /**
+     * Retorna una comida según su ID.
+     * @param id el ID de la comida que se quiere obtener.
+     * @return la comida correspondiente al ID proporcionado.
+     * @throws RuntimeException si se produce un error al obtener la comida.
+     */
 
     @Override
     public Comida getById(int id){

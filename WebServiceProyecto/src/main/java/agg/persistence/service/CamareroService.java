@@ -18,6 +18,14 @@ public class CamareroService implements CamareroInterface {
         this.mySQLConnector = mySQLConnector;
     }
 
+    /**
+     * Obtiene un camarero por su nombre de usuario y contraseña.
+     * @param user el nombre de usuario del camarero.
+     * @param password la contraseña del camarero.
+     * @return el camarero correspondiente al nombre de usuario y contraseña proporcionados.
+     * @throws RuntimeException si ocurre un error al obtener el camarero.
+     */
+
     @Override
     public Camarero getCamareroByUserAndPassword(String user, String password){
 
@@ -28,6 +36,13 @@ public class CamareroService implements CamareroInterface {
             throw new RuntimeException(e);
         }
     }
+
+    /**
+     * Recupera un camarero por su ID.
+     * @param id el ID del camarero que se desea obtener.
+     * @return el camarero encontrado según el ID especificado.
+     * @throws RuntimeException si ocurre un error al obtener el camarero.
+     */
 
     @Override
     public Camarero getById(int id){
