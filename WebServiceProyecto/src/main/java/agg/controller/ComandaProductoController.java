@@ -19,6 +19,12 @@ public class ComandaProductoController implements ComandaProductoControllerInter
         this.comandaProductoService = new ComandaProductoService(new ComandaProductoManager(), new MySQLConnector());
     }
 
+    /**
+     * Obtiene todos los productos de una comanda según su ID.
+     * @param id el ID de la comanda.
+     * @return la respuesta HTTP con la lista de productos de la comanda en formato JSON si el ID es válido
+     */
+
     @GET
     @Path("/getAll")
     @Produces(MediaType.APPLICATION_JSON)
@@ -35,6 +41,12 @@ public class ComandaProductoController implements ComandaProductoControllerInter
             return Response.status(400).entity("Id incorrecto").build();
         }
     }
+
+    /**
+     * Obtiene un producto de una comanda por su ID.
+     * @param id el ID del producto de la comanda que se desea obtener.
+     * @return la respuesta HTTP con el producto de la comanda encontrado en formato JSON si el ID es válido
+     */
 
     @GET
     @Path("/getById")
@@ -53,6 +65,12 @@ public class ComandaProductoController implements ComandaProductoControllerInter
         }
     }
 
+    /**
+     * Crea un nuevo producto para una comanda.
+     * @param comandaProducto el producto de la comanda a crear.
+     * @return la respuesta HTTP con el producto de la comanda creado en formato JSON si los datos son válidos
+     */
+
     @POST
     @Path("/create/")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -68,6 +86,14 @@ public class ComandaProductoController implements ComandaProductoControllerInter
         }
     }
 
+    /**
+     * Actualiza la cantidad de un producto en una comanda según su ID y el ID de la comanda.
+     * @param idComanda el ID de la comanda.
+     * @param idProducto el ID del producto.
+     * @param cantidad la nueva cantidad del producto.
+     * @return la respuesta HTTP con el producto de la comanda actualizado en formato JSON si los datos son válidos
+     */
+
     @PUT
     @Path("/cambiarCantidad/{idComanda}/{idProducto}/{cantidad}")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -82,6 +108,13 @@ public class ComandaProductoController implements ComandaProductoControllerInter
             return Response.status(Response.Status.NOT_FOUND).entity("No se encontró la comanda").build();
         }
     }
+
+    /**
+     * Borra un producto de una comanda según su ID y el ID de la comanda.
+     * @param idComanda el ID de la comanda.
+     * @param idProducto el ID del producto.
+     * @return una respuesta HTTP indicando si se eliminó o no el producto de la comanda.
+     */
 
     @DELETE
     @Path("/borrar/{idComanda}/{idProducto}")

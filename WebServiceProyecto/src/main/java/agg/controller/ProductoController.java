@@ -36,6 +36,11 @@ public class ProductoController implements ProductoInterface {
         this.postreService = new PostreService(new PostreManager(), new MySQLConnector());
     }
 
+    /**
+     * Recupera todos los productos disponibles.
+     * @return una respuesta HTTP con la lista de todos los productos (comidas, bebidas y postres) en formato JSON.
+     */
+
     @GET
     @Path("/getAll")
     @Produces(MediaType.APPLICATION_JSON)
@@ -47,6 +52,12 @@ public class ProductoController implements ProductoInterface {
         products.addAll(postreService.getAll());
         return Response.ok().entity(products).build();
     }
+
+    /**
+     * Retorna un producto según su ID.
+     * @param id el ID del producto que se quiere obtener.
+     * @return una respuesta HTTP con el producto encontrado en formato JSON si el ID es válido
+     */
 
     @GET
     @Path("/getById")

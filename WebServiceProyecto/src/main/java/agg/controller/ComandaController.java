@@ -20,6 +20,12 @@ public class ComandaController implements ComandaInterface {
         this.comandaService = new ComandaService(new ComandaManager(), new MySQLConnector());
     }
 
+    /**
+     * Crea una nueva comanda.
+     * @param comanda la comanda a crear.
+     * @return la respuesta HTTP con la comanda creada en formato JSON si los datos son válidos,
+     */
+
     @POST
     @Path("/create/")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -35,6 +41,12 @@ public class ComandaController implements ComandaInterface {
             return Response.status(400).entity("Camarero o Mesa no validos").build();
         }
     }
+
+    /**
+     * Obtiene una comanda por su ID.
+     * @param id el ID de la comanda que se desea obtener.
+     * @return la respuesta HTTP con la comanda encontrada en formato JSON si el ID es válido,
+     */
 
     @GET
     @Path("/getById")
@@ -53,6 +65,11 @@ public class ComandaController implements ComandaInterface {
         }
     }
 
+    /**
+     * Obtiene todas las comandas.
+     * @return la respuesta HTTP con la lista de comandas en formato JSON.
+     */
+
     @GET
     @Path("/getAll")
     @Produces(MediaType.APPLICATION_JSON)
@@ -61,6 +78,11 @@ public class ComandaController implements ComandaInterface {
         List<Comanda> comandas = comandaService.getAll();
         return Response.ok().entity(comandas).build();
     }
+
+    /**
+     * Obtiene todas las comandas no pagadas.
+     * @return la respuesta HTTP con la lista de comandas no pagadas en formato JSON.
+     */
 
     @GET
     @Path("/getNoPagadas")
@@ -71,6 +93,12 @@ public class ComandaController implements ComandaInterface {
         return Response.ok().entity(comandas).build();
     }
 
+    /**
+     * Obtiene las comandas no pagadas por un camarero específico mediante su ID.
+     * @param id el ID del camarero para filtrar las comandas.
+     * @return la respuesta HTTP con la lista de comandas no pagadas del camarero en formato JSON.
+     */
+
     @GET
     @Path("/getNoPagadasYPorIdCamarero/")
     @Produces(MediaType.APPLICATION_JSON)
@@ -79,6 +107,12 @@ public class ComandaController implements ComandaInterface {
         List<Comanda> comandas = comandaService.getNoPagadasYPorIdCamarero(id);
         return Response.ok().entity(comandas).build();
     }
+
+    /**
+     * Marca una comanda como pagada mediante su ID.
+     * @param id el ID de la comanda que se desea marcar como pagada.
+     * @return la respuesta HTTP con la comanda actualizada en formato JSON si se marca como pagada,
+     */
 
     @PUT
     @Path("/pagar/{id}")
@@ -94,5 +128,4 @@ public class ComandaController implements ComandaInterface {
             return Response.status(Response.Status.NOT_FOUND).entity("No se encontró la comanda").build();
         }
     }
-
 }

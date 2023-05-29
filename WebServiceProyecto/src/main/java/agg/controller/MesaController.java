@@ -21,6 +21,12 @@ public class MesaController implements MesaInterface {
        this.mesaService = new MesaService(new MesaManager(), new MySQLConnector());
     }
 
+    /**
+     * Obtiene una mesa por su ID.
+     * @param id el ID de la mesa que se desea obtener.
+     * @return la respuesta HTTP con la mesa encontrada en formato JSON si el ID es válido
+     */
+
     @GET
     @Path("/getMesa/")
     @Produces(MediaType.APPLICATION_JSON)

@@ -23,6 +23,13 @@ public class CamareroController implements CamareroInterface {
         this.camareroService = new CamareroService(new CamareroManager(), new MySQLConnector());
     }
 
+    /**
+     * Obtiene un camarero por su nombre de usuario y contraseña.
+     * @param user el nombre de usuario del camarero.
+     * @param password la contraseña del camarero.
+     * @return la respuesta HTTP con el camarero encontrado en formato JSON si las credenciales son válidas,
+     */
+
     @GET
     @Path("/get/login")
     @Produces(MediaType.APPLICATION_JSON)
@@ -36,6 +43,12 @@ public class CamareroController implements CamareroInterface {
             return Response.status(400).entity("Usuario o contraseña no validos").build();
         }
     }
+
+    /**
+     * Obtiene un camarero por su ID.
+     * @param id el ID del camarero que se desea obtener.
+     * @return la respuesta HTTP con el camarero encontrado en formato JSON si el ID es válido,
+     */
 
     @GET
     @Path("/getById")
@@ -53,5 +66,4 @@ public class CamareroController implements CamareroInterface {
             return Response.status(400).entity("Id no valido").build();
         }
     }
-
 }

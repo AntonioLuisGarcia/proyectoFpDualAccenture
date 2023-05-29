@@ -23,6 +23,11 @@ public class ComidaController implements ProductoInterface {
         this.comidaService = new ComidaService(new ComidaManager(), new MySQLConnector());
     }
 
+    /**
+     * Obtiene todas las comidas.
+     * @return la respuesta HTTP con la lista de todas las comidas en formato JSON.
+     */
+
     @GET
     @Path("/getAll")
     @Produces(MediaType.APPLICATION_JSON)
@@ -31,6 +36,12 @@ public class ComidaController implements ProductoInterface {
         List<Comida> food = comidaService.getAll();
         return Response.ok().entity(food).build();
     }
+
+    /**
+     * Retorna una comida según su ID.
+     * @param id el ID de la comida que se quiere obtener.
+     * @return una respuesta HTTP con la comida encontrada en formato JSON si el ID es válido
+     */
 
     @GET
     @Path("/getOne")
