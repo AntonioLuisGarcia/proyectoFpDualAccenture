@@ -19,7 +19,6 @@
         <% for(Map.Entry<Producto, Integer> p : lista.entrySet()){ %>
 
              <div class="product-card">
-                <div class="badge">Hot</div>
                 <div class="product-tumb">
                     <%String imagen = (p.getKey()).getImagen();%>
                     <img src="/Proyecto/assets/images/<%=imagen%>" alt="">
@@ -41,7 +40,7 @@
                             <input type="number" value="<%=lista.get(p.getKey())%>" name="cantidad" min="<%=lista.get(p.getKey())%>">
                           </div>
                           <div class="inputbox">
-                            <input type="submit" value="submit" class="boton">
+                            <input type="submit" value="Cambiar" class="boton">
                           </div>
                         </form>
                     </div>

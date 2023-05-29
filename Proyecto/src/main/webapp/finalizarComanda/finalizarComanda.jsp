@@ -3,29 +3,46 @@
 
 <html>
 <head>
-    <link href="/Proyecto/assets/css/" rel="stylesheet" type="text/css">
+    <link href="/Proyecto/assets/css/productos.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 
         <%
-          ////////////////////////Primero creamos Comanda -> Luego recorremos el HashMap y por cada objeto se crea una nueva ComandaProducto en BD
-          //////////////////////////Borramos la lista de productos de esa comanda de la sesion por si hacemos otra comanda en otra mesa
-          ////////////////////////////Para modificar la comanda pondremos otra funcion mas tarde cuando completemos esto
           Comanda comanda = (Comanda) request.getAttribute("comanda");
 
           if(comanda.isPagada()){
           %>
-          <h1>Pagado<h1>
-          <h2>Id: <%=comanda.getId()%><h2>
+          <div class="product-card">
+              <div class="product-details">
+                  <h2>Pagado</h2>
+                  <div class="product-bottom-details">
+                      <div class="product-price">
+                          Id: <%=comanda.getId()%>
+                      </div>
+                  </div>
+              </div>
+         </div>
           <%
             //calcular total de la cuenta
           }else{%>
 
-           <h1>Comanda Completada<h1>
-           <h2>Id: <%=comanda.getId()%><h2>
+           <div class="product-card">
+               <div class="product-details">
+                   <h2>Comanda Completada</h2>
+                   <div class="product-bottom-details">
+                       <div class="product-price">
+                           Id: <%=comanda.getId()%>
+                       </div>
+                   </div>
+               </div>
+          </div>
 
            <%}%>
 
-           <a href="menu/menu.jsp">Menu</a>
+            <div class="center-container">
+                       <a href="menu/menu.jsp">
+                         <button style="--c:#E95A49">Inicio</button>
+                       </a>
+                   </div>
 </body>
 </html>
