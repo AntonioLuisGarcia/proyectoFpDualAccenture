@@ -13,6 +13,14 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * @author Antonio Luis Garcia
+ *
+ * Este servlet pretende recoger las comandas del camarero que este en la sesion
+ * y que no esten pagadas.
+ * Si es el admin salen todas las comandas.
+ */
+
 @WebServlet(name="ServletGestionComandas", urlPatterns ={"/servlet-gestionComandas"})
 public class ServletGestionComandas extends HttpServlet {
 
@@ -25,6 +33,7 @@ public class ServletGestionComandas extends HttpServlet {
         //Creamos un servicio para poder recoger todas las comandas
         ComandaService comandaService = new ComandaService(new ComandaClient());
 
+        //Recuperamos al camarero de la sesion
         Camarero camarero = (Camarero) req.getSession().getAttribute("userLogin");
 
         //Verificamos que seamos o no el admin para mostrar todas las comandas
@@ -48,7 +57,6 @@ public class ServletGestionComandas extends HttpServlet {
             //Redirigimos a gestionComandas.jsp
             req.getRequestDispatcher("/gestionComandas/gestionComandas.jsp").forward(req, resp);
         }
-
     }
 
     @Override

@@ -11,6 +11,12 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
+/**
+ * @author Antonio Luis Garcia
+ *
+ * Este servlet pretende aumentar la cantidad de un producto en una comanda existente
+ */
+
 @WebServlet(name="ServletAumentarCantidadProductos", urlPatterns ={"/servlet-aumentarCantidad"})
 public class ServletAumentarCantidadProductos  extends HttpServlet {
     @Override
@@ -25,8 +31,11 @@ public class ServletAumentarCantidadProductos  extends HttpServlet {
         int idComanda = Integer.parseInt(req.getParameter("idComanda"));
         int cantidad = Integer.parseInt(req.getParameter("cantidad"));
 
+        //Aumentamos la cantidad del producto mediante los parametros anteriores
+        //Lo guardamos en una variable por si en un futuro lo usamos
         ComandaProducto comandaProducto = new ComandaProductoService(new ComandaProductoClient()).updateCantidadByIdAndIdComanda(idComanda, idProducto, cantidad);
 
+        //Redireccionamos al servlet de modificar comanda para que vuelva a recoger la comanda y la muestre actualizada en el jsp
         req.getRequestDispatcher("/servlet-modificarComanda").forward(req, resp);
     }
 

@@ -11,6 +11,14 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
+/**
+ * @author Antonio Luis Garcia
+ *
+ * Este servlet pretende validar los parametros recibidos con las credenciales de la aplicacion. En caso de coincidir
+ * crea un objeto de Camarero y lo almacena en la sesion, y en caso contrario redirige el flujo a la web de login con
+ * un mensaje de error para informar al usuario de lo que ha ocurrido.
+ */
+
 @WebServlet(name="ServletCambiarCantidadProductoEnComanda", urlPatterns ={"/servlet-cambiarCantidadProductoEnComanda"})
 public class ServletCambiarCantidadProductoEnComanda extends HttpServlet {
     @Override

@@ -8,6 +8,12 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
+/**
+ * @author Antonio Luis Garcia
+ *
+ * Este servlet pretende añadir mas productos a una comanda existente
+ */
+
 @WebServlet(name="ServletAnadirMasProductos", urlPatterns ={"/servlet-anadirMasProductos"})
 public class ServletAnadirMasProductos extends HttpServlet {
     @Override
@@ -19,14 +25,15 @@ public class ServletAnadirMasProductos extends HttpServlet {
         //Recogemos el id de la comanda para saber a que comanda añadimos el producto
         int idComanda = Integer.parseInt(req.getParameter("idComanda"));
 
-        //Creamos una variable booleana para saber en menu.jsp que venimos desde aqui y no estamos creando una comanda desde el principio
+        //Creamos una variable booleana para saber en menu.jsp que venimos desde aqui
+        // y no estamos creando una comanda desde el principio
         boolean anadirMasProductos = true;
 
-        //guardamos en la sesion las dos variables y cuando terminemos de añadir el producto las borraremos
+        //Guardamos en la sesion las dos variables y cuando terminemos de añadir el producto las borraremos
         req.getSession().setAttribute("idComanda", idComanda);
         req.getSession().setAttribute("anadirMasProductos", anadirMasProductos);
 
-        //redireccionamos al menu.jsp
+        //Redireccionamos al menu.jsp
         req.getRequestDispatcher("/menu/menu.jsp").forward(req, resp);
     }
 

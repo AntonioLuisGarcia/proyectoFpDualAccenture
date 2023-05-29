@@ -23,6 +23,7 @@ public class ServletBorrarComanda  extends HttpServlet {
         int idProducto = Integer.parseInt(req.getParameter("idProducto"));
         int idComanda = Integer.parseInt(req.getParameter("idComanda"));
 
+
         boolean borrado = new ComandaProductoService(new ComandaProductoClient()).borrarPorId(idComanda, idProducto);
 
         req.getSession().setAttribute("anadirMasProductos", true);

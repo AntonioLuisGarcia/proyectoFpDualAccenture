@@ -30,28 +30,6 @@ import java.util.List;
         urlPatterns ={"/servlet-login"})
 public class ServletLogin extends HttpServlet {
 
-    /**
-     * Método que es accedido cuando se invoca al servlet utilizando el metodo POST. Realiza los siguientes pasos:
-     *
-     * <ul>
-     *     <li> 1) Recuperamos los parametros de usuario y contraseña de la solicitud.</li>
-     *     <li> 2) Validamos si las credenciales del sistema coinciden con los parametros recibidos. En caso de que si:
-     *           <ul>
-     *               <li>a. Se crea un objeto de usuario con estos parametros.</li>
-     *               <li>b. Se asigna el objeto de usuario a la sesion.</li>
-     *               <li>c. Se indica el tiempo de expiración de la sesion.</li>
-     *               <li>d. Se indica en la respuesta la ruta de la redirección.</li>
-     *           </ul>
-     *           En caso de que no coincidan, se indica un mensaje de error y se hace forward a la pantalla de login.
-     *     </li>
-     * </ul
-     *
-     * @param req Objeto de solicitud de la llamada
-     * @param resp Objeto de respuesta de la llamada
-     * @throws IOException Error de entrada/salida
-     * @throws ServletException Error de componente servlet.
-     */
-
     private CamareroService service;
 
     @Override

@@ -22,6 +22,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
+/**
+ * @author Antonio Luis Garcia
+ *
+ * Este servlet pretende listar las comandasProducto de una determinada Comanda por su Id
+ */
+
 @WebServlet(name="ServletModificarComandas", urlPatterns ={"/servlet-modificarComanda"})
 public class ServletModificarComandas extends HttpServlet {
 
@@ -32,6 +39,7 @@ public class ServletModificarComandas extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+        //Comprobamos si nos llaman para añadir mas productos
         boolean anadirMasProductos;
         if(req.getSession().getAttribute("anadirMasProductos") != null){
             anadirMasProductos = true;
@@ -40,25 +48,30 @@ public class ServletModificarComandas extends HttpServlet {
         }
 
         int id;
-
+        //Si nos llaman desde añadirmas cogemos el id de la sesion y borramos los atributos
         if(anadirMasProductos){
             id = (int) req.getSession().getAttribute("idComanda");
             req.getSession().removeAttribute("anadirMasProductos");
             req.getSession().removeAttribute("idComanda");
         }else {
+            //Sino lo cogemos como parametro
             //llamaremos a ServletModificar para que nos liste las ComandasProductos con el id de esa comanda
             id = Integer.parseInt(req.getParameter("idComanda"));
         }
 
+        //Recogemos la lista de comandasProductos
         List<ComandaProducto> comandaProductos = new ComandaProductoService(new ComandaProductoClient()).getByIdComanda(id);
 
+        //Creamos un HashMap para guardar los productos y sus cantidades
         HashMap<Producto, Integer> productos = new HashMap<>();
+        //Creamos un servicio para usarlo en el bucle foreach
         ProductoService productoService = new ProductoService(new ProductoClient());
 
         for(ComandaProducto cp : comandaProductos){
             //No deberian de haber productos duplicados
             productos.put(productoService.getById(cp.getIdProducto()),cp.getCantidad());
         }
+        //enviamos los atributos a cambiarComanda.jsp
         req.setAttribute("idComanda", id);
         req.setAttribute("lista",productos);
         req.getRequestDispatcher("/cambiarComandas/cambiarComanda.jsp").forward(req, resp);

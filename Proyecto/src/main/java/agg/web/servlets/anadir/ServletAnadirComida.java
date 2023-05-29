@@ -13,6 +13,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * @author Antonio Luis Garcia
+ *
+ * Este servlet pretende añadir la comida, ya sea para pedir una comanda nueva, aumentar
+ * la cantidad de algun producto o añadir un producto a una comanda que ya exista
+ */
+
 @WebServlet(name="ServletAnadirComida", urlPatterns ={"/servlet-anadirComida"})
 public class ServletAnadirComida extends HttpServlet {
     @Override
@@ -23,9 +31,10 @@ public class ServletAnadirComida extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         // Recuperamos parametros de la entrada
-
         int idProducto = Integer.parseInt(req.getParameter("idProducto"));
         int cantidad = Integer.parseInt(req.getParameter("cantidad"));
+
+        //Comprobamos de que jsp nos llaman
         boolean cambio;
         if(req.getParameter("cambio") != null){
             cambio = true;
@@ -33,6 +42,7 @@ public class ServletAnadirComida extends HttpServlet {
             cambio = false;
         }
 
+        //Verificamos de que jsp nos llaman
         boolean anadirMasProductos;
         if(req.getSession().getAttribute("anadirMasProductos") != null){
             anadirMasProductos = true;
@@ -41,7 +51,6 @@ public class ServletAnadirComida extends HttpServlet {
         }
 
         //Si anadirMasProductos es true directamente lo añadimos a la base de datos y volvemos a la gestion de la comanda
-
         if(anadirMasProductos){
             int idComanda = (int) req.getSession().getAttribute("idComanda");
             new ComandaProductoService(new ComandaProductoClient()).create(new ComandaProducto(1, idComanda, idProducto, cantidad));
@@ -49,13 +58,11 @@ public class ServletAnadirComida extends HttpServlet {
         }else {
 
             // Creamos una ComandaProducto solo con los parametros que sabemos
-
             ComandaProducto comandaProducto = new ComandaProducto();
             comandaProducto.setIdProducto(idProducto);
             comandaProducto.setCantidad(cantidad);
 
-            //Hacemos una lista para añadir todos los productos a ella y cuando acabemos la comanda se la enviamos
-
+            //Hacemos una lista para añadir todos los productos a ella y cuando acabemos la comanda la enviamos
             List<ComandaProducto> comandaProductos;
 
             //Comprobamos que no exista antes
@@ -65,6 +72,7 @@ public class ServletAnadirComida extends HttpServlet {
                 comandaProductos = new ArrayList<>();
             }
 
+            //Si queremos cambiar alguba cantidad
             if (cambio) {
 
                 for (ComandaProducto cp : comandaProductos) {
@@ -73,14 +81,17 @@ public class ServletAnadirComida extends HttpServlet {
                     }
                 }
 
+                //Lo guardamos en la sesion y redireccionamos al servlet de pedir
                 req.getSession().setAttribute("listaComanda", comandaProductos);
                 req.getRequestDispatcher("/servlet-pedir").forward(req, resp);
 
             } else {
+
+                //Sino añadimos las Comandas
                 comandaProductos.add(comandaProducto);
             }
 
-            // La guardamos en la sesion
+            // La guardamos en la sesion y volvemos al menu
             req.getSession().setAttribute("listaComanda", comandaProductos);
             req.getRequestDispatcher("/menu/menu.jsp").forward(req, resp);
         }
