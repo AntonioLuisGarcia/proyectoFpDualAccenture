@@ -5,7 +5,8 @@ import java.util.List;
 public interface ProductoInterface<T> {
 
     /**
-     * Con este metodo listamos todos los productos que haya en la base de datos y los devolvemos en una lista
+     * Con este metodo listamos todos los productos que haya en la
+     * base de datos y los devolvemos en una lista
      *
      * @return List<Producto>
      */
