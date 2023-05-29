@@ -46,7 +46,7 @@
             <td><%= c.getLlegada()%></td>
             <td><%= c.getEmailContacto()%></td>
             <td>123</td>
-
+            <%if(!c.isPagada()){%>
             <form id="<%=modificarComanda%>" action="/Proyecto/servlet-modificarComanda" method="POST">
                   <input type="hidden" name="idComanda" value="<%=c.getId()%>">
             </form>
@@ -59,6 +59,7 @@
               <button href="#" onclick="document.getElementById('<%=modificarComanda%>').submit()" type="button" class="btn btn-sm btn-primary"><i class="fa fa-eye"></i></button>
               <button href="#" onclick="document.getElementById('<%=pagarComanda%>').submit()" type="button" class="btn btn-sm btn-success"><i class="fa fa-edit"></i></button>
             </td>
+            <%}%>
           </tr>
     <%}%>
 
