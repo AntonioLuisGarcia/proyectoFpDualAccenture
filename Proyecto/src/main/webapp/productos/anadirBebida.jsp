@@ -9,7 +9,7 @@
 <%Bebida bebida = (Bebida) request.getAttribute("bebida");%>
 
 	<div class="product-card">
-		<div class="badge">Hot</div>
+		<div class="badge">Fría</div>
 		<div class="product-tumb">
 		<%String imagen = bebida.getImagen();%>
 			<img src="/Proyecto/assets/images/<%=imagen%>" alt="">
@@ -41,7 +41,7 @@
 
                 </div>
                 <div class="inputbox">
-                  <input type="submit" value="submit" class="boton">
+                  <input type="submit" value="Pedir" class="boton">
                 </div>
               </form>
 			</div>
