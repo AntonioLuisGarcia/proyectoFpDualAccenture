@@ -57,7 +57,7 @@
                         <input type="text" name="email">
                         <br>
                         Nº Mesa:
-                        <input type="number" name="mesa">
+                        <input type="number" name="mesa" min=1 max=10>
                         <br> <br>
                         <input type="submit" value="Pedir" class="boton">
                       </div>
