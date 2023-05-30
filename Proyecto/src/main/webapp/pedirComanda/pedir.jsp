@@ -35,10 +35,10 @@
                             <span style="font-size: 16px;color: #fbb72c;font-weight: 300;">Cantidad:</span>
                           <input type="hidden" value="<%=(p.getKey()).getId()%>" name="idProducto">
                           <input type="hidden" value="<%= true %>" name="cambio">
-                          <input type="number" value="<%=lista.get(p.getKey())%>" name="cantidad">
+                          <input type="number" value="<%=lista.get(p.getKey())%>" name="cantidad" min="<%=lista.get(p.getKey())%>" max=100>
                         </div>
                         <div class="inputbox">
-                          <input type="submit" value="submit" class="boton">
+                          <input type="submit" value="Pedir" class="boton">
                         </div>
                       </form>
         			</div>
