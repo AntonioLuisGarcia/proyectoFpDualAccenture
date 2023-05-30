@@ -46,7 +46,7 @@
     <header class="header_section">
       <div class="container">
         <nav class="navbar navbar-expand-lg custom_nav-container ">
-          <a class="navbar-brand" href="index.html">
+          <a class="navbar-brand" href="#">
             <span>
               <% Camarero camarero = (Camarero) session.getAttribute("userLogin"); %>
               <%= camarero.getNombre() %>
@@ -88,7 +88,7 @@
     <div class="container">
       <div class="heading_container heading_center">
         <h2>
-          Our Menu
+          Menú
         </h2>
       </div>
 
