@@ -1,6 +1,15 @@
 <%@ page pageEncoding="UTF-8"%>
 <%@page import="agg.persistence.dao.clases.Comanda"%>
+<%@page import="agg.client.ComandaProductoClient"%>
+<%@page import="agg.service.ComandaProductoService"%>
+<%@page import="agg.client.CamareroClient"%>
+<%@page import="agg.service.CamareroService"%>
 <%@page import="java.util.List"%>
+<%@page import="agg.client.ProductoClient"%>
+<%@page import="agg.persistence.dao.clases.ComandaProducto"%>
+<%@page import="agg.persistence.dao.clases.ComandaProducto"%>
+<%@page import="agg.persistence.dao.clases.Productos.Comida"%>
+<%@page import="agg.service.ProductoService"%>
 
 <html>
 <head>
@@ -13,7 +22,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <link href="/Proyecto/assets/css/productos.css" rel="stylesheet" type="text/css">
 </head>
-<body>
+<body style="background-color: #fffbee">
 <%List<Comanda> comandas = (List<Comanda>) request.getAttribute("comandas");%>
 
 <table class="table table-bordered">
@@ -22,8 +31,8 @@
       <th scope="col">Id</th>
       <th scope="col">Camarero</th>
       <th scope="col">Mesa</th>
-      <th scope="col">Email</th>
       <th scope="col">Fecha</th>
+      <th scope="col">Email</th>
       <th scope="col">Total</th>
       <th scope="col">Acciones</th>
     </tr>
@@ -33,19 +42,36 @@
   <%
   String modificarComanda = "";
   String pagarComanda = "";
+  double total = 0;
+  String nombre = "";
+  ComandaProductoService comandaProductoService = new ComandaProductoService(new ComandaProductoClient());
+  ProductoService productoService = new ProductoService(new ProductoClient());
+  CamareroService camareroService = new CamareroService(new CamareroClient());
+
     for(Comanda c : comandas){
 
-    modificarComanda = "modificar" + c.getId();
-    pagarComanda = "pagar" + c.getId();
+        nombre = camareroService.getById(c.getIdCamarero()).getNombre();
+        total = 0;
+        List<ComandaProducto> comandasProducto = comandaProductoService.getByIdComanda(c.getId());
+
+        for(ComandaProducto cp : comandasProducto){
+            total += productoService.getById(cp.getIdProducto()).getPrecio() * cp.getCantidad();
+        }
+
+        //Para que solo salgan dos decimales
+        total = ((int)(total * 100.0))/100.0;
+
+        modificarComanda = "modificar" + c.getId();
+        pagarComanda = "pagar" + c.getId();
   %>
 
   <tr>
             <th scope="row"><%= c.getId() %></th>
-            <td><%= c.getIdCamarero() %></td>
+            <td><%= nombre %></td>
             <td><%= c.getIdMesa() %></td>
             <td><%= c.getLlegada()%></td>
             <td><%= c.getEmailContacto()%></td>
-            <td>123</td>
+            <td><%=total%></td>
             <%if(!c.isPagada()){%>
             <form id="<%=modificarComanda%>" action="/Proyecto/servlet-modificarComanda" method="POST">
                   <input type="hidden" name="idComanda" value="<%=c.getId()%>">
