@@ -1,74 +1,135 @@
 package agg.client;
 
-import agg.client.ComandaClient;
 import agg.persistence.dao.clases.Comanda;
+import agg.persistence.dao.clases.ComandaProducto;
 import jakarta.ws.rs.client.Client;
+import jakarta.ws.rs.client.Entity;
+import jakarta.ws.rs.client.Invocation;
 import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.GenericType;
 import jakarta.ws.rs.core.MediaType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.when;
 
+@ExtendWith(MockitoExtension.class)
 public class ComandaClientTest {
 
-    /*
     @Mock
     private Client client;
-
     @Mock
     private WebTarget webTarget;
+
+    @Mock
+    private Invocation invocation;
+
+    @Mock
+    private Invocation.Builder builder;
+
+    private Comanda comanda;
 
     private ComandaClient comandaClient;
 
     @BeforeEach
-    public void setup() {
+    void setUp() {
+        comanda = new Comanda(1,1,1,"", "", new ArrayList<ComandaProducto>(), true);
         MockitoAnnotations.openMocks(this);
-        comandaClient = new ComandaClient();
-        comandaClient.setWebTarget(webTarget);
-        webTarget = client.target();
+        when(client.target(anyString())).thenReturn(webTarget);
+        comandaClient = new ComandaClient(client);
     }
 
     @Test
-    public void testListAll() {
-        List<Comanda> expectedComandas = new ArrayList<>();
-        expectedComandas.add(new Comanda());
-        expectedComandas.add(new Comanda());
+    void getById_ok() {
 
-        Mockito.when(webTarget.path(Mockito.anyString())).thenReturn(webTarget);
-        Mockito.when(webTarget.request(Mockito.anyString())).thenReturn(webTarget);
-        Mockito.when(webTarget.get(Mockito.any(GenericType.class))).thenReturn(expectedComandas);
+        when(webTarget.path(anyString())).thenReturn(webTarget);
+        when(webTarget.queryParam(any(),any())).thenReturn(webTarget);
+        when(webTarget.request(MediaType.APPLICATION_JSON)).thenReturn(builder);
+        when(builder.get(Comanda.class)).thenReturn(comanda);
 
-        List<Comanda> actualComandas = comandaClient.listAll();
+        Comanda comandaTest = comandaClient.getById(2);
 
-        assertEquals(expectedComandas, actualComandas);
+        assertEquals(comandaTest.getId(), comanda.getId());
     }
 
     @Test
-    public void testGetById() {
-        int id = 1;
-        Comanda expectedComanda = new Comanda();
+    void listAll_ok() {
 
-        Mockito.when(webTarget.path(Mockito.anyString())).thenReturn(webTarget);
-        Mockito.when(webTarget.queryParam(Mockito.anyString(), Mockito.anyInt())).thenReturn(webTarget);
-        Mockito.when(webTarget.request(Mockito.anyString())).thenReturn(webTarget);
-        Mockito.when(webTarget.get(Comanda.class)).thenReturn(expectedComanda);
+        List<Comanda> comandas = new ArrayList<>();
+        comandas.add(comanda);
 
-        Comanda actualComanda = comandaClient.getById(id);
+        when(webTarget.path(anyString())).thenReturn(webTarget);
+        when(webTarget.request(MediaType.APPLICATION_JSON)).thenReturn(builder);
+        when(builder.get(new GenericType<List<Comanda>>() {})).thenReturn(comandas);
 
-        assertEquals(expectedComanda, actualComanda);
+        List<Comanda> comandasTest = comandaClient.listAll();
+
+        assertEquals(comandasTest.size(), comandas.size());
     }
 
-    // Similary, you can write tests for other methods such as getNoPagadas, getNoPagadasYPorIdCamarero, createComanda, pagarComanda.
+    @Test
+    void getNoPagadas_ok() {
 
-    public void setWebTarget(WebTarget webTarget) {
-        this.webTarget = webTarget;
-    }*/
+        List<Comanda> comandas = new ArrayList<>();
+        comandas.add(comanda);
+
+        when(webTarget.path(anyString())).thenReturn(webTarget);
+        when(webTarget.request(MediaType.APPLICATION_JSON)).thenReturn(builder);
+        when(builder.get(new GenericType<List<Comanda>>() {})).thenReturn(comandas);
+
+        List<Comanda> comandasTest = comandaClient.getNoPagadas();
+
+        assertEquals(comandasTest.size(), comandas.size());
+    }
+
+    @Test
+    void getNoPagadasYPorIdCamarero_ok() {
+
+        List<Comanda> comandas = new ArrayList<>();
+        comandas.add(comanda);
+
+        when(webTarget.path(anyString())).thenReturn(webTarget);
+        when(webTarget.request(MediaType.APPLICATION_JSON)).thenReturn(builder);
+        when(webTarget.queryParam(any(),any())).thenReturn(webTarget);
+        when(builder.get(new GenericType<List<Comanda>>() {})).thenReturn(comandas);
+
+        List<Comanda> comandasTest = comandaClient.getNoPagadasYPorIdCamarero(1);
+
+        assertEquals(comandasTest.size(), comandas.size());
+    }
+
+    @Test
+    void create_ok() {
+
+
+        when(webTarget.path(anyString())).thenReturn(webTarget);
+        when(webTarget.request(MediaType.APPLICATION_JSON)).thenReturn(builder);
+        when(builder.post(Entity.entity(comanda, MediaType.APPLICATION_JSON),Comanda.class)).thenReturn(comanda);
+
+        Comanda comandaTest = comandaClient.create(comanda);
+
+        assertEquals(comandaTest.getId(), comanda.getId());
+    }
+
+    @Test
+    void pagarComanda_ok() {
+
+        when(webTarget.path(anyString())).thenReturn(webTarget);
+        when(webTarget.request(MediaType.APPLICATION_JSON)).thenReturn(builder);
+        when(builder.put(Entity.entity("", MediaType.APPLICATION_JSON),Comanda.class)).thenReturn(comanda);
+
+        Comanda comandaTest = comandaClient.pagarComanda(1);
+
+        assertEquals(comandaTest.getId(), comanda.getId());
+    }
 }
