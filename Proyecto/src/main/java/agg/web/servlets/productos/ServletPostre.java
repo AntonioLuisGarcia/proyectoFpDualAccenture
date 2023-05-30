@@ -8,6 +8,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.ws.rs.client.ClientBuilder;
 
 import java.io.IOException;
 
@@ -23,7 +24,7 @@ public class ServletPostre extends HttpServlet {
 
         // Recuperamos parametros de la entrada
         int id = Integer.parseInt(req.getParameter("idProducto"));
-        Postre postre = new PostreService(new PostreClient()).getById(id);
+        Postre postre = new PostreService(new PostreClient(ClientBuilder.newClient())).getById(id);
         req.setAttribute("postre",postre);
         req.getRequestDispatcher("/productos/anadirPostre.jsp").forward(req, resp);
     }

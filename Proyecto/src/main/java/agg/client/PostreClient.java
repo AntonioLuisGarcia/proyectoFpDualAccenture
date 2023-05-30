@@ -13,8 +13,7 @@ public class PostreClient {
 
     private final WebTarget webTarget;
 
-    public PostreClient() {
-        Client client = ClientBuilder.newClient();
+    public PostreClient(Client client) {
         this.webTarget = client.target("http://localhost:8082/WebServiceProyecto/api/");
     }
 

@@ -8,6 +8,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.ws.rs.client.ClientBuilder;
 
 import java.io.IOException;
 
@@ -23,7 +24,7 @@ public class ServletComida extends HttpServlet {
 
         // Recuperamos parametros de la entrada
         int id = Integer.parseInt(req.getParameter("idProducto"));
-        Comida comida = new ComidaService(new ComidaClient()).getById(id);
+        Comida comida = new ComidaService(new ComidaClient(ClientBuilder.newClient())).getById(id);
         req.setAttribute("comida",comida);
         req.getRequestDispatcher("/productos/anadirComida.jsp").forward(req, resp);
     }

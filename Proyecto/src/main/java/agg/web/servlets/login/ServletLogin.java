@@ -11,6 +11,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.ws.rs.client.ClientBuilder;
 
 import java.io.IOException;
 import java.util.List;
@@ -34,7 +35,7 @@ public class ServletLogin extends HttpServlet {
 
     @Override
     public void init()throws ServletException {
-        service = new CamareroService(new CamareroClient());
+        service = new CamareroService(new CamareroClient(ClientBuilder.newClient()));
     }
 
     @Override
@@ -53,9 +54,9 @@ public class ServletLogin extends HttpServlet {
         if(camarero != null){
 
             // Se consulta a la BD las productos
-            List food = new ComidaService(new ComidaClient()).listAll();
-            List postres = new PostreService(new PostreClient()).listAll();
-            List drinks = new BebidaService(new BebidaClient()).lisAll();
+            List food = new ComidaService(new ComidaClient(ClientBuilder.newClient())).listAll();
+            List postres = new PostreService(new PostreClient(ClientBuilder.newClient())).listAll();
+            List drinks = new BebidaService(new BebidaClient(ClientBuilder.newClient())).lisAll();
 
             //Se guarda a la sesion el Camarero
             req.getSession().setAttribute("userLogin", camarero);
@@ -65,7 +66,7 @@ public class ServletLogin extends HttpServlet {
             req.getSession().setAttribute("postresList",postres);
             req.getSession().setAttribute("drinks",drinks);
 
-            //Se indica el tiempo de expiración de la sesion
+            //No indicaremos tiempo maximo de sesion
             /*req.getSession().setMaxInactiveInterval(10);*/
 
             //Redirigimos a pagina menu.jsp utilizando el metodo "getRequestDispatcher" del objeto de respuesta
@@ -73,7 +74,8 @@ public class ServletLogin extends HttpServlet {
 
         } else {
             //Se indica mensaje de error en los atributos de la solicitud
-            req.setAttribute("error","Error al validar usuario y contraseña");
+            String error = "Error al validar usuario y contraseña" ;
+            req.setAttribute("error",error);
 
             //Indicamos al dispatcher que haga un forward de la solicitud. Tener en cuenta que esta solicitud es la
             //recibida en este servlet mas los parametros indicados en los atributos.

@@ -13,8 +13,7 @@ public class ComidaClient {
 
     private final WebTarget webTarget;
 
-    public ComidaClient() {
-        Client client = ClientBuilder.newClient();
+    public ComidaClient(Client client) {
         this.webTarget = client.target("http://localhost:8082/WebServiceProyecto/api/");
     }
 

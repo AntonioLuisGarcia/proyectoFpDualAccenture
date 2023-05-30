@@ -2,7 +2,6 @@ package agg.client;
 
 import agg.persistence.dao.clases.Productos.Bebida;
 import jakarta.ws.rs.client.Client;
-import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.GenericType;
 import jakarta.ws.rs.core.MediaType;
@@ -13,8 +12,7 @@ public class BebidaClient {
 
     private final WebTarget webTarget;
 
-    public BebidaClient() {
-        Client client = ClientBuilder.newClient();
+    public BebidaClient(Client client) {
         this.webTarget = client.target("http://localhost:8082/WebServiceProyecto/api/");
     }
 
