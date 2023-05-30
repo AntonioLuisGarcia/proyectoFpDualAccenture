@@ -7,6 +7,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.ws.rs.client.ClientBuilder;
 
 import java.io.IOException;
 
@@ -24,7 +25,7 @@ public class ServletBorrarComanda  extends HttpServlet {
         int idComanda = Integer.parseInt(req.getParameter("idComanda"));
 
 
-        boolean borrado = new ComandaProductoService(new ComandaProductoClient()).borrarPorId(idComanda, idProducto);
+        boolean borrado = new ComandaProductoService(new ComandaProductoClient(ClientBuilder.newClient())).borrarPorId(idComanda, idProducto);
 
         req.getSession().setAttribute("anadirMasProductos", true);
         req.getSession().setAttribute("idComanda", idComanda);

@@ -9,6 +9,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.ws.rs.client.ClientBuilder;
 
 import java.io.IOException;
 
@@ -31,7 +32,7 @@ public class ServletPagarComanda extends HttpServlet {
         int id = Integer.parseInt(req.getParameter("idComanda"));
 
         //Cambiamos el estado de la comanda a pagada
-        Comanda comanda = new ComandaService(new ComandaClient()).pagarComanda(id);
+        Comanda comanda = new ComandaService(new ComandaClient(ClientBuilder.newClient())).pagarComanda(id);
 
         //Enviamos un email con los datos de la comanda
         Sender sender = new Sender();

@@ -9,6 +9,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.ws.rs.client.ClientBuilder;
 
 import java.io.IOException;
 import java.util.List;
@@ -31,7 +32,7 @@ public class ServletGestionComandas extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //Creamos un servicio para poder recoger todas las comandas
-        ComandaService comandaService = new ComandaService(new ComandaClient());
+        ComandaService comandaService = new ComandaService(new ComandaClient(ClientBuilder.newClient()));
 
         //Recuperamos al camarero de la sesion
         Camarero camarero = (Camarero) req.getSession().getAttribute("userLogin");

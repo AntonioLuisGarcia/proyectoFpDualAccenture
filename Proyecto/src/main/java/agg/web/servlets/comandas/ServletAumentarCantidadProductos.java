@@ -8,6 +8,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.ws.rs.client.ClientBuilder;
 
 import java.io.IOException;
 
@@ -33,7 +34,7 @@ public class ServletAumentarCantidadProductos  extends HttpServlet {
 
         //Aumentamos la cantidad del producto mediante los parametros anteriores
         //Lo guardamos en una variable por si en un futuro lo usamos
-        ComandaProducto comandaProducto = new ComandaProductoService(new ComandaProductoClient()).updateCantidadByIdAndIdComanda(idComanda, idProducto, cantidad);
+        ComandaProducto comandaProducto = new ComandaProductoService(new ComandaProductoClient(ClientBuilder.newClient())).updateCantidadByIdAndIdComanda(idComanda, idProducto, cantidad);
 
         //Redireccionamos al servlet de modificar comanda para que vuelva a recoger la comanda y la muestre actualizada en el jsp
         req.getRequestDispatcher("/servlet-modificarComanda").forward(req, resp);

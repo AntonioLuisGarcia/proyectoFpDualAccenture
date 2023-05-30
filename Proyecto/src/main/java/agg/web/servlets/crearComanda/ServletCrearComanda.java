@@ -15,6 +15,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.ws.rs.client.ClientBuilder;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -34,7 +35,7 @@ public class ServletCrearComanda extends HttpServlet {
         // Recuperamos parametros de pedir.jsp
         // podemos pasarlo desde el jsp de pedir.jsp en lugar de en la sesion
         int mesa = Integer.parseInt(req.getParameter("mesa"));
-        if(new MesaService(new MesaClient()).getById(mesa) == null){
+        if(new MesaService(new MesaClient(ClientBuilder.newClient())).getById(mesa) == null){
             String error = "Mesa incorrecta";
             req.setAttribute("error", error);
             req.getRequestDispatcher("/servlet-pedir").forward(req, resp);
@@ -47,9 +48,9 @@ public class ServletCrearComanda extends HttpServlet {
 
         //Cuando creemos la comanda nos tiene que aparecer en finalizarCompra.jsp el id de la Comanda
 
-        Comanda comanda = new ComandaService(new ComandaClient()).create(new Comanda(1,mesa,camarero.getId(), "2023-05-31",email,new ArrayList<ComandaProducto>(),false));
+        Comanda comanda = new ComandaService(new ComandaClient(ClientBuilder.newClient())).create(new Comanda(1,mesa,camarero.getId(), "2023-05-31",email,new ArrayList<ComandaProducto>(),false));
 
-        ComandaProductoService comandaProductoService = new ComandaProductoService(new ComandaProductoClient());
+        ComandaProductoService comandaProductoService = new ComandaProductoService(new ComandaProductoClient(ClientBuilder.newClient()));
 
         for(Map.Entry<Producto, Integer> p : lista.entrySet()){
             comandaProductoService.create(new ComandaProducto(1,comanda.getId(),p.getKey().getId(),p.getValue()));

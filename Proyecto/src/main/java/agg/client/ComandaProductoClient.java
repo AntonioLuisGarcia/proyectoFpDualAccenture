@@ -15,8 +15,7 @@ public class ComandaProductoClient {
 
     private final WebTarget webTarget;
 
-    public ComandaProductoClient() {
-        Client client = ClientBuilder.newClient();
+    public ComandaProductoClient(Client client) {
         this.webTarget = client.target("http://localhost:8082/WebServiceProyecto/api/");
     }
 

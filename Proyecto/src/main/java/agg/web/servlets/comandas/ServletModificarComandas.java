@@ -15,6 +15,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.ws.rs.client.ClientBuilder;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -60,12 +61,12 @@ public class ServletModificarComandas extends HttpServlet {
         }
 
         //Recogemos la lista de comandasProductos
-        List<ComandaProducto> comandaProductos = new ComandaProductoService(new ComandaProductoClient()).getByIdComanda(id);
+        List<ComandaProducto> comandaProductos = new ComandaProductoService(new ComandaProductoClient(ClientBuilder.newClient())).getByIdComanda(id);
 
         //Creamos un HashMap para guardar los productos y sus cantidades
         HashMap<Producto, Integer> productos = new HashMap<>();
         //Creamos un servicio para usarlo en el bucle foreach
-        ProductoService productoService = new ProductoService(new ProductoClient());
+        ProductoService productoService = new ProductoService(new ProductoClient(ClientBuilder.newClient()));
 
         for(ComandaProducto cp : comandaProductos){
             //No deberian de haber productos duplicados
@@ -103,9 +104,9 @@ public class ServletModificarComandas extends HttpServlet {
 
             //Cuando creemos la comanda nos tiene que aparecer en finalizarCompra.jsp el id de la Comanda
 
-            Comanda comanda = new ComandaService(new ComandaClient()).create(new Comanda(1,mesa,camarero.getId(), "2023-05-31",email,new ArrayList<ComandaProducto>(),false));
+            Comanda comanda = new ComandaService(new ComandaClient(ClientBuilder.newClient())).create(new Comanda(1,mesa,camarero.getId(), "2023-05-31",email,new ArrayList<ComandaProducto>(),false));
 
-            ComandaProductoService comandaProductoService = new ComandaProductoService(new ComandaProductoClient());
+            ComandaProductoService comandaProductoService = new ComandaProductoService(new ComandaProductoClient(ClientBuilder.newClient()));
 
             for(Map.Entry<Producto, Integer> p : lista.entrySet()){
                 comandaProductoService.create(new ComandaProducto(1,comanda.getId(),p.getKey().getId(),p.getValue()));

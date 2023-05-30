@@ -8,6 +8,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.ws.rs.client.ClientBuilder;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -53,7 +54,7 @@ public class ServletAnadirComida extends HttpServlet {
         //Si anadirMasProductos es true directamente lo añadimos a la base de datos y volvemos a la gestion de la comanda
         if(anadirMasProductos){
             int idComanda = (int) req.getSession().getAttribute("idComanda");
-            new ComandaProductoService(new ComandaProductoClient()).create(new ComandaProducto(1, idComanda, idProducto, cantidad));
+            new ComandaProductoService(new ComandaProductoClient(ClientBuilder.newClient())).create(new ComandaProducto(1, idComanda, idProducto, cantidad));
             req.getRequestDispatcher("/servlet-modificarComanda").forward(req, resp);
         }else {
 

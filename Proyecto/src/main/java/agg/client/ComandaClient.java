@@ -2,7 +2,6 @@ package agg.client;
 
 import agg.persistence.dao.clases.Comanda;
 import jakarta.ws.rs.client.Client;
-import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.GenericType;
@@ -14,8 +13,7 @@ public class ComandaClient {
 
     private final WebTarget webTarget;
 
-    public ComandaClient() {
-        Client client = ClientBuilder.newClient();
+    public ComandaClient(Client client) {
         this.webTarget = client.target("http://localhost:8082/WebServiceProyecto/api/");
     }
 

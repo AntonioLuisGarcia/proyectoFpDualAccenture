@@ -9,6 +9,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.ws.rs.client.ClientBuilder;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -42,7 +43,7 @@ public class ServletPedir extends HttpServlet {
             for(ComandaProducto cp : comandaProductos){
 
                 //Recogemos el producto por su Id
-                Producto p = new ProductoService(new ProductoClient()).getById(cp.getIdProducto());
+                Producto p = new ProductoService(new ProductoClient(ClientBuilder.newClient())).getById(cp.getIdProducto());
 
                 //Comprobamos que ya exista el valor para que no se sobreescriba
                 if(lista.containsKey(p)){
