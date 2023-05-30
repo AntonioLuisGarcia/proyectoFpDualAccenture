@@ -89,11 +89,11 @@ public class ServletAnadirComida extends HttpServlet {
 
                 //Sino añadimos las Comandas
                 comandaProductos.add(comandaProducto);
-            }
 
-            // La guardamos en la sesion y volvemos al menu
-            req.getSession().setAttribute("listaComanda", comandaProductos);
-            req.getRequestDispatcher("/menu/menu.jsp").forward(req, resp);
+                // La guardamos en la sesion y volvemos al menu
+                req.getSession().setAttribute("listaComanda", comandaProductos);
+                req.getRequestDispatcher("/menu/menu.jsp").forward(req, resp);
+            }
         }
     }
 
