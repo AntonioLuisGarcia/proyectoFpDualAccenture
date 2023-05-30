@@ -44,8 +44,8 @@
   String pagarComanda = "";
   double total = 0;
   String nombre = "";
-  ComandaProductoService comandaProductoService = new ComandaProductoService(new ComandaProductoClient());
-  ProductoService productoService = new ProductoService(new ProductoClient());
+  ComandaProductoService comandaProductoService = new ComandaProductoService(new ComandaProductoClient(ClientBuilder.newClient()));
+  ProductoService productoService = new ProductoService(new ProductoClient(ClientBuilder.newClient()));
   CamareroService camareroService = new CamareroService(new CamareroClient(ClientBuilder.newClient()));
 
     for(Comanda c : comandas){
