@@ -46,7 +46,7 @@
   String nombre = "";
   ComandaProductoService comandaProductoService = new ComandaProductoService(new ComandaProductoClient());
   ProductoService productoService = new ProductoService(new ProductoClient());
-  CamareroService camareroService = new CamareroService(new CamareroClient());
+  CamareroService camareroService = new CamareroService(new CamareroClient(ClientBuilder.newClient()));
 
     for(Comanda c : comandas){
 
