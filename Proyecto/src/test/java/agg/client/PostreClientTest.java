@@ -1,7 +1,9 @@
 package agg.client;
 
-import agg.persistence.dao.clases.Productos.Bebida;
-import jakarta.ws.rs.client.*;
+import agg.persistence.dao.clases.Productos.Postre;
+import jakarta.ws.rs.client.Client;
+import jakarta.ws.rs.client.Invocation;
+import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.GenericType;
 import jakarta.ws.rs.core.MediaType;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,11 +16,14 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class BebidaClientTest {
+class PostreClientTest {
+
     @Mock
     private Client client;
     @Mock
@@ -30,16 +35,16 @@ class BebidaClientTest {
     @Mock
     private Invocation.Builder builder;
 
-    private Bebida bebida;
+    private Postre postre;
 
-    private BebidaClient bebidaClient;
+    private PostreClient postreClient;
 
     @BeforeEach
     void setUp() {
-        bebida = new Bebida(true,1);
+        postre = new Postre(1,1);
         MockitoAnnotations.openMocks(this);
         when(client.target(anyString())).thenReturn(webTarget);
-        bebidaClient = new BebidaClient(client);
+        postreClient = new PostreClient(client);
     }
 
     @Test
@@ -48,25 +53,25 @@ class BebidaClientTest {
         when(webTarget.path(anyString())).thenReturn(webTarget);
         when(webTarget.queryParam(any(),any())).thenReturn(webTarget);
         when(webTarget.request(MediaType.APPLICATION_JSON)).thenReturn(builder);
-        when(builder.get(Bebida.class)).thenReturn(bebida);
+        when(builder.get(Postre.class)).thenReturn(postre);
 
-        Bebida bebidaTest = bebidaClient.getById(2);
+        Postre postreTest = postreClient.getById(2);
 
-        assertEquals(bebida.getId(), bebidaTest.getId());
+        assertEquals(postreTest.getId(), postre.getId());
     }
 
     @Test
     void listAll_ok() {
 
-        List<Bebida> bebidas = new ArrayList<>();
-        bebidas.add(bebida);
+        List<Postre> postres = new ArrayList<>();
+        postres.add(postre);
 
         when(webTarget.path(anyString())).thenReturn(webTarget);
         when(webTarget.request(MediaType.APPLICATION_JSON)).thenReturn(builder);
-        when(builder.get(new GenericType<List<Bebida>>() {})).thenReturn(bebidas);
+        when(builder.get(new GenericType<List<Postre>>() {})).thenReturn(postres);
 
-        List<Bebida> bebidasTest = bebidaClient.listAll();
+        List<Postre> postresTest = postreClient.listAll();
 
-        assertEquals(bebidas.size(), bebidasTest.size());
+        assertEquals(postres.size(), postresTest.size());
     }
 }
