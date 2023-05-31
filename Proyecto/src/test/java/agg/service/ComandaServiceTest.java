@@ -83,4 +83,14 @@ class ComandaServiceTest {
         MatcherAssert.assertThat(comandaTest, Matchers.is(comanda));
     }
 
+    @Test
+    void pagarComanda_ok(){
+        when(comandaClient.pagarComanda(Mockito.anyInt())).thenReturn(comanda);
+
+        Comanda comandaTest = comandaService.pagarComanda(1);
+
+        MatcherAssert.assertThat(comandaTest, Matchers.is(comanda));
+
+    }
+
 }
