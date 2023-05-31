@@ -4,6 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Esta es la clase para crear Mesas.
+ *
+ * @author Antonio Luis Garcia
+ */
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

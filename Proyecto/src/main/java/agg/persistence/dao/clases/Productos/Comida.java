@@ -4,6 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Clase que hereda de Producto y controla las Comidas.
+ *
+ * @author Antonio Luis Garcia
+ */
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

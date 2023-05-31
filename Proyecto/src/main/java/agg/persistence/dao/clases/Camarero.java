@@ -4,6 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Esta clase es para crear a los camareros.
+ *
+ * @author Antonio Luis Garcia
+ */
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

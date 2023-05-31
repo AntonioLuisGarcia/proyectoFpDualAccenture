@@ -5,6 +5,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Clase heredara de Producto que controla las Bebidas.
+ *
+ * @author Antonio Luis Garcia
+ */
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

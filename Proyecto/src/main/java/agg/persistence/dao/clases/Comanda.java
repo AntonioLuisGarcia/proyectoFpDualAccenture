@@ -6,6 +6,15 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+/**
+ * Esta clase controla los pedidos que hace un camarero en una mesa.
+ * En ella se guardan los Ids del camarero y de la mesa para identificarala.
+ * Ademas, tiene la fecha de llegada, email para contacto, la lista de productos con sus cantidades
+ * y se determina si esta pagada o no.
+ *
+ * @author Antonio Luis Garcia
+ */
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
