@@ -10,6 +10,7 @@
 <%@page import="agg.persistence.dao.clases.ComandaProducto"%>
 <%@page import="agg.persistence.dao.clases.Productos.Comida"%>
 <%@page import="agg.service.ProductoService"%>
+<%@page import="jakarta.ws.rs.client.ClientBuilder"%>
 
 <html>
 <head>
@@ -84,6 +85,15 @@
             <td class="py-2">
               <button href="#" onclick="document.getElementById('<%=modificarComanda%>').submit()" type="button" class="btn btn-sm btn-primary"><i class="fa fa-eye"></i></button>
               <button href="#" onclick="document.getElementById('<%=pagarComanda%>').submit()" type="button" class="btn btn-sm btn-success"><i class="fa fa-edit"></i></button>
+            </td>
+            <%}else{%>
+
+            <form id="<%=modificarComanda%>" action="/Proyecto/servlet-modificarComanda" method="POST">
+                  <input type="hidden" name="idComanda" value="<%=c.getId()%>">
+            </form>
+
+            <td class="py-2">
+            <button href="#" onclick="document.getElementById('<%=modificarComanda%>').submit()" type="button" class="btn btn-sm btn-primary"><i class="fa fa-eye"></i></button>
             </td>
             <%}%>
           </tr>
