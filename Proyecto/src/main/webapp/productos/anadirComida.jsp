@@ -35,7 +35,7 @@
                 <div class="inputbox">
                     <span style="font-size: 16px;color: #fbb72c;font-weight: 300;">Cantidad:</span>
                     <br>
-                  <input type="number" required="required" name="cantidad" min="0" max="100">
+                  <input type="number" required="required" name="cantidad" min="1" max="100">
                   <br>
                   <input type="hidden" name="idProducto" value="<%=comida.getId()%>">
 
