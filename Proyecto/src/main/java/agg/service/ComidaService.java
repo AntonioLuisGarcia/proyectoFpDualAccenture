@@ -13,10 +13,21 @@ public class ComidaService {
         this.comidaClient = comidaClient;
     }
 
+    /**
+     * Devuelve un objeto comida mediante su Id.
+     *
+     * @param id
+     * @return Comida
+     */
     public Comida getById(int id){
         return comidaClient.getProductById(id);
     }
 
+    /**
+     * Devuelve una lista con todos los registros de comida en la BBDD.
+     *
+     * @return List<Comida>
+     */
     public List<Comida> listAll(){
         return comidaClient.listAll();
     }

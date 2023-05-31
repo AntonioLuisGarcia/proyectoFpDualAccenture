@@ -11,6 +11,12 @@ public class MesaService {
         this.mesaClient = mesaClient;
     }
 
+    /**
+     * Devuelve un objeto Mesa mediante su Id.
+     *
+     * @param id
+     * @return Mesa
+     */
     public Mesa getById(int id){
         return mesaClient.getById(id);
     }

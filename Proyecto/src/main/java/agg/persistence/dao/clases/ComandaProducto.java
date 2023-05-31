@@ -1,9 +1,14 @@
 package agg.persistence.dao.clases;
 
-import agg.persistence.dao.clases.Productos.Producto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+/**
+ * Esta clase sirve para contar la cantidad de un producto que haya en una comanda.
+ * En ella guardamos los Ids del producto y de la comanda para saber a cual corresponde.
+ *
+ */
 
 @Data
 @AllArgsConstructor
