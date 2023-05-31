@@ -16,14 +16,13 @@
 
 
             <div class="product-card">
-        		<div class="badge">Hot</div>
         		<div class="product-tumb">
         		<%String imagen = (p.getKey()).getImagen();%>
         			<img src="/Proyecto/assets/images/<%=imagen%>" alt="">
         		</div>
         		<div class="product-details">
         			<span class="product-catagory">          </span>
-        			<h4><a href=""><%= (p.getKey()).getNombre() %></a></h4>
+        			<h4><a href="#"><%= (p.getKey()).getNombre() %></a></h4>
         			<p><%= (p.getKey()).getDescripcion() %></p>
         			<div class="product-bottom-details">
         				<div class="product-price">
