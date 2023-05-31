@@ -17,7 +17,7 @@
           <span>Contraseña</span>
         </div>
         <div class="inputbox">
-          <input type="submit" value="submit" class="boton">
+          <input type="submit" value="Entrar" class="boton">
         </div>
 
         <% if(request.getAttribute("error")!=null){ %>
