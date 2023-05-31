@@ -76,6 +76,11 @@
               </form>
             </div>
           </div>
+          <a class="navbar-brand" href="#">
+              <span>
+                Servi - 2
+              </span>
+          </a>
         </nav>
       </div>
     </header>
