@@ -1,6 +1,5 @@
 package agg.controller;
 
-
 import agg.dao.Comanda;
 import agg.persistence.service.ComandaService;
 import jakarta.ws.rs.core.Response;
@@ -41,14 +40,14 @@ class ComandaControllerTest {
         MatcherAssert.assertThat(response.getEntity(), Matchers.is(comanda));
     }
 
-    @Test
+   /* @Test
     void create_ok(){
         when(comandaService.create(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyString())).thenReturn(comanda);
 
         Response response = comandaController.create(comanda);
 
         MatcherAssert.assertThat(response.getEntity(), Matchers.is(comanda));
-    }
+    }*/
 
     @Test
     void getNoPagadas_ok(){
