@@ -1,7 +1,5 @@
 package agg.controller;
 
-
-
 import agg.dao.Camarero;
 import agg.persistence.service.CamareroService;
 import jakarta.ws.rs.core.Response;

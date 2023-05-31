@@ -15,7 +15,6 @@ public class BebidaManager implements ProductoManagerInterface {
     @Override
     public List<Bebida> getAll(Connection con){
 
-
         try(PreparedStatement stm = con.prepareStatement("SELECT * FROM producto JOIN bebida ON(producto.IdProducto = bebida.IdBebida)")){
             ResultSet result = stm.executeQuery();
             List<Bebida> bebidas = new ArrayList<>();
